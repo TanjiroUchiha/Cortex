@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "version": "seed-v1",
+    "review_status": "synthetic-seed-not-authoritative",
+    "human_review_required": true
+  },
+  "documents": {
+    "domains": {
+      "it": {
+        "title": "IT help",
+        "keywords": [
+          "password",
+          "laptop",
+          "computer",
+          "vpn",
+          "wifi",
+          "software",
+          "network",
+          "email",
+          "account",
+          "login",
+          "portal",
+          "sign",
+          "printer",
+          "printing",
+          "monitor",
+          "keyboard",
+          "mouse",
+          "charger",
+          "storage",
+          "quota",
+          "license"
+        ],
+        "sources": [
+          {
+            "id": "it-1",
+            "title": "Password help",
+            "content": "To reset a forgotten password, open the IT help portal and choose the password reset option. Reset links expire after 30 minutes."
+          },
+          {
+            "id": "it-2",
+            "title": "WiFi and VPN",
+            "content": "Campus WiFi uses your staff or student ID. VPN access requires the IT portal's remote access request form and manager approval."
+          },
+          {
+            "id": "it-3",
+            "title": "Software requests",
+            "content": "Licensed software is installed through the IT self-service portal. Requests are reviewed within two working days."
+          }
+        ],
+        "contact": "IT Help Desk — ext 4123 · it-helpdesk@campus.edu"
+      },
+      "hr": {
+        "title": "HR",
+        "keywords": [
+          "leave",
+          "holiday",
+          "attendance",
+          "payroll",
+          "salary",
+          "employee",
+          "hiring",
+          "hr",
+          "payslip",
+          "punch",
+          "biometric",
+          "tax",
+          "form 16",
+          "joining",
+          "relieving",
+          "reimbursement"
+        ],
+        "sources": [
+          {
+            "id": "hr-1",
+            "title": "Leave policy",
+            "content": "Annual leave requests must be approved by the reporting manager before the planned leave date. Sick leave requires a certificate after three consecutive days."
+          },
+          {
+            "id": "hr-2",
+            "title": "Payroll",
+            "content": "Salary is credited on the last working day of each month. Payslips are available in the HR self-service portal."
+          },
+          {
+            "id": "hr-3",
+            "title": "Attendance",
+            "content": "Attendance corrections must be submitted to HR within five working days of the missed punch."
+          }
+        ],
+        "contact": "HR Service Centre — ext 4410 · hr@campus.edu"
+      },
+      "fees": {
+        "title": "Fees",
+        "keywords": [
+          "fee",
+          "invoice",
+          "payment",
+          "scholarship",
+          "receipt",
+          "refund",
+          "deadline",
+          "dues",
+          "charged",
+          "credit card",
+          "debit card",
+          "fine",
+          "late payment",
+          "mess",
+          "tuition",
+          "installment",
+          "deposit"
+        ],
+        "sources": [
+          {
+            "id": "fees-1",
+            "title": "Fee payments",
+            "content": "Students can download an itemized invoice and payment receipt from the fees portal after each transaction."
+          },
+          {
+            "id": "fees-2",
+            "title": "Deadlines",
+            "content": "Semester fees must be paid by the date on the academic calendar. Late payments attract a fine listed in the fee circular."
+          },
+          {
+            "id": "fees-3",
+            "title": "Scholarships and refunds",
+            "content": "Scholarship adjustments appear on the next invoice. Refund requests are processed through the fees portal within ten working days."
+          }
+        ],
+        "contact": "Student Accounts Office — ext 4500 · fees@campus.edu"
+      },
+      "facilities": {
+        "title": "Facilities",
+        "keywords": [
+          "hostel",
+          "room",
+          "maintenance",
+          "cleaning",
+          "repair",
+          "booking",
+          "gym",
+          "parking",
+          "lift",
+          "elevator",
+          "building",
+          "washroom",
+          "toilet",
+          "water",
+          "ac",
+          "air conditioning",
+          "fan",
+          "light",
+          "corridor",
+          "door",
+          "window",
+          "electricity",
+          "plumbing",
+          "leak",
+          "cooler"
+        ],
+        "sources": [
+          {
+            "id": "fac-1",
+            "title": "Maintenance requests",
+            "content": "A room maintenance request should include the room number, issue description and urgency level. Emergency issues go to the facilities hotline."
+          },
+          {
+            "id": "fac-2",
+            "title": "Room bookings",
+            "content": "Meeting rooms and halls are booked through the facilities portal at least two days in advance."
+          },
+          {
+            "id": "fac-3",
+            "title": "Gym and recreation",
+            "content": "The campus gym is open 6am to 9pm on working days. A valid ID card is required for entry."
+          }
+        ],
+        "contact": "Facilities Helpdesk — ext 4600 · facilities@campus.edu"
+      },
+      "general": {
+        "title": "General",
+        "keywords": [
+          "campus",
+          "contact",
+          "office",
+          "timings",
+          "location",
+          "event",
+          "directions",
+          "map",
+          "address",
+          "holiday",
+          "calendar",
+          "announcement",
+          "visitor",
+          "certificate",
+          "transcript",
+          "lost",
+          "found"
+        ],
+        "sources": [
+          {
+            "id": "gen-1",
+            "title": "Campus contacts",
+            "content": "The main help desk is in the admin block, open 9am to 5pm. Department contacts are listed in the staff directory."
+          },
+          {
+            "id": "gen-2",
+            "title": "Academic calendar",
+            "content": "Term dates, examination windows and holidays are published in the academic calendar on the portal."
+          }
+        ],
+        "contact": "Campus Help Desk — ext 4000 · helpdesk@campus.edu"
+      }
+    }
+  }
+}
