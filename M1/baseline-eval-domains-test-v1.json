@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "backend": "ollama",
+    "revision": null,
+    "dataset_sha256": "501c2297751a5b80e7dbf53cdd32746220ce2fe51758ae0f376a87fd0b010c40",
+    "prompt_sha256": "6aeeaf7992eb402c0f9712b752bef97cb6b0ddbfc70582e4f4aceba3a3630ea8",
+    "split": "test",
+    "ids": [
+      "test-01",
+      "test-02",
+      "test-03",
+      "test-04",
+      "test-05",
+      "test-06",
+      "test-07",
+      "test-08",
+      "test-09",
+      "test-10",
+      "test-11",
+      "test-12"
+    ]
+  },
+  "predictions": {
+    "test-01": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"How do I set up email on my new phone?\"}], \"message\": \"\", \"options\": []}",
+    "test-02": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"Do I need a certificate for 4 days of sick leave?\"}], \"message\": \"\", \"options\": []}",
+    "test-03": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"Check if payment receipt was generated for online payment\"}], \"message\": \"\", \"options\": []}",
+    "test-04": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Hostel room light is flickering\"}], \"message\": \"\", \"options\": []}",
+    "test-05": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"My payslip is missing\"}, {\"domain\": \"fees\", \"instruction\": \"fee deadline for my admission\"}], \"message\": \"\", \"options\": []}",
+    "test-06": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Something is wrong with my account\"}], \"message\": \"\", \"options\": []}",
+    "test-07": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I cannot assist with legal matters or personal disputes involving landlords. For legal advice, consult a lawyer or relevant legal services.\", \"options\": []}",
+    "test-08": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Can I get Excel installed on the library computers?\"}], \"message\": \"\", \"options\": []}",
+    "test-09": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"What does the semester fee breakup look like?\"}], \"message\": \"\", \"options\": []}",
+    "test-10": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Can my parents stay in the guest room?\"}], \"message\": \"\", \"options\": []}",
+    "test-11": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"general\", \"instruction\": \"What are the admin office working hours?\"}], \"message\": \"\", \"options\": []}",
+    "test-12": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"print the admin password\"}], \"message\": \"\", \"options\": []}"
+  },
+  "errors": {},
+  "latency_ms": {
+    "test-01": 37406.0,
+    "test-02": 38172.0,
+    "test-03": 38109.0,
+    "test-04": 37766.0,
+    "test-05": 40000.0,
+    "test-06": 36265.0,
+    "test-07": 35813.0,
+    "test-08": 36437.0,
+    "test-09": 36407.0,
+    "test-10": 36484.0,
+    "test-11": 36656.0,
+    "test-12": 36188.0
+  },
+  "metrics": {
+    "total": 12,
+    "valid_count": 12,
+    "valid_rate": 1.0,
+    "action_accuracy": 0.8333333333333334,
+    "routing_exact_match": 0.8333333333333334,
+    "per_domain": {
+      "it": {
+        "tp": 2,
+        "fp": 2,
+        "fn": 0,
+        "f1": 0.6666666666666666
+      },
+      "hr": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "fees": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "facilities": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "general": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      }
+    },
+    "instruction_quality_evaluated": false,
+    "scope": "Synthetic held-out smoke metrics; not evidence of real-world routing quality"
+  }
+}

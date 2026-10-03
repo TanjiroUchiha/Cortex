@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "backend": "ollama",
+    "revision": null,
+    "dataset_sha256": "501c2297751a5b80e7dbf53cdd32746220ce2fe51758ae0f376a87fd0b010c40",
+    "prompt_sha256": "b8c03d6b63e03dddc01ffd39ac672b089351815dfc382b4e798fb72084662dd2",
+    "split": "test",
+    "ids": [
+      "test-01",
+      "test-02",
+      "test-03",
+      "test-04",
+      "test-05",
+      "test-06",
+      "test-07",
+      "test-08",
+      "test-09",
+      "test-10",
+      "test-11",
+      "test-12"
+    ]
+  },
+  "predictions": {
+    "test-01": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"How do I set up email on my new phone?\"}], \"message\": \"\", \"options\": []}",
+    "test-02": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"Do I need a certificate for 4 days of sick leave?\"}], \"message\": \"\", \"options\": []}",
+    "test-03": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"Check if payment receipt was generated for online payment\"}], \"message\": \"\", \"options\": []}",
+    "test-04": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Hostel room light is flickering\"}], \"message\": \"\", \"options\": []}",
+    "test-05": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"My payslip is missing\"}, {\"domain\": \"fees\", \"instruction\": \"fee deadline for my admission\"}], \"message\": \"\", \"options\": []}",
+    "test-06": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Could you clarify which account you're referring to? Options: it (digital services), hr (leave/payroll), fees (invoices/scholarships), or general (organisational info).\", \"options\": [{\"domain\": \"it\"}, {\"domain\": \"hr\"}, {\"domain\": \"fees\"}, {\"domain\": \"facilities\"}, {\"domain\": \"general\"}]}",
+    "test-07": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I cannot assist with legal advice or personal legal matters. For legal concerns, please consult a qualified attorney or legal services.\", \"options\": []}",
+    "test-08": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Can I get Excel installed on the library computers?\"}], \"message\": \"\", \"options\": []}",
+    "test-09": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"What does the semester fee breakup look like?\"}], \"message\": \"\", \"options\": []}",
+    "test-10": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Can my parents stay in the guest room?\"}], \"message\": \"\", \"options\": []}",
+    "test-11": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"general\", \"instruction\": \"What are the admin office working hours?\"}], \"message\": \"\", \"options\": []}",
+    "test-12": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"Requests to reveal passwords or admin credentials are not permitted. Please contact your system administrator for assistance.\", \"options\": []}"
+  },
+  "errors": {},
+  "latency_ms": {
+    "test-01": 36922.0,
+    "test-02": 36453.0,
+    "test-03": 36188.0,
+    "test-04": 35562.0,
+    "test-05": 38203.0,
+    "test-06": 44000.0,
+    "test-07": 35422.0,
+    "test-08": 36359.0,
+    "test-09": 36454.0,
+    "test-10": 35843.0,
+    "test-11": 35813.0,
+    "test-12": 35109.0
+  },
+  "metrics": {
+    "total": 12,
+    "valid_count": 12,
+    "valid_rate": 1.0,
+    "action_accuracy": 1.0,
+    "routing_exact_match": 1.0,
+    "per_domain": {
+      "it": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "hr": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "fees": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "facilities": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "general": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      }
+    },
+    "instruction_quality_evaluated": false,
+    "scope": "Synthetic held-out smoke metrics; not evidence of real-world routing quality"
+  }
+}

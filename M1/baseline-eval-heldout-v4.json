@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "backend": "ollama",
+    "revision": null,
+    "dataset_sha256": "8f23dd4095bfb599ced6dc5e528911a6ebd5d814a9e50563f40866da467b7f8d",
+    "prompt_sha256": "a2197c82e4d24ad3588b6537d35a7d2f5145154279092ff775c075e7d97da47a",
+    "guarded": true,
+    "split": "heldout",
+    "ids": [
+      "heldout-01",
+      "heldout-02",
+      "heldout-03",
+      "heldout-04",
+      "heldout-05",
+      "heldout-06",
+      "heldout-07",
+      "heldout-08",
+      "heldout-09",
+      "heldout-10",
+      "heldout-11",
+      "heldout-12",
+      "heldout-13",
+      "heldout-14",
+      "heldout-15",
+      "heldout-16",
+      "heldout-17",
+      "heldout-18"
+    ]
+  },
+  "predictions": {
+    "heldout-01": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"The elevator in block C is stuck again\"}], \"message\": \"\", \"options\": []}",
+    "heldout-02": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"I can't log into the student portal\"}, {\"domain\": \"fees\", \"instruction\": \"my mess bill shows a wrong amount\"}], \"message\": \"\", \"options\": []}",
+    "heldout-03": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Someone keeps using my login\"}], \"message\": \"\", \"options\": []}",
+    "heldout-04": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"AC in lecture hall 2 stopped working\"}, {\"domain\": \"it\", \"instruction\": \"wifi in lecture hall 2 stopped working\"}], \"message\": \"\", \"options\": []}",
+    "heldout-05": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"When is the last date to apply for leave?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-06": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I don't provide opinions or creative writing. For campus food feedback, contact the student services team directly.\", \"options\": []}",
+    "heldout-07": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Can you help me with something?\", \"options\": [{\"domain\": \"it\"}, {\"domain\": \"hr\"}, {\"domain\": \"fees\"}, {\"domain\": \"facilities\"}, {\"domain\": \"general\"}]}",
+    "heldout-08": "{\"action\": \"handoff\", \"tasks\": [], \"message\": \"I'm unable to help with this request due to repeated ambiguity. Please specify the issue with your account, network, or device.\", \"options\": []}",
+    "heldout-09": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"how do I download my payslip\"}], \"message\": \"\", \"options\": []}",
+    "heldout-10": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Who handles hostel admission forms?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-11": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"The projector in seminar hall keeps flickering\"}], \"message\": \"\", \"options\": []}",
+    "heldout-12": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"my refund is still pending\"}, {\"domain\": \"general\", \"instruction\": \"I need a bonafide certificate\"}], \"message\": \"\", \"options\": []}",
+    "heldout-13": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Why is the printer on floor 3 out of toner again?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-14": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Book the squash court for tomorrow evening\"}], \"message\": \"\", \"options\": []}",
+    "heldout-15": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I can't tell jokes or generate creative content. My purpose is to help with specific organizational tasks like accounts, passwords, email, and other IT-related issues. For jokes, please ask a different assistant.\", \"options\": []}",
+    "heldout-16": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Ambiguous request — which department?\", \"options\": [{\"domain\": \"fees\"}, {\"domain\": \"facilities\"}, {\"domain\": \"it\"}]}",
+    "heldout-17": "",
+    "heldout-18": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"The wifi password in the gym doesn't work\"}], \"message\": \"\", \"options\": []}"
+  },
+  "errors": {
+    "heldout-17": "ValueError"
+  },
+  "latency_ms": {
+    "heldout-01": 23953.0,
+    "heldout-02": 28078.0,
+    "heldout-03": 26063.0,
+    "heldout-04": 45281.0,
+    "heldout-05": 41844.0,
+    "heldout-06": 40766.0,
+    "heldout-07": 46218.0,
+    "heldout-08": 40703.0,
+    "heldout-09": 41422.0,
+    "heldout-10": 40578.0,
+    "heldout-11": 41219.0,
+    "heldout-12": 44406.0,
+    "heldout-13": 40750.0,
+    "heldout-14": 40297.0,
+    "heldout-15": 40953.0,
+    "heldout-16": 24250.0,
+    "heldout-17": 27094.0,
+    "heldout-18": 42375.0
+  },
+  "metrics": {
+    "total": 18,
+    "valid_count": 17,
+    "valid_rate": 0.9444444444444444,
+    "action_accuracy": 0.9444444444444444,
+    "routing_exact_match": 0.8888888888888888,
+    "per_domain": {
+      "it": {
+        "tp": 5,
+        "fp": 1,
+        "fn": 0,
+        "f1": 0.9090909090909091
+      },
+      "hr": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.8
+      },
+      "fees": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "facilities": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.8888888888888888
+      },
+      "general": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      }
+    },
+    "instruction_quality_evaluated": false,
+    "scope": "Synthetic held-out smoke metrics; not evidence of real-world routing quality"
+  }
+}

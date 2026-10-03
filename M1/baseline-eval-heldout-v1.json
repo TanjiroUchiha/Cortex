@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "backend": "ollama",
+    "revision": null,
+    "dataset_sha256": "8f23dd4095bfb599ced6dc5e528911a6ebd5d814a9e50563f40866da467b7f8d",
+    "prompt_sha256": "af7d2d3a9111dc8f0d3f346ae34f1c61258b696650224cd3694866961375b7d3",
+    "guarded": true,
+    "split": "heldout",
+    "ids": [
+      "heldout-01",
+      "heldout-02",
+      "heldout-03",
+      "heldout-04",
+      "heldout-05",
+      "heldout-06",
+      "heldout-07",
+      "heldout-08",
+      "heldout-09",
+      "heldout-10",
+      "heldout-11",
+      "heldout-12",
+      "heldout-13",
+      "heldout-14",
+      "heldout-15",
+      "heldout-16",
+      "heldout-17",
+      "heldout-18"
+    ]
+  },
+  "predictions": {
+    "heldout-01": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"The elevator in block C is stuck again\"}], \"message\": \"\", \"options\": []}",
+    "heldout-02": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"I can't log into the student portal\"}, {\"domain\": \"fees\", \"instruction\": \"my mess bill shows a wrong amount\"}], \"message\": \"\", \"options\": []}",
+    "heldout-03": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Could you clarify which login you're referring to? Is this about an account login (IT), a physical ID card (Facilities), or something else?\", \"options\": [{\"domain\": \"it\"}, {\"domain\": \"facilities\"}]}",
+    "heldout-04": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"AC in lecture hall 2 stopped working\"}, {\"domain\": \"it\", \"instruction\": \"no wifi in lecture hall 2\"}], \"message\": \"\", \"options\": []}",
+    "heldout-05": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"When is the last date to apply for leave?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-06": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I don't provide opinions or creative writing. For campus food quality, check with the canteen staff or student feedback channels.\", \"options\": []}",
+    "heldout-07": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Can you help me with something? I need more details to know which domain to assist with. Please specify what you need help with (e.g., accounts, passwords, email, wifi, facilities, HR policies, fees, or general campus info).\", \"options\": [{\"domain\": \"it\"}, {\"domain\": \"hr\"}, {\"domain\": \"fees\"}, {\"domain\": \"facilities\"}, {\"domain\": \"general\"}]}",
+    "heldout-08": "{\"action\": \"handoff\", \"tasks\": [], \"message\": \"We've had two previous clarifications without resolution. Let's escalate to a human to resolve this issue.\", \"options\": []}",
+    "heldout-09": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"how do I download my payslip\"}], \"message\": \"\", \"options\": []}",
+    "heldout-10": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Who handles hostel admission forms?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-11": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"The projector in seminar hall keeps flickering\"}], \"message\": \"\", \"options\": []}",
+    "heldout-12": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"my refund is still pending\"}, {\"domain\": \"it\", \"instruction\": \"I need a bonafide certificate\"}], \"message\": \"\", \"options\": []}",
+    "heldout-13": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Why is the printer on floor 3 out of toner again?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-14": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Book the squash court for tomorrow evening\"}], \"message\": \"\", \"options\": []}",
+    "heldout-15": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I can't tell jokes or generate creative content. For exam-related help, try checking the academic calendar or contact the relevant department.\", \"options\": []}",
+    "heldout-16": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"My gate pass isn't scanning at the entrance\"}], \"message\": \"\", \"options\": []}",
+    "heldout-17": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Update my phone number in the records\"}, {\"domain\": \"hr\", \"instruction\": \"check my attendance shortage\"}], \"message\": \"\", \"options\": []}",
+    "heldout-18": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"The wifi password in the gym doesn't work\"}], \"message\": \"\", \"options\": []}"
+  },
+  "errors": {},
+  "latency_ms": {
+    "heldout-01": 39563.0,
+    "heldout-02": 42500.0,
+    "heldout-03": 42328.0,
+    "heldout-04": 42969.0,
+    "heldout-05": 34625.0,
+    "heldout-06": 23593.0,
+    "heldout-07": 32844.0,
+    "heldout-08": 24969.0,
+    "heldout-09": 26312.0,
+    "heldout-10": 25860.0,
+    "heldout-11": 27609.0,
+    "heldout-12": 28735.0,
+    "heldout-13": 26765.0,
+    "heldout-14": 26172.0,
+    "heldout-15": 26500.0,
+    "heldout-16": 26719.0,
+    "heldout-17": 28140.0,
+    "heldout-18": 26032.0
+  },
+  "metrics": {
+    "total": 18,
+    "valid_count": 18,
+    "valid_rate": 1.0,
+    "action_accuracy": 0.8888888888888888,
+    "routing_exact_match": 0.6666666666666666,
+    "per_domain": {
+      "it": {
+        "tp": 4,
+        "fp": 5,
+        "fn": 1,
+        "f1": 0.5714285714285714
+      },
+      "hr": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.8
+      },
+      "fees": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "facilities": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.8888888888888888
+      },
+      "general": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.0
+      }
+    },
+    "instruction_quality_evaluated": false,
+    "scope": "Synthetic held-out smoke metrics; not evidence of real-world routing quality"
+  }
+}

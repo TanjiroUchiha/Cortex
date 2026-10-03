@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "backend": "ollama",
+    "revision": null,
+    "dataset_sha256": "8f23dd4095bfb599ced6dc5e528911a6ebd5d814a9e50563f40866da467b7f8d",
+    "prompt_sha256": "91148a224be410fc223e506816a653a2bb1706d41a58954bd34bf64e397e8e9a",
+    "guarded": true,
+    "split": "heldout",
+    "ids": [
+      "heldout-01",
+      "heldout-02",
+      "heldout-03",
+      "heldout-04",
+      "heldout-05",
+      "heldout-06",
+      "heldout-07",
+      "heldout-08",
+      "heldout-09",
+      "heldout-10",
+      "heldout-11",
+      "heldout-12",
+      "heldout-13",
+      "heldout-14",
+      "heldout-15",
+      "heldout-16",
+      "heldout-17",
+      "heldout-18"
+    ]
+  },
+  "predictions": {
+    "heldout-01": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"The elevator in block C is stuck again\"}], \"message\": \"\", \"options\": []}",
+    "heldout-02": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"I can't log into the student portal\"}, {\"domain\": \"fees\", \"instruction\": \"my mess bill shows a wrong amount\"}], \"message\": \"\", \"options\": []}",
+    "heldout-03": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Someone keeps using my login\"}], \"message\": \"\", \"options\": []}",
+    "heldout-04": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"AC in lecture hall 2 stopped working\"}, {\"domain\": \"it\", \"instruction\": \"wifi is down in lecture hall 2\"}], \"message\": \"\", \"options\": []}",
+    "heldout-05": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"When is the last date to apply for leave?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-06": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I don't provide opinions or creative writing. For campus food feedback, contact the student services team.\", \"options\": []}",
+    "heldout-07": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Can you help me with something? I need more details to know which department to assist you with. Please specify what you need help with, such as accounts, passwords, email, wifi, software, devices, facilities, HR matters, fees, or general campus information.\", \"options\": [{\"domain\": \"it\"}, {\"domain\": \"hr\"}, {\"domain\": \"fees\"}, {\"domain\": \"facilities\"}, {\"domain\": \"general\"}]}",
+    "heldout-08": "{\"action\": \"handoff\", \"tasks\": [], \"message\": \"We've had two previous clarifications without resolution. Let's try to resolve this directly: What specific issue are you facing with your account or system access?\", \"options\": []}",
+    "heldout-09": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"hr\", \"instruction\": \"how do I download my payslip\"}], \"message\": \"\", \"options\": []}",
+    "heldout-10": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Who handles hostel admission forms?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-11": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"The projector in seminar hall keeps flickering\"}], \"message\": \"\", \"options\": []}",
+    "heldout-12": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"fees\", \"instruction\": \"my refund is still pending\"}, {\"domain\": \"general\", \"instruction\": \"I need a bonafide certificate\"}], \"message\": \"\", \"options\": []}",
+    "heldout-13": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Why is the printer on floor 3 out of toner again?\"}], \"message\": \"\", \"options\": []}",
+    "heldout-14": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"facilities\", \"instruction\": \"Book the squash court for tomorrow evening\"}], \"message\": \"\", \"options\": []}",
+    "heldout-15": "{\"action\": \"unsupported\", \"tasks\": [], \"message\": \"I can't tell jokes or create content. For exam-related help, try checking fees deadlines or academic calendars.\", \"options\": []}",
+    "heldout-16": "{\"action\": \"clarify\", \"tasks\": [], \"message\": \"Ambiguous request — which department?\", \"options\": [{\"domain\": \"fees\"}, {\"domain\": \"facilities\"}, {\"domain\": \"it\"}]}",
+    "heldout-17": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"Update my phone number in the records\"}, {\"domain\": \"hr\", \"instruction\": \"Check my attendance shortage\"}], \"message\": \"\", \"options\": []}",
+    "heldout-18": "{\"action\": \"route\", \"tasks\": [{\"domain\": \"it\", \"instruction\": \"The wifi password in the gym doesn't work\"}], \"message\": \"\", \"options\": []}"
+  },
+  "errors": {},
+  "latency_ms": {
+    "heldout-01": 35157.0,
+    "heldout-02": 34890.0,
+    "heldout-03": 31344.0,
+    "heldout-04": 34391.0,
+    "heldout-05": 31578.0,
+    "heldout-06": 30906.0,
+    "heldout-07": 38734.0,
+    "heldout-08": 29891.0,
+    "heldout-09": 29125.0,
+    "heldout-10": 27984.0,
+    "heldout-11": 28329.0,
+    "heldout-12": 30703.0,
+    "heldout-13": 28890.0,
+    "heldout-14": 27969.0,
+    "heldout-15": 27594.0,
+    "heldout-16": 29390.0,
+    "heldout-17": 30735.0,
+    "heldout-18": 29375.0
+  },
+  "metrics": {
+    "total": 18,
+    "valid_count": 18,
+    "valid_rate": 1.0,
+    "action_accuracy": 1.0,
+    "routing_exact_match": 0.9444444444444444,
+    "per_domain": {
+      "it": {
+        "tp": 5,
+        "fp": 1,
+        "fn": 0,
+        "f1": 0.9090909090909091
+      },
+      "hr": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "fees": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "facilities": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      },
+      "general": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "f1": 1.0
+      }
+    },
+    "instruction_quality_evaluated": false,
+    "scope": "Synthetic held-out smoke metrics; not evidence of real-world routing quality"
+  }
+}
