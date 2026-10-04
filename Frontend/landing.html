@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f8fa">
+<script>try { const t = localStorage.getItem('cortex.theme'); document.documentElement.dataset.theme = (t === 'dark' || t === 'light') ? t : (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'; }</script>
+<meta name="description" content="Cortex — one front door for every campus question. Domain routing, cited answers, transparent verification.">
+<title>Cortex — One Front Door for Everything</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%237e74ef'/%3E%3Cpath d='M43 20a17 17 0 1 0 0 24M22 32h25' fill='none' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="landing.css?v=9">
+</head>
+<body class="landing">
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-cortex" viewBox="0 0 24 24"><path d="M17.5 6.5a7.8 7.8 0 1 0 0 11M8 12h12"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-it" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M9 9l-2 2 2 2m6-4 2 2-2 2"/></symbol>
+  <symbol id="i-hr" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-15a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5"/></symbol>
+  <symbol id="i-fees" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h4"/></symbol>
+  <symbol id="i-facilities" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18m0-12h8v12M2 21h20M8 7v1m0 4v1m0 4v1m8-5v1m0 3v1"/></symbol>
+  <symbol id="i-general" viewBox="0 0 24 24"><path d="M12 6C8 3 4 4 2 5v15c3-2 7-2 10 0 3-2 7-2 10 0V5c-2-1-6-2-10 1Zm0 0v14"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8m-8 4h6"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 12h4m0 0V5h6m-6 7v7h6"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><path d="M5 4v3c0 5 7 4 7 9v5M19 4v3c0 5-7 4-7 9m-4 1 4 4 4-4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5ZM20 2v4m-2-2h4"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h17M8 15v-4m5 4V7m5 8v-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+</svg>
+
+<div class="lp-scene" aria-hidden="true">
+  <div class="lp-orb a"></div>
+  <div class="lp-orb b"></div>
+  <div class="lp-orb c"></div>
+  <div class="lp-grid-bg"></div>
+</div>
+
+<header class="lp-nav">
+  <a class="lp-brand" href="/">
+    <span class="lp-mark"><svg class="icon"><use href="#i-cortex"/></svg></span>
+    <span class="lp-name">Cortex<span class="brand-period">.</span></span>
+  </a>
+  <nav class="lp-links" aria-label="Sections">
+    <a href="#how">Product</a>
+    <a href="#features">Features</a>
+    <a href="#knowledge">Knowledge</a>
+  </nav>
+  <div class="lp-nav-right">
+    <span class="lp-status" id="lpStatus"><span class="lp-dot"></span>checking…</span>
+    <button class="theme-switch" id="lpTheme" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme"></button>
+    <a class="lp-nav-app" href="/app">Go to workspace <svg class="icon"><use href="#i-arrow"/></svg></a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="lp-hero">
+    <div class="lp-intro">
+    <p class="eyebrow lp-eyebrow lp-a1"><span></span> ONE FRONT DOOR. EVERY DEPARTMENT.</p>
+    <h1 class="lp-a2">Less searching.<br>More answers.<br><em>One conversation.</em></h1>
+    <p class="lp-sub lp-a3">IT, people, payments, and places. Ask naturally. Cortex brings the right knowledge together, with sources you can open and next steps you can follow.</p>
+    <div class="lp-actions lp-a4">
+      <a class="lp-cta big" href="/app">Ask Cortex <svg class="icon"><use href="#i-arrow"/></svg></a>
+      <a class="lp-ghost" href="#how">How it works <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="lp-hero-note"><svg class="icon"><use href="#i-doc"/></svg>Your knowledge. A clearer way to find it.</div>
+    </div>
+
+    <!-- the product, front and centre — a live-looping demo of a real routed answer -->
+    <div class="lp-stage lp-a5">
+      <div class="lp-browser" id="lpBrowser">
+        <div class="lp-chrome">
+          <span class="lp-preview-brand"><svg class="icon"><use href="#i-cortex"/></svg>Cortex <span>Workspace</span></span>
+          <span class="lp-preview-label">Illustrative preview</span>
+        </div>
+        <div class="lp-screen">
+          <div class="lp-question-label">YOU</div>
+          <div class="lp-qbubble"><span id="lpTyped">My Wi-Fi is down and I have a payslip question.</span><span class="lp-caret" id="lpCaret" hidden></span></div>
+          <div class="lp-preview-route"><svg class="icon"><use href="#i-route"/></svg>One question <span>→</span> Two knowledge areas</div>
+          <div class="lp-answer show" id="lpAnswer">
+            <div class="lp-asec" style="--dc:var(--it)">
+              <span class="lp-alabel">IT help</span>
+              <p>Find network troubleshooting steps and the right IT helpdesk contact in your connected documents.</p>
+            </div>
+            <div class="lp-asec" style="--dc:var(--hr)">
+              <span class="lp-alabel">HR &amp; people</span>
+              <p>Look up the payroll process separately, then bring both parts together in one conversation.</p>
+            </div>
+            <div class="lp-acites" id="lpCites">
+              <span class="lp-cite">Source links appear with supported answers</span>
+            </div>
+          </div>
+        </div>
+        <a class="lp-preview-input" href="/app?q=My%20wifi%20is%20down%20and%20my%20payslip%20is%20wrong">Try this question in the assistant <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="lp-shadow" aria-hidden="true"></div>
+    </div>
+
+    <div class="lp-live lp-a6" id="lpLive" aria-live="polite">
+      <span><svg class="icon"><use href="#i-doc"/></svg><b id="lpDocs" data-n>—</b> documents indexed</span><i></i>
+      <span><svg class="icon"><use href="#i-route"/></svg><b id="lpDomCount">—</b> knowledge areas</span><i></i>
+      <span><svg class="icon"><use href="#i-shield"/></svg>source-backed answers</span><i></i>
+      <span><svg class="icon"><use href="#i-spark"/></svg>local-first</span>
+    </div>
+  </section>
+
+  <section class="lp-knowledge" id="knowledge" aria-labelledby="knowledgeTitle">
+    <div class="lp-knowledge-heading"><div><p class="eyebrow">CONNECTED KNOWLEDGE</p><h2 id="knowledgeTitle">Start with what you need.</h2></div><p>Topics from the connected library.<br>Select one to ask Cortex.</p></div>
+    <div class="lp-ticker"><div class="lp-track" id="lpTrack"><p class="lp-topics-empty">Connect to the backend to explore available topics.</p></div></div>
+  </section>
+
+  <section class="lp-section" id="how">
+    <p class="eyebrow reveal">How it works</p>
+    <h2 class="reveal">Two departments. No second conversation.</h2>
+    <div class="lp-walkthrough reveal">
+      <div class="lp-walk-question"><span class="eyebrow">01 / ASK NATURALLY</span><p>“How do I reset my password and download my payslip?”</p><span>You don't need to know which department to ask.</span></div>
+      <div class="lp-walk-evidence"><div class="lp-walk-heading"><span class="eyebrow">02 / FIND THE SUPPORTING KNOWLEDGE</span><span class="lp-preview-label">Corpus example</span></div><p class="lp-walk-note">Actual document excerpts from the connected library, not a live generated reply.</p><div id="walkSources"><p class="lp-topics-empty">Connect to the backend to explore the example's sources.</p></div></div>
+      <div class="lp-walk-result"><div><span class="eyebrow">03 / CONTINUE IN ONE PLACE</span><p>One response, with a source for each part.</p><span>Open the original passages. Ask a follow-up. Tell Cortex whether it helped.</span></div><a class="lp-ghost" href="/app?q=How%20do%20I%20reset%20my%20password%20and%20download%20my%20payslip%3F">Try this question <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="features">
+    <p class="eyebrow reveal">BUILT AROUND YOUR KNOWLEDGE</p>
+    <h2 class="reveal">Your documents.<br>The next helpful answer.</h2>
+    <div class="lp-document-story reveal">
+      <div class="lp-document-visual" aria-hidden="true"><div class="lp-document-sheet"><svg class="icon"><use href="#i-doc"/></svg><span>Your team's handbook</span><div class="lp-document-lines"><i></i><i></i><i></i><i></i></div><span class="lp-format">DOCX · PDF · TXT · MD</span></div><span class="lp-document-caption">Documents → searchable knowledge</span></div>
+      <div class="lp-document-copy"><h3>Keep the knowledge.<br>Lose the searching.</h3><p>Bring your team's policies, guides, and FAQs into the workspace you already use.</p><ol><li><strong>Choose a department.</strong> Keep each document in the right knowledge area.</li><li><strong>Add your file.</strong> Cortex extracts and indexes the text.</li><li><strong>Ask a question.</strong> Once indexing completes, relevant passages can support an answer.</li></ol><a class="lp-ghost" href="/app?panel=knowledge">Open the knowledge base <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="lp-grid">
+      <div class="lp-card reveal"><svg class="icon"><use href="#i-spark"/></svg><b>Clarity when it matters</b><p>Uncertain routing asks for context. Repeated ambiguity records a local handoff ticket, with a contact for your next step.</p></div>
+      <div class="lp-card reveal"><svg class="icon"><use href="#i-chart"/></svg><b>Feedback, not vanity metrics</b><p>Mark whether an answer helped. Workspace insights show actual activity and user-reported resolution.</p></div>
+      <div class="lp-card reveal"><svg class="icon"><use href="#i-shield"/></svg><b>Local-first, with clear boundaries</b><p>Processing runs on your backend by default. Queries and handoff records may be retained there; remote services require configuration.</p></div>
+    </div>
+  </section>
+
+  <section class="lp-end">
+    <p class="eyebrow reveal">Ready when you are</p>
+    <h2 class="lp-big reveal">Different departments.<br><em>One place to begin.</em></h2>
+    <a class="lp-ghost reveal" href="/app">Go to your workspace <span aria-hidden="true">→</span></a>
+  </section>
+</main>
+
+<footer class="lp-foot">
+  <span>Cortex · One front door for everything</span>
+  <a href="/docs">API docs</a>
+</footer>
+
+<script>
+/* Landing page reads the real backend — no hardcoded stats, and the hero demo
+   types a real question shape then shows a real routed-answer layout. */
+(() => {
+  const $ = s => document.querySelector(s);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const themeButton = $('#lpTheme');
+  const applyTheme = theme => {
+    document.documentElement.dataset.theme = theme;
+    themeButton.setAttribute('aria-checked', String(theme === 'dark'));
+    themeButton.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+    $('meta[name="theme-color"]').content = theme === 'dark' ? '#0b0d14' : '#f7f8fa';
+  };
+  applyTheme(document.documentElement.dataset.theme);
+  themeButton.onclick = () => {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(theme);
+    try { localStorage.setItem('cortex.theme', theme); } catch {}
+  };
+  const getJSON = async path => {
+    const response = await fetch(path, { cache:'no-store', signal:AbortSignal.timeout(8000) });
+    if (!response.ok) throw new Error(`API returned ${response.status}`);
+    return response.json();
+  };
+  const corpusRequest = getJSON('/corpus');
+
+  /* ── ticker: real corpus documents (every item is genuinely answerable —
+        it IS an indexed doc). Falls back to topic names if the API is down. ── */
+  const track = $('#lpTrack');
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const paintTicker = items => {
+    const chips = items.map(([d, t]) => `<a class="lp-q" data-d="${esc(d)}" href="/app?q=${encodeURIComponent('Tell me about ' + t)}"><i aria-hidden="true"></i>${esc(t)}<span aria-hidden="true">↗</span></a>`);
+    track.innerHTML = chips.join('');
+  };
+  (async () => {
+    try {
+      const { domains } = await corpusRequest;
+      const items = [];
+      for (const [dom, body] of Object.entries(domains || {}))
+        for (const s of body.sources || [])
+          items.push([dom, s.title]);
+      /* interleave domains so one area doesn't own a streak */
+      if (items.length) {
+        const byDom = {};
+        items.forEach(it => (byDom[it[0]] ||= []).push(it));
+        const woven = [];
+        while (Object.values(byDom).some(a => a.length))
+          for (const list of Object.values(byDom)) if (list.length) woven.push(list.shift());
+        paintTicker(woven.slice(0, 10));
+      }
+    } catch { /* fallback stays */ }
+  })();
+
+  /* ── hero demo: type the query, land the routed answer, hold, repeat ── */
+  $('#lpAnswer').classList.add('show');
+
+  /* ── scroll reveal ── */
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e =>
+      e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
+      { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  /* ── stat count-up ── */
+  const countUp = (el, to) => { el.textContent = to; };
+
+  /* ── live backend stats + real doc titles for the demo citations ── */
+  (async () => {
+    try {
+      const health = await getJSON('/health');
+      if (health.status !== 'ok') throw new Error('Backend unavailable');
+      $('#lpStatus').innerHTML = '<span class="lp-dot on"></span>Connected';
+      $('#lpStatus').classList.add('on');
+    } catch {
+      $('#lpStatus').innerHTML = '<span class="lp-dot"></span>offline';
+      $('#lpStatus').classList.add('off');
+    }
+    try {
+      const { domains } = await corpusRequest;
+      const docs = Object.values(domains || {}).reduce((n, d) => n + (d.sources || []).length, 0);
+      countUp($('#lpDocs'), docs);
+      $('#lpDomCount').textContent = Object.keys(domains || {}).length;
+      /* real doc ids as demo citation labels — nothing invented */
+      const picks = [['it', /wifi|network/i], ['hr', /payslip|payroll/i]]
+        .map(([domain, pattern]) => (domains?.[domain]?.sources || []).find(s => pattern.test(s.title + ' ' + s.id)))
+        .filter(Boolean);
+      if (picks.length) $('#lpCites').innerHTML = '<span class="lp-source-label">Explore the library</span>' + picks.map(s =>
+        `<a class="lp-cite" href="/app?q=${encodeURIComponent('Tell me about ' + s.title)}">${esc(s.title)}</a>`).join('');
+      const examples = [['it', 'it-1'], ['hr', 'hr-2']].map(([domain, id]) => ({ domain, source:(domains?.[domain]?.sources || []).find(s => s.id === id) })).filter(item => item.source?.content);
+      if (examples.length) $('#walkSources').innerHTML = examples.map(({ domain, source }) => {
+        const text = source.content.trim();
+        const excerpt = text.length > 320 ? text.slice(0,320).replace(/\s+\S*$/, '') + '…' : text;
+        return `<article class="lp-walk-source" data-source="${esc(source.id)}" style="--dc:var(--${domain})"><span class="lp-alabel">${esc(domains[domain].title)}</span><blockquote>${esc(excerpt)}</blockquote><details><summary>${esc(source.title)} <span>Read original passage</span></summary><p>${esc(text)}</p></details></article>`;
+      }).join('');
+    } catch { /* leave defaults */ }
+  })();
+
+  /* ── spotlight hover on cards ── */
+  document.querySelectorAll('.lp-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+})();
+</script>
+</body>
+</html>
