@@ -50,7 +50,6 @@
     <a href="#knowledge">Knowledge</a>
   </nav>
   <div class="lp-nav-right">
-    <span class="lp-status" id="lpStatus"><span class="lp-dot"></span>checking…</span>
     <button class="theme-switch" id="lpTheme" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme"></button>
     <a class="lp-nav-app" href="/app">Go to workspace <svg class="icon"><use href="#i-arrow"/></svg></a>
   </div>
@@ -220,12 +219,7 @@
     try {
       const health = await getJSON('/health');
       if (health.status !== 'ok') throw new Error('Backend unavailable');
-      $('#lpStatus').innerHTML = '<span class="lp-dot on"></span>Connected';
-      $('#lpStatus').classList.add('on');
-    } catch {
-      $('#lpStatus').innerHTML = '<span class="lp-dot"></span>offline';
-      $('#lpStatus').classList.add('off');
-    }
+    } catch { /* stats stay at defaults until the backend is reachable */ }
     try {
       const { domains } = await corpusRequest;
       const docs = Object.values(domains || {}).reduce((n, d) => n + (d.sources || []).length, 0);

@@ -36,3 +36,34 @@ TWO domains -> 200 in a few seconds (model call)
 - Ollama request needs "think": False or reasoning models stall.
 - If you use --llm-route / --llm-verify / --llm-answer on M1, set the model first:
   set CORTEX_M1_MODEL=<name from ollama list>
+
+## One-command launcher (run.py)
+
+From the repo root, `run.py` starts M2, then M1, waits until the API is answering,
+and opens the UI. Ctrl+C stops everything it started.
+
+    python run.py                        # M2 + M1  → http://127.0.0.1:8000/
+    python run.py --no-m2                # M1 only (deterministic local merge)
+    python run.py --llm-route --llm-merge
+    python run.py --frontend-port 5500   # UI served separately on :5500 (see CORS below)
+
+M2 runs under `M2/.venv` when one exists and reads `M2/.env` directly (no
+python-dotenv needed); the API runs under `M1/.venv` when present, else the
+launcher's own interpreter. Ollama is optional — without it M1 falls back to
+keyword retrieval and the deterministic merge.
+
+## Separate-origin UI (CORS)
+
+By default the API is same-origin only (`authorize()` rejects other origins). To
+serve the UI from a different origin — e.g. the VS Code Live Server — allowlist it:
+
+    python api.py --mode demo --allow-origin http://127.0.0.1:5500
+    # or: set CORTEX_ALLOWED_ORIGINS=http://127.0.0.1:5500
+
+then open the assistant with the API base set:
+
+    http://127.0.0.1:5500/index.html?api=http://127.0.0.1:8000
+
+`run.py --frontend-port 5500` does both steps for you. Only the configured
+origins are allowed (never a wildcard); with nothing configured the API stays
+same-origin.

@@ -9,6 +9,7 @@ from typing import Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, Request as HTTPRequest, UploadFile
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
@@ -136,7 +137,7 @@ def _live_engine(service_config):
 def make_app(engine=None, mode="demo", service_config=None, api_token=None, retrieval="semantic",
              llm_merge=False, llm_verify=False, llm_route=False, m1_backcheck=False, llm_answer=False, m2_url=None,
              corpus=None, metrics_path=None, persist_root=None,
-             queries_path=None, tickets_path=None):
+             queries_path=None, tickets_path=None, allowed_origins=None):
     if mode not in ("demo", "live"):
         raise ValueError("Choose demo or live mode explicitly")
     if engine is None:
@@ -161,6 +162,16 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     app.add_middleware(BodyLimit)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "[::1]"])
 
+    # Cross-origin is off unless explicitly configured. The UI is normally served by
+    # this same app (static mount below), so no CORS is needed; set CORTEX_ALLOWED_ORIGINS
+    # (or --allow-origin) to also accept a separately hosted client, e.g. the VS Code
+    # Live Server on http://127.0.0.1:5500. ORIGIN allowlist only — never a wildcard.
+    origins = list(dict.fromkeys(o.strip() for o in (allowed_origins or []) if o and o.strip()))
+    if origins:
+        app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=False,
+                           allow_methods=["GET", "POST", "OPTIONS"],
+                           allow_headers=["Content-Type", "Authorization"], max_age=600)
+
     warmable = engine.router if isinstance(engine.router, OllamaRouter) else getattr(engine, "assistant", None)
     if warmable is not None:
         @app.on_event("startup")
@@ -182,9 +193,10 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     async def authorize(request):
         """Same-origin + loopback gate; when CORTEX_API_TOKEN is set every endpoint —
         including uploads — needs a valid Bearer token (API-only deploy; the UI has
-        no engine of its own — it stays offline without a reachable API)."""
+        no engine of its own — it stays offline without a reachable API). Origins in
+        the configured allowlist are also accepted, so a separately hosted UI works."""
         origin = request.headers.get("origin")
-        if origin and origin != f"{request.url.scheme}://{request.url.netloc}":
+        if origin and origin not in origins and origin != f"{request.url.scheme}://{request.url.netloc}":
             raise HTTPException(403, "Cross-origin requests are disabled")
         if api_token:
             supplied = request.headers.get("authorization", "")
@@ -415,9 +427,14 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
                                  headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
     _here = Path(__file__).resolve().parent
-    frontend_dir = _here.parent / "frontend" if (_here.parent / "frontend").is_dir() \
-        else _here / "frontend"
-    if frontend_dir.is_dir():
+    # The UI ships as a sibling folder (repo layout: M1/ + Frontend/). Accept either
+    # capitalisation and a package-local copy, so the API still serves the client on
+    # case-sensitive filesystems (Linux) where "frontend" != "Frontend".
+    frontend_dir = next((candidate for candidate in
+                         (_here.parent / "Frontend", _here.parent / "frontend",
+                          _here / "Frontend", _here / "frontend")
+                         if candidate.is_dir()), None)
+    if frontend_dir is not None:
         # one front door: the UI is served by the API itself, so browser calls
         # stay same-origin and pass the authorize() origin/loopback checks.
         # Explicit routes win over the static mount: / is the landing page,
@@ -456,12 +473,18 @@ def main():
                              "(CORTEX_ANSWER_MODEL, default qwen3:4b; citations/evidence stay code-computed)")
     parser.add_argument("--services", help="Trusted service config, required in live mode")
     parser.add_argument("--m2-url", help="remote M2 merger endpoint, e.g. http://127.0.0.1:9001/merge")
+    parser.add_argument("--allow-origin", action="append", default=[], metavar="ORIGIN",
+                        help="browser origin allowed to call this API cross-origin (repeatable), e.g. "
+                             "--allow-origin http://127.0.0.1:5500 for the VS Code Live Server; also read "
+                             "from CORTEX_ALLOWED_ORIGINS (comma-separated). Default: same-origin only.")
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
+    env_origins = [o.strip() for o in os.environ.get("CORTEX_ALLOWED_ORIGINS", "").split(",") if o.strip()]
+    allowed_origins = list(dict.fromkeys(env_origins + args.allow_origin))
     app = make_app(mode=args.mode, service_config=args.services, api_token=os.environ.get("CORTEX_API_TOKEN"),
                    retrieval=args.retrieval, llm_merge=args.llm_merge, llm_verify=args.llm_verify,
                    llm_route=args.llm_route or args.m1_backcheck, m1_backcheck=args.m1_backcheck, m2_url=args.m2_url,
-                   llm_answer=args.llm_answer,
+                   llm_answer=args.llm_answer, allowed_origins=allowed_origins,
                    metrics_path=Path(__file__).resolve().parent / "data" / "metrics.json",
                    queries_path=Path(__file__).resolve().parent / "data" / "queries.jsonl",
                    tickets_path=Path(__file__).resolve().parent / "data" / "tickets.json",

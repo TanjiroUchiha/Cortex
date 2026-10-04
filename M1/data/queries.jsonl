@@ -129,3 +129,5 @@
 {"ts": "2026-10-04T15:58:52", "request_id": "728d4b2951de40bca058b57a20327dab", "query": "What is the capital of France?", "status": "unsupported", "domains": [], "elapsed_ms": 0.59}
 {"ts": "2026-10-04T15:58:52", "request_id": "ada31ea6b4354918b96b7fb6bea0e489", "query": "I lost my card", "status": "clarify", "domains": ["general"], "elapsed_ms": 0.59}
 {"ts": "2026-10-04T15:58:52", "request_id": "9877e87e58e14761bbf417cf7f97a043", "query": "hello", "status": "clarify", "domains": [], "elapsed_ms": 0.37}
+{"ts": "2026-10-04T20:05:21", "request_id": "696dd5bfaeff49a6ac96c703803de6a2", "query": "how to reset wifi password", "status": "routing_failed", "domains": [], "elapsed_ms": 2025.0}
+{"ts": "2026-10-04T20:06:07", "request_id": "dfef93e421914ce2891621d573e69734", "query": "how to reset wifi password", "status": "demo", "domains": ["it"], "elapsed_ms": 15072.63}

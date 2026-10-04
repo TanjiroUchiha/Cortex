@@ -294,10 +294,6 @@ function renderMsg(m) {
     }
     const remaining = (m.citations || []).filter(c => !placed.has(c.doc_id));
     if (remaining.length) html += citationRow(remaining);
-    if (m.related?.length) {
-      html += '<div class="cites related" aria-label="Related documents"><span class="rel-label">Related</span>' + m.related.map(r =>
-        `<button class="cite rel-chip" data-rel-domain="${esc(r.domain)}" data-rel-doc="${esc(r.id)}" aria-label="Open related document: ${esc(r.title)}">${icon('doc')}${esc(r.title)}</button>`).join('') + '</div>';
-    }
     if (m.options?.length) {
       const latest = session()?.messages.filter(msg => msg.role === 'bot').at(-1);
       const disabled = !session()?.pendingQuery || latest?.id !== m.id;
@@ -306,7 +302,6 @@ function renderMsg(m) {
     }
     if (m.retry) html += `<button class="retry-chip" data-retry="${esc(m.retry)}">Try again</button>`;
     if (m.statusLine) html += `<div class="status-line ${['good','warn','bad'].includes(m.statusCls) ? m.statusCls : ''}"><span class="s-dot" style="background:currentColor"></span>${esc(m.statusLine)}</div>`;
-    if (m.trace) html += `<button class="trace-btn" data-trace aria-expanded="false" aria-controls="trace-${esc(m.id)}">▸ Inspect routing decision</button><div class="codecard" id="trace-${esc(m.id)}">${traceHtml(m.trace)}</div>`;
     html += '</div>';
     if (m.feedback) html += `<div class="feedback"><span class="feedback-label">Did this help?</span><button class="fb-btn${m.fbChosen===1?' done-y':''}" data-fb="1" ${m.fbChosen!=null?'disabled':''}>Resolved</button><button class="fb-btn${m.fbChosen===0?' done-n':''}" data-fb="0" ${m.fbChosen!=null?'disabled':''}>Not quite</button></div>`;
     html += '</div>';
@@ -327,19 +322,6 @@ function codeCard(file, obj) {
   return `<div class="cc-head"><span class="cc-lights" aria-hidden="true"><i class="cc-dot r"></i><i class="cc-dot y"></i><i class="cc-dot g"></i></span><span class="cc-file">${esc(file)}</span></div>` +
          `<pre class="cc-body" tabindex="0">${jsonColor(obj)}</pre>`;
 }
-function traceHtml(t) {
-  return codeCard('m1-decision.json', {
-    request_id: t.requestId ?? null,
-    action: t.action,
-    tasks: (t.domains||[]).map(d => ({ domain:d })),
-    evidence_share: Number.isFinite(t.evidence_share) ? +t.evidence_share.toFixed(2)
-      : Number.isFinite(t.confidence) ? +t.confidence.toFixed(2) : null,
-    engine: t.engine || 'not recorded',
-    elapsed_ms: t.elapsed ?? null,
-    clarify_attempts: t.attempts ?? 0,
-  });
-}
-
 function pushMsg(m) {
   const s = session();
   if (m.role === 'bot') {
@@ -441,6 +423,7 @@ function renderDomainList() {
   if (!list) return;
   list.innerHTML = '';
   for (const [id, d] of Object.entries(DOMAINS)) {
+    if (id === 'facilities') continue; // hidden from the sidebar — backend still routes it
     const el = document.createElement('button');
     el.className = 'domain-item';
     el.dataset.domain = id;
@@ -691,8 +674,6 @@ function applyLiveResult(result, query, { s, typing, t0, hints }) {
   const skills = result.skills || [];
   const citations = result.citations || [];
   const abstained = (result.errors || []).filter(e => e.code === 'no_evidence').map(e => e.service);
-  const trace = () => ({ action:routing.action, domains:routing.domains || [], evidence_share:share ?? null,
-    engine:'live', elapsed:result.elapsed_ms, attempts:s.clarifyAttempts, requestId:result.request_id, mode:result.mode });
   state.lastTrace.m1 = { action:routing.action, domains:routing.domains || [], options:routing.options || [], evidence_share:share, engine:'live' };
   if (skills.length || abstained.length)
     state.lastTrace.skills = { answered:skills.map(x => x.domain), abstained };
@@ -705,7 +686,7 @@ function applyLiveResult(result, query, { s, typing, t0, hints }) {
     if (options.length) { s.clarifyAttempts++; s.pendingQuery = query; }
     stage('skills', options.length ? 'Choose a department to continue' : 'Tell me what you need', 'waiting');
     pushMsg({ id:uid(), role:'bot', sections:[{ text:result.message }], options,
-      statusLine:'A little context will help me find the right source.', trace:trace() });
+      statusLine:'A little context will help me find the right source.' });
     setText('#runStatus', 'Waiting for clarification');
     return;
   }
@@ -717,7 +698,7 @@ function applyLiveResult(result, query, { s, typing, t0, hints }) {
       sections:[{ text:result.message }], statusLine:isHandoff
         ? (result.ticket ? `Local handoff record · ticket ${result.ticket} · contact the help desk to follow up` : 'Suggested next step · contact the help desk.')
         : 'Outside the configured knowledge domains · no answer invented',
-      statusCls:'warn', retry:isHandoff ? null : query, trace:trace() });
+      statusCls:'warn', retry:isHandoff ? null : query });
     setText('#runStatus', isHandoff ? 'Human assistance recommended' : 'Outside the knowledge base');
     return;
   }
@@ -728,19 +709,15 @@ function applyLiveResult(result, query, { s, typing, t0, hints }) {
     pushMsg({ id:uid(), role:'bot', sections:[{ text:noEvidence
         ? (result.message || 'I could not find this in the configured knowledge bases. Try adding a little more detail, or contact the relevant department.')
         : (result.message || hints[0] || 'The pipeline could not complete this request.') }],
-      statusLine:`${result.status} · ${hints[0] || 'retry available'}`, statusCls:'warn', retry:query, trace:trace() });
+      statusLine:`${result.status} · ${hints[0] || 'retry available'}`, statusCls:'warn', retry:query });
     setText('#runStatus', noEvidence ? 'No supporting evidence' : 'Something interrupted the response');
     return;
   }
   const sections = skills.map(sk => ({ domain:sk.domain, text:sk.answer }));
   if (abstained.length) sections.push({ text:`No supporting evidence was found for ${abstained.map(d => DOMAINS[d]?.title || d).join(', ')}. That part of your question is still unresolved.` });
   showEvidence(skills);
-  const cited = new Set(citations.map(c => c.doc_id));
-  const related = skills.flatMap(sk => (DOMAINS[sk.domain]?.docs || [])
-    .filter(d => !cited.has(d.id)).slice(0, 2)
-    .map(d => ({ domain:sk.domain, id:d.id, title:d.title }))).slice(0, 4);
   const passed = result.verification?.status === 'passed';
-  pushMsg({ id:uid(), role:'bot', badge:passed && !abstained.length ? 'verified' : 'review', sections, citations, related,
+  pushMsg({ id:uid(), role:'bot', badge:passed && !abstained.length ? 'verified' : 'review', sections, citations,
     statusLine:`${skills.length} department${skills.length>1?'s':''} · ${citations.length} sources · ${(result.elapsed_ms/1000).toFixed(1)}s${hints.length ? ` · ${hints[0]}` : ''}`,
     statusCls:passed && !abstained.length ? 'good' : 'warn', feedback:true, fbChosen:null, req:result.request_id, trace:trace() });
   s.clarifyAttempts = 0;
@@ -1193,14 +1170,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('pagehide', rememberDraft);
 
   /* drawer */
-  on('#statusPill', 'click', async () => {
-    if (state.live || state.probing) return;
-    state.probing = true;
-    const pill = $('#statusPill');
-    if (pill) pill.innerHTML = '<span class="dot"></span><span id="statusPillText">Checking…</span>';
-    await probeBackend();
-    state.probing = false;
-  });
   bind('#metricsBtn', 'onclick', () => { renderDrawer(); openPanel('metricsDrawer'); });
   bind('#drawerClose', 'onclick', () => closePanel());
   bind('#drawerScrim', 'onclick', () => closePanel());
@@ -1306,14 +1275,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const retry = e.target.closest('.retry-chip');
     if (retry) { (async () => { if (!state.live) await probeBackend(); send(retry.dataset.retry); })(); return; }
-    const traceBtn = e.target.closest('.trace-btn');
-    if (traceBtn) {
-      const body = traceBtn.nextElementSibling;
-      const open = body.classList.toggle('open');
-      traceBtn.setAttribute('aria-expanded', open);
-      traceBtn.textContent = open ? '▾ Inspect routing decision' : '▸ Inspect routing decision';
-      return;
-    }
     const copyBtn = e.target.closest('.copy-btn');
     if (copyBtn) {
       const bubble = copyBtn.closest('.bubble');
@@ -1408,29 +1369,18 @@ document.addEventListener('DOMContentLoaded', () => {
 /* The backend is the only engine — when it answers /health the UI goes live;
    otherwise it stays offline and says so instead of fabricating answers. */
 async function probeBackend() {
-  const pill = $('.status-pill');
   try {
     if (!apiFetch) throw new Error('no api');
     const r = await apiFetch(`${API}/health`);
     if (!r.ok) throw new Error(r.status);
-    const h = await r.json();
+    await r.json();
     state.live = true;
-    if (pill) {
-      pill.classList.add('live');
-      pill.innerHTML = '<span class="dot"></span><span id="statusPillText">Live backend</span>';
-      pill.title = `Connected to the Cortex API (${h.mode} mode) — answers are retrieved and verified by the real pipeline.`;
-    }
     await syncDomains();
     await loadCorpus();
     initCorpusUpload();
     announce('Connected to the live backend.');
   } catch {
     state.live = false;
-    if (pill) {
-      pill.classList.remove('live');
-      pill.innerHTML = '<span class="dot"></span><span id="statusPillText">Offline · retry</span>';
-      pill.title = 'Cortex is offline right now. Click to retry the connection.';
-    }
     toast('Cortex is offline — answers will resume when the service is reachable.');
   }
 }
@@ -1451,7 +1401,8 @@ async function syncDomains() {
       }
     }
     const count = $('.label-count');
-    if (count) count.textContent = String(Object.keys(DOMAINS).length).padStart(2, '0');
+    // Facilities stays routable in the backend but is hidden from the sidebar list.
+    if (count) count.textContent = String(Object.keys(DOMAINS).filter(id => id !== 'facilities').length).padStart(2, '0');
     if (added) { renderDomainList(); renderFilterChips(); updateScope(); }
   } catch { /* registry unavailable — UI keeps its built-in domain titles */ }
 }

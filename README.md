@@ -174,6 +174,7 @@ Microhard/
 ## Running it
 
 ```bash
+python run.py                              # one command from the repo root: M2 + M1, opens the UI
 python api.py --mode demo --port 8000      # landing at http://127.0.0.1:8000/ · assistant at /app
 python api.py --mode demo --llm-route      # qwen3:4B does the routing (slow on CPU)
 python api.py --mode demo --llm-merge --llm-verify   # LLM merger + verifier
