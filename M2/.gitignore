@@ -1,0 +1,25 @@
+# virtual environment
+.venv/
+venv/
+
+# secrets (keep the example file tracked)
+.env
+.env.*
+!.env.example
+
+# python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# packaging
+*.egg-info/
+build/
+dist/
+
+# editor / OS
+.vscode/
+.DS_Store
+Thumbs.db

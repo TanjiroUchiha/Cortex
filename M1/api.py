@@ -17,7 +17,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from m1 import DOMAINS, Request, keyword_scores
 from orchestrator import Orchestrator
 from services import (KeywordRouter, OllamaAnswerer, OllamaAssistant, OllamaMerger, OllamaRouter, OllamaVerifier,
-                      demo_services, load_domain_metadata, load_services)
+                      RemoteMerger, demo_services, load_domain_metadata, load_services)
 
 
 class QueryBody(BaseModel):
@@ -64,7 +64,7 @@ class BodyLimit:
 
 
 def _demo_engine(retrieval="semantic", llm_merge=False, llm_verify=False, llm_route=False,
-                 m1_backcheck=False, llm_answer=False):
+                 m1_backcheck=False, llm_answer=False, m2_url=None):
     from store import CorpusIndex, SemanticIndex, load_documents
     corpus_path = Path(__file__).resolve().parent / "data" / "corpus.json"
     documents = load_documents(corpus_path)
@@ -91,7 +91,7 @@ def _demo_engine(retrieval="semantic", llm_merge=False, llm_verify=False, llm_ro
                 ollama_up = True                # chat model lives behind the same daemon
             except Exception:
                 ollama_up = False
-    merger = OllamaMerger() if llm_merge and ollama_up else None
+    merger = RemoteMerger(m2_url) if m2_url else (OllamaMerger() if llm_merge and ollama_up else None)    
     verifier = OllamaVerifier() if llm_verify and ollama_up else None
     answerer = OllamaAnswerer() if llm_answer and ollama_up else None
     if llm_answer and not ollama_up:
@@ -133,7 +133,7 @@ def _live_engine(service_config):
 
 
 def make_app(engine=None, mode="demo", service_config=None, api_token=None, retrieval="semantic",
-             llm_merge=False, llm_verify=False, llm_route=False, m1_backcheck=False, llm_answer=False,
+             llm_merge=False, llm_verify=False, llm_route=False, m1_backcheck=False, llm_answer=False, m2_url=None,
              corpus=None, metrics_path=None, persist_root=None,
              queries_path=None, tickets_path=None):
     if mode not in ("demo", "live"):
@@ -142,7 +142,7 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
         if mode == "live" and not service_config:
             raise ValueError("Live mode requires a configured services file")
         if mode == "demo":
-            engine, corpus = _demo_engine(retrieval, llm_merge, llm_verify, llm_route, m1_backcheck, llm_answer)
+            engine, corpus = _demo_engine(retrieval, llm_merge, llm_verify, llm_route, m1_backcheck, llm_answer, m2_url)
         else:
             engine = _live_engine(service_config)
     if metrics_path:
@@ -455,11 +455,12 @@ def main():
                         help="let the LLM write each domain skill's prose from retrieved chunks "
                              "(CORTEX_ANSWER_MODEL, default qwen3:4b; citations/evidence stay code-computed)")
     parser.add_argument("--services", help="Trusted service config, required in live mode")
+    parser.add_argument("--m2-url", help="remote M2 merger endpoint, e.g. http://127.0.0.1:9001/merge")
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
     app = make_app(mode=args.mode, service_config=args.services, api_token=os.environ.get("CORTEX_API_TOKEN"),
                    retrieval=args.retrieval, llm_merge=args.llm_merge, llm_verify=args.llm_verify,
-                   llm_route=args.llm_route or args.m1_backcheck, m1_backcheck=args.m1_backcheck,
+                   llm_route=args.llm_route or args.m1_backcheck, m1_backcheck=args.m1_backcheck, m2_url=args.m2_url,
                    llm_answer=args.llm_answer,
                    metrics_path=Path(__file__).resolve().parent / "data" / "metrics.json",
                    queries_path=Path(__file__).resolve().parent / "data" / "queries.jsonl",

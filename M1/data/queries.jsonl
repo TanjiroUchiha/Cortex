@@ -45,3 +45,9 @@
 {"ts": "2026-10-03T20:17:10", "request_id": "96399a6aece749379f7525d2229efc72", "query": "password reset", "status": "demo", "domains": ["it"], "elapsed_ms": 453.0}
 {"ts": "2026-10-03T20:36:13", "request_id": "4b0dbe896b954b64b8765e19202a193c", "query": "wifi keeps dropping in the hostel", "status": "demo", "domains": ["it"], "elapsed_ms": 2250.0}
 {"ts": "2026-10-03T20:37:39", "request_id": "ddabceadb5e7404c9e30ab90cc914766", "query": "how to apply for sick leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 2609.0}
+{"ts": "2026-10-04T13:04:26", "request_id": "ce927828305d4e08bf79f7ac3f270319", "query": "How do I reset my password and when are fees due?", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 2837.39}
+{"ts": "2026-10-04T13:13:16", "request_id": "174e4471a4d94d99889142afbe260320", "query": "How do I reset my password and when are fees due?", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 670.12}
+{"ts": "2026-10-04T13:16:30", "request_id": "9e02a1aacd104b7d8d9816c4b21b18de", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 662.31}
+{"ts": "2026-10-04T13:23:12", "request_id": "1032843c69f04f3d8cc29a5175913fad", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 110695.86}
+{"ts": "2026-10-04T13:58:23", "request_id": "e0e8a88b91cd421ba262c18bc8543ce4", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 11370.32}
+{"ts": "2026-10-04T13:59:52", "request_id": "8c3d21afbe4643b29877b8baeb4cf426", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 6520.36}

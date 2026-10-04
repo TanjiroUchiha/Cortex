@@ -205,7 +205,54 @@ class OllamaMerger:
             pass
         return deterministic
 
+class RemoteMerger:
+    """M2 served by a separate service (Manav's /merge). Same contract as OllamaMerger:
+    callable(payload, request_id) -> {"response", "citations"}. The payload is translated
+    to his strict M2Input schema; citations stay code-computed; any remote failure falls
+    back to the local deterministic merge."""
 
+    def __init__(self, url, handler=None):
+        self.url = url
+        self.handler = handler or HTTPHandler(url, "local", timeout=110)
+
+    @staticmethod
+    def _to_m2_input(payload, request_id):
+        request = payload.get("request")
+        query = request.get("query", "") if isinstance(request, dict) else str(request or "")
+        valid = {"it", "hr", "fees", "facilities", "general"}
+
+        def evidence(item):
+            if isinstance(item, dict):
+                out = {k: v for k, v in item.items() if k != "chunk"}
+                if "chunk" in item and "text" not in item:
+                    out["text"] = item["chunk"]
+                return out
+            return item
+
+        answers = [{"domain": a["domain"],
+                    "answer": a.get("answer", ""),
+                    "citations": a.get("citations", []),
+                    "evidence": [evidence(e) for e in a.get("evidence", [])]}
+                   for a in payload["domain_answers"]]
+        failures = [{"domain": f["domain"],
+                     "error": str(f.get("error") or f.get("code") or "failed")}
+                    for f in payload.get("failures", [])
+                    if isinstance(f, dict) and f.get("domain") in valid]
+        return {"request_id": request_id, "request": query,
+                "domain_answers": answers, "failures": failures}
+
+    async def __call__(self, payload, request_id):
+        deterministic = merge_answers(payload["domain_answers"])
+        try:
+            body = self._to_m2_input(payload, request_id)
+            output = await self.handler(body, request_id)
+            text = output.get("response", "")
+            if isinstance(text, str) and text.strip() and len(text) <= 20000:
+                return {"response": text.strip(), "citations": deterministic["citations"]}
+        except (ServiceError, ValueError, TypeError, KeyError, AttributeError) as exc:
+            print(f"[RemoteMerger] falling back to local merge: {exc!r}")
+        return deterministic
+    
 async def _verify_handler(payload, request_id):
     return verify_grounding(payload["domain_answers"], payload["response"], payload["citations"])
 
