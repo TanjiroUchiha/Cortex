@@ -443,6 +443,7 @@ class Orchestrator:
             result["errors"].append({"service": "v1", "code": exc.code})
             return
         emit("stage", stage="v1", state="done", status=verification["status"])
+        result["v1_verdict"] = verification
         if self.services["v1"].mock:
             result["mock_services"].append("v1")
         if result["mock_services"]:

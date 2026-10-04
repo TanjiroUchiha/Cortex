@@ -16,8 +16,9 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from m1 import DOMAINS, Request, keyword_scores
 from orchestrator import Orchestrator
-from services import (KeywordRouter, OllamaAnswerer, OllamaAssistant, OllamaMerger, OllamaRouter, OllamaVerifier,
-                      RemoteMerger, demo_services, load_domain_metadata, load_services)
+from services import (CheckVerifier, KeywordRouter, OllamaAnswerer, OllamaAssistant, OllamaMerger,
+                      OllamaRouter, OllamaVerifier, RemoteMerger, demo_services,
+                      load_domain_metadata, load_services)
 
 
 class QueryBody(BaseModel):
@@ -92,7 +93,7 @@ def _demo_engine(retrieval="semantic", llm_merge=False, llm_verify=False, llm_ro
             except Exception:
                 ollama_up = False
     merger = RemoteMerger(m2_url) if m2_url else (OllamaMerger() if llm_merge and ollama_up else None)    
-    verifier = OllamaVerifier() if llm_verify and ollama_up else None
+    verifier = CheckVerifier(OllamaVerifier() if llm_verify and ollama_up else None)
     answerer = OllamaAnswerer() if llm_answer and ollama_up else None
     if llm_answer and not ollama_up:
         print("note: --llm-answer needs Ollama; domain skills stay extractive")
@@ -258,15 +259,14 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
         """Which model powers which pipeline role — transparency for 'is this actually AI?'."""
         await authorize(request)
         return {"models": {
-            "m1_router": os.environ.get("CORTEX_M1_MODEL", "qwen3:4b")
+            "m1_router": os.environ.get("CORTEX_M1_MODEL", "qwen3.5:4b")
                          if mode == "live" or engine.router.__class__.__name__ == "OllamaRouter"
                          else "keyword-classifier (deterministic)",
             "retrieval": os.environ.get("CORTEX_EMBED_MODEL", "qwen3-embedding:8b")
                          if retrieval == "semantic" else "keyword-idf",
-            "m2_merger": os.environ.get("CORTEX_MERGE_MODEL", "qwen3:4b")
+            "m2_merger": os.environ.get("CORTEX_MERGE_MODEL", "qwen3.5:4b")
                          if llm_merge else "deterministic-section-merge",
-            "v1_verifier": os.environ.get("CORTEX_V1_MODEL", "qwen3:4b")
-                           if llm_verify else "deterministic-citation-check"},
+            "v1_verifier": ("checks + " + os.environ.get("CORTEX_V1_MODEL", "qwen3.5:4b")) if llm_verify else "output-checks (grounding + query fit)"},
             "override": "CORTEX_M1_MODEL / CORTEX_EMBED_MODEL / CORTEX_MERGE_MODEL / CORTEX_V1_MODEL"}
 
     MAX_UPLOAD_BYTES = 10 * 1024 * 1024

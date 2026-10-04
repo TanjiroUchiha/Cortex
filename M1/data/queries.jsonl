@@ -51,3 +51,81 @@
 {"ts": "2026-10-04T13:23:12", "request_id": "1032843c69f04f3d8cc29a5175913fad", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 110695.86}
 {"ts": "2026-10-04T13:58:23", "request_id": "e0e8a88b91cd421ba262c18bc8543ce4", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 11370.32}
 {"ts": "2026-10-04T13:59:52", "request_id": "8c3d21afbe4643b29877b8baeb4cf426", "query": "I forgot my IT account password and I need to know the hostel fee deadline", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 6520.36}
+{"ts": "2026-10-04T14:36:08", "request_id": "c016cfdc9f5f4a4394f4d48e7cfa9268", "query": "What is the fee deadline?", "status": "unverified", "domains": ["fees"], "elapsed_ms": 1.67}
+{"ts": "2026-10-04T14:40:27", "request_id": "0ff4c825d19f44c9a145c223e7aee365", "query": "What is the fee deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 5.64}
+{"ts": "2026-10-04T15:41:36", "request_id": "c8fed5cbbc0a457c8d592c9721744708", "query": "What is the fee deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 6.79}
+{"ts": "2026-10-04T15:47:04", "request_id": "52e66b0ac9b8423a8aa64b137ac69d1f", "query": "What is the fee deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 10.44}
+{"ts": "2026-10-04T15:48:12", "request_id": "4c9121c4dafe4165ade8425d944b7478", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.66}
+{"ts": "2026-10-04T15:48:12", "request_id": "4652db92bd014342a78ba97478b19c66", "query": "Fee deadline and how do I reset my password?", "status": "demo", "domains": ["fees", "it"], "elapsed_ms": 2.71}
+{"ts": "2026-10-04T15:50:34", "request_id": "4ddccb25c93041aab63911a7033450d2", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.64}
+{"ts": "2026-10-04T15:50:34", "request_id": "289e8865975e4a87807655ee574f04de", "query": "How do I connect to the campus Wi-Fi?", "status": "demo", "domains": ["general"], "elapsed_ms": 1.82}
+{"ts": "2026-10-04T15:50:34", "request_id": "0e79d51bb0904e39b3a9ccef305fea0d", "query": "How do I apply for leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 1.55}
+{"ts": "2026-10-04T15:50:34", "request_id": "1ede0c8e6d53491c8967115884c40a87", "query": "How do I book a seminar room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 2.53}
+{"ts": "2026-10-04T15:50:34", "request_id": "97d583e249a54da5a4ede099557e8383", "query": "How do I get a bonafide certificate?", "status": "demo", "domains": ["general"], "elapsed_ms": 1.45}
+{"ts": "2026-10-04T15:50:34", "request_id": "3b4b94b5e8054a8b84bcdac5cd469bc2", "query": "What is the last date to pay semester fees?", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.56}
+{"ts": "2026-10-04T15:50:34", "request_id": "00c30c6856284489bee842b51556a177", "query": "When is the exam registration deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.61}
+{"ts": "2026-10-04T15:50:34", "request_id": "71ba0cc27b60479fa20dc949efc3a476", "query": "How much is the late payment fine?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.4}
+{"ts": "2026-10-04T15:50:34", "request_id": "b7045885493747429dda439e51208e36", "query": "What are the gym opening hours?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.95}
+{"ts": "2026-10-04T15:50:34", "request_id": "028d4186eb8547eca4831093d9fbe57c", "query": "Who do I contact about a fee refund?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.54}
+{"ts": "2026-10-04T15:50:34", "request_id": "4a6f175c92644248bfa005bfeb33cb9a", "query": "What is the IT helpdesk email?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.48}
+{"ts": "2026-10-04T15:50:34", "request_id": "80e6c6235a9444cf894c1098a76f7b52", "query": "How do I reset my password and apply for leave?", "status": "demo", "domains": ["it", "hr"], "elapsed_ms": 2.36}
+{"ts": "2026-10-04T15:50:34", "request_id": "67ece80ef55246c7986635b0eb4257ae", "query": "Wi-Fi not working and I need a fee receipt", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.27}
+{"ts": "2026-10-04T15:50:34", "request_id": "b7e7286841b74bc1aefef4cdf666a626", "query": "Fee deadline and gym timings", "status": "demo", "domains": ["fees", "facilities", "general"], "elapsed_ms": 13.18}
+{"ts": "2026-10-04T15:50:34", "request_id": "b0f7192c1d01461c9525cb89af213a6f", "query": "Can I bring a pet to my hostel room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.9}
+{"ts": "2026-10-04T15:50:34", "request_id": "f2b3353563004b5c9f4be0d6267b95c1", "query": "What is the capital of France?", "status": "unsupported", "domains": [], "elapsed_ms": 0.36}
+{"ts": "2026-10-04T15:50:34", "request_id": "8cc95342e2e74515a6a1414d12731904", "query": "I lost my card", "status": "clarify", "domains": ["general"], "elapsed_ms": 0.37}
+{"ts": "2026-10-04T15:50:34", "request_id": "0c423c9483924193aa046102c415ea00", "query": "hello", "status": "clarify", "domains": [], "elapsed_ms": 0.33}
+{"ts": "2026-10-04T15:53:49", "request_id": "902abc7d7be740ee8b6ab3d63fb1987e", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.7}
+{"ts": "2026-10-04T15:53:49", "request_id": "8b204bc9fb684a9bba9ff681642263de", "query": "How do I connect to the campus Wi-Fi?", "status": "demo", "domains": ["general"], "elapsed_ms": 1.49}
+{"ts": "2026-10-04T15:53:49", "request_id": "798b1e2d517b4a55bf7ff9f933528aef", "query": "How do I apply for leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 1.47}
+{"ts": "2026-10-04T15:53:49", "request_id": "c201672064844dd29c3b4cdbd2738948", "query": "How do I book a seminar room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 2.18}
+{"ts": "2026-10-04T15:53:49", "request_id": "dfeaf10eb854459199c8c59cbb8987a9", "query": "How do I get a bonafide certificate?", "status": "demo", "domains": ["general"], "elapsed_ms": 2.25}
+{"ts": "2026-10-04T15:53:49", "request_id": "fc8bcd594237486595243bac2aea8aa0", "query": "What is the last date to pay semester fees?", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.18}
+{"ts": "2026-10-04T15:53:49", "request_id": "e5235bcca367416e8dc2d105948a1be3", "query": "When is the exam registration deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 3.29}
+{"ts": "2026-10-04T15:53:49", "request_id": "2fbbe1e32a91403e8ffa21f17bf0efd3", "query": "How much is the late payment fine?", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.66}
+{"ts": "2026-10-04T15:53:49", "request_id": "7a544e3679464a1e9e698f7a96f9c6e9", "query": "What are the gym opening hours?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 2.31}
+{"ts": "2026-10-04T15:53:49", "request_id": "b42df3341e4848d4bfcc19cbe869c5f1", "query": "Who do I contact about a fee refund?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.78}
+{"ts": "2026-10-04T15:53:49", "request_id": "802f1dcf4a67417faf154d91b27e1a2e", "query": "What is the IT helpdesk email?", "status": "demo", "domains": ["it"], "elapsed_ms": 2.57}
+{"ts": "2026-10-04T15:53:49", "request_id": "be3e51a6a5bb44b79e8a373ffa1ae5d2", "query": "How do I reset my password and apply for leave?", "status": "demo", "domains": ["it", "hr"], "elapsed_ms": 2.67}
+{"ts": "2026-10-04T15:53:49", "request_id": "c8541425d3f9417d81877502b84d0922", "query": "Wi-Fi not working and I need a fee receipt", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.7}
+{"ts": "2026-10-04T15:53:49", "request_id": "9830d508e19a4ef9b08bcff7776b2a09", "query": "Fee deadline and gym timings", "status": "demo", "domains": ["fees", "facilities", "general"], "elapsed_ms": 3.59}
+{"ts": "2026-10-04T15:53:49", "request_id": "ba11e3cfdfb04bf0983a160063ba7a43", "query": "Can I bring a pet to my hostel room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.7}
+{"ts": "2026-10-04T15:53:49", "request_id": "db968aab2b994f2fbdea953e736403bf", "query": "What is the capital of France?", "status": "unsupported", "domains": [], "elapsed_ms": 0.47}
+{"ts": "2026-10-04T15:53:49", "request_id": "6384b6b1dd174a5f8af5342cec6d83c8", "query": "I lost my card", "status": "clarify", "domains": ["general"], "elapsed_ms": 0.45}
+{"ts": "2026-10-04T15:53:49", "request_id": "9702b643b2b24b878d557d784de36bef", "query": "hello", "status": "clarify", "domains": [], "elapsed_ms": 0.3}
+{"ts": "2026-10-04T15:55:13", "request_id": "f59dc94a62194629a42f9a4c82db7080", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.67}
+{"ts": "2026-10-04T15:55:13", "request_id": "bdf86287d7e7443d83e6f433ecbf8a84", "query": "How do I connect to the campus Wi-Fi?", "status": "demo", "domains": ["general"], "elapsed_ms": 2.69}
+{"ts": "2026-10-04T15:55:13", "request_id": "aa58c931be6147c7b53efe0204d0075c", "query": "How do I apply for leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 2.03}
+{"ts": "2026-10-04T15:55:13", "request_id": "ed4fea9fed2d4f09a5fc945cd446bdf8", "query": "How do I book a seminar room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.94}
+{"ts": "2026-10-04T15:55:13", "request_id": "218970c2a84b42caaa07625f10e2982c", "query": "How do I get a bonafide certificate?", "status": "demo", "domains": ["general"], "elapsed_ms": 2.99}
+{"ts": "2026-10-04T15:55:13", "request_id": "e803226d57dc46938f1dd8c204799ed0", "query": "What is the last date to pay semester fees?", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.68}
+{"ts": "2026-10-04T15:55:13", "request_id": "72a095d8aebf4ed4826065fa4681429f", "query": "When is the exam registration deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 4.05}
+{"ts": "2026-10-04T15:55:13", "request_id": "082a8fd9c9c340adbd7b423b91e951e5", "query": "How much is the late payment fine?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.86}
+{"ts": "2026-10-04T15:55:13", "request_id": "6edd2635cdf64972a2fc49ed8e689292", "query": "What are the gym opening hours?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.43}
+{"ts": "2026-10-04T15:55:13", "request_id": "ddc5bd827f264fc2937d75c4f0ab29f7", "query": "Who do I contact about a fee refund?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.74}
+{"ts": "2026-10-04T15:55:13", "request_id": "fe173d557e8a4f17ab31857843e67328", "query": "What is the IT helpdesk email?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.64}
+{"ts": "2026-10-04T15:55:13", "request_id": "4257e351af604079af3e299657a81a03", "query": "How do I reset my password and apply for leave?", "status": "demo", "domains": ["it", "hr"], "elapsed_ms": 4.01}
+{"ts": "2026-10-04T15:55:13", "request_id": "3c831fff34e843a4adf4edfd9121083c", "query": "Wi-Fi not working and I need a fee receipt", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.32}
+{"ts": "2026-10-04T15:55:13", "request_id": "70dc3ae2e2a7459a8ce4e614a58c81b5", "query": "Fee deadline and gym timings", "status": "demo", "domains": ["fees", "facilities", "general"], "elapsed_ms": 5.01}
+{"ts": "2026-10-04T15:55:13", "request_id": "3aa7901555a940c19f5701704a1fd0f4", "query": "Can I bring a pet to my hostel room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.5}
+{"ts": "2026-10-04T15:55:13", "request_id": "9aadfbacf15b40dc882bc181ab93f790", "query": "What is the capital of France?", "status": "unsupported", "domains": [], "elapsed_ms": 0.38}
+{"ts": "2026-10-04T15:55:13", "request_id": "c0a536f8f31c4584a8653082d6ba32d0", "query": "I lost my card", "status": "clarify", "domains": ["general"], "elapsed_ms": 0.7}
+{"ts": "2026-10-04T15:55:13", "request_id": "3e420b5b28c649fa8145b7d5bc738f57", "query": "hello", "status": "clarify", "domains": [], "elapsed_ms": 0.56}
+{"ts": "2026-10-04T15:58:51", "request_id": "9a395869f845445485964aa5b86463b5", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 3.49}
+{"ts": "2026-10-04T15:58:51", "request_id": "5fced71fee4e482188585d232c7daf04", "query": "How do I connect to the campus Wi-Fi?", "status": "demo", "domains": ["general"], "elapsed_ms": 2.06}
+{"ts": "2026-10-04T15:58:51", "request_id": "6c19df9232f74dc28baaf2fd2a5373ec", "query": "How do I apply for leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 1.95}
+{"ts": "2026-10-04T15:58:52", "request_id": "76ef2b9982de452689162f13a2f652e7", "query": "How do I book a seminar room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 3.99}
+{"ts": "2026-10-04T15:58:52", "request_id": "c35005405e34448a9d0fd83804fca653", "query": "How do I get a bonafide certificate?", "status": "demo", "domains": ["general"], "elapsed_ms": 1.92}
+{"ts": "2026-10-04T15:58:52", "request_id": "a075129172cd4804891c9c353a6b5b9f", "query": "What is the last date to pay semester fees?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.84}
+{"ts": "2026-10-04T15:58:52", "request_id": "14d49d1230f14ee28326559bbe3cd145", "query": "When is the exam registration deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 3.45}
+{"ts": "2026-10-04T15:58:52", "request_id": "2fbaf2d366514c2785c08266f1321bed", "query": "How much is the late payment fine?", "status": "demo", "domains": ["fees"], "elapsed_ms": 1.67}
+{"ts": "2026-10-04T15:58:52", "request_id": "71f0e978d46b4f8d957fa9c87356727f", "query": "What are the gym opening hours?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 2.06}
+{"ts": "2026-10-04T15:58:52", "request_id": "6ead451c73654040bddfd36a48bc743b", "query": "Who do I contact about a fee refund?", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.38}
+{"ts": "2026-10-04T15:58:52", "request_id": "24197ed5078d4550b6404727c5efb16c", "query": "What is the IT helpdesk email?", "status": "demo", "domains": ["it"], "elapsed_ms": 1.93}
+{"ts": "2026-10-04T15:58:52", "request_id": "09e10fe6a98546f49276a758bfe882a8", "query": "How do I reset my password and apply for leave?", "status": "demo", "domains": ["it", "hr"], "elapsed_ms": 5.68}
+{"ts": "2026-10-04T15:58:52", "request_id": "857af3c2518e40149c5251acad90e48f", "query": "Wi-Fi not working and I need a fee receipt", "status": "demo", "domains": ["fees"], "elapsed_ms": 2.59}
+{"ts": "2026-10-04T15:58:52", "request_id": "8fdb5ec9a3c546dda8387b715a5f41f5", "query": "Fee deadline and gym timings", "status": "demo", "domains": ["fees", "facilities", "general"], "elapsed_ms": 4.27}
+{"ts": "2026-10-04T15:58:52", "request_id": "ff2092fdc4004e5cb5670085fab60267", "query": "Can I bring a pet to my hostel room?", "status": "demo", "domains": ["facilities"], "elapsed_ms": 1.67}
+{"ts": "2026-10-04T15:58:52", "request_id": "728d4b2951de40bca058b57a20327dab", "query": "What is the capital of France?", "status": "unsupported", "domains": [], "elapsed_ms": 0.59}
+{"ts": "2026-10-04T15:58:52", "request_id": "ada31ea6b4354918b96b7fb6bea0e489", "query": "I lost my card", "status": "clarify", "domains": ["general"], "elapsed_ms": 0.59}
+{"ts": "2026-10-04T15:58:52", "request_id": "9877e87e58e14761bbf417cf7f97a043", "query": "hello", "status": "clarify", "domains": [], "elapsed_ms": 0.37}

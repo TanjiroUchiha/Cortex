@@ -12,7 +12,7 @@ import httpx
 
 from m1 import DECISION_SCHEMA, DOMAINS, build_messages, parse_decision, require_keys, unique_object
 from orchestrator import Service, ServiceError, merge_answers, verify_grounding
-
+from v1_checks import verify as v1_verify
 
 class HTTPHandler:
     def __init__(self, url, location, token_env=None, transport=None, timeout=30):
@@ -461,3 +461,54 @@ def load_domain_metadata(path):
         if "keywords" in body:
             keywords[domain] = list(body["keywords"])
     return titles, keywords
+
+
+SEVERITY = {"passed": 0, "uncertain": 1, "failed": 2}
+
+class CheckVerifier:
+    """V1 = output checker. Code decides first (grounding + does-it-answer-the-query).
+    A code `failed` is final. Otherwise an optional LLM verifier (OllamaVerifier) adds
+    a second opinion and the more severe verdict wins. Any LLM error -> code verdict."""
+
+    def __init__(self, llm=None):
+        self.llm = llm  # e.g. OllamaVerifier()
+
+    async def __call__(self, payload, request_id):
+        import traceback
+        legacy = verify_grounding(payload["domain_answers"], payload["response"], payload["citations"])
+        try:
+            code = v1_verify(payload)
+        except Exception:
+            traceback.print_exc()
+            return legacy          # never let a V1 bug block the answer
+        flags = list(dict.fromkeys([*code["flags"], *legacy["flags"]]))
+        status = code["status"]
+        if any(f.startswith("ungrounded") for f in legacy["flags"]):
+            status = "failed"
+        result = {"status": status, "flags": flags, "explanation": code["explanation"]}
+        print("[V1]", result)      # temporary: remove once it works
+        if status == "failed" or self.llm is None:
+            return result
+        try:
+            llm = await self.llm(payload, request_id)
+            if SEVERITY[llm["status"]] > SEVERITY[status]:
+                result["status"] = llm["status"]
+                result["explanation"] = llm.get("explanation") or result["explanation"]
+            result["flags"] = list(dict.fromkeys([*flags, *llm.get("flags", [])]))[:20]
+        except Exception:
+            pass
+        return result
+# 3. In api.py where the verifier is chosen, use  CheckVerifier()  by default and
+#    CheckVerifier(OllamaVerifier())  when --llm-verify is set.
+#
+# 4. Replace VERIFY_SYSTEM in services.py so the LLM also judges the query:
+VERIFY_SYSTEM = """You are the V1 output checker for a grounded assistant. Given the user's
+request, the drafted response and the evidence, judge two things:
+1. Grounding: is every factual claim supported by the evidence?
+2. Satisfaction: does the response actually answer what the user asked, every part of it?
+Reply with strict JSON only: {"status": "passed|failed|uncertain", "flags": [], "explanation": "..."}
+- failed: a claim contradicts the evidence or invents facts (dates, steps, numbers, policies).
+- uncertain: the response is only partly relevant, skips part of the question, or evidence is thin.
+- passed: every claim traces to the evidence and the question is fully answered.
+Use flags such as "incomplete_answer" or "off_topic" for satisfaction problems.
+Never comment on style. Never invent sources. Output only the JSON object."""
