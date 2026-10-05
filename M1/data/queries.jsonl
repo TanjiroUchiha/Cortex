@@ -131,3 +131,29 @@
 {"ts": "2026-10-04T15:58:52", "request_id": "9877e87e58e14761bbf417cf7f97a043", "query": "hello", "status": "clarify", "domains": [], "elapsed_ms": 0.37}
 {"ts": "2026-10-04T20:05:21", "request_id": "696dd5bfaeff49a6ac96c703803de6a2", "query": "how to reset wifi password", "status": "routing_failed", "domains": [], "elapsed_ms": 2025.0}
 {"ts": "2026-10-04T20:06:07", "request_id": "dfef93e421914ce2891621d573e69734", "query": "how to reset wifi password", "status": "demo", "domains": ["it"], "elapsed_ms": 15072.63}
+{"ts": "2026-10-05T10:45:44", "request_id": "81902c13565542d188d4ac2b7178131f", "query": "Tell me about Payroll", "status": "routing_failed", "domains": [], "elapsed_ms": 2040.45}
+{"ts": "2026-10-05T10:46:22", "request_id": "7f799c5dcbca4467b8ec71683876badc", "query": "How do I reset my password?", "status": "routing_failed", "domains": [], "elapsed_ms": 2024.42}
+{"ts": "2026-10-05T10:48:50", "request_id": "88f9069d9a2a4599848388e10ad1f294", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 53347.71}
+{"ts": "2026-10-05T10:48:50", "request_id": "bf8c65ccc46f42419323f58e3ebbf577", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 234.37}
+{"ts": "2026-10-05T10:48:57", "request_id": "31f2a4eb3ec74ee0aefc50a126370e9d", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 624.79}
+{"ts": "2026-10-05T10:48:58", "request_id": "1ba38aaeaa114603b2862608aec9277f", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 768.34}
+{"ts": "2026-10-05T10:49:00", "request_id": "a4ac8a36bf094ceba4db84589a398bdd", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 671.64}
+{"ts": "2026-10-05T10:49:00", "request_id": "88b4f71226de45ccbac2738678091715", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 605.29}
+{"ts": "2026-10-05T10:49:15", "request_id": "357cc17213514429ae4e95f7ba230ec4", "query": "how to reset wifi password", "status": "demo", "domains": ["it"], "elapsed_ms": 638.94}
+{"ts": "2026-10-05T10:49:16", "request_id": "5b8cd5dc49974c1b85e71b3f7e14c546", "query": "how to reset wifi password", "status": "demo", "domains": ["it"], "elapsed_ms": 700.55}
+{"ts": "2026-10-05T10:50:46", "request_id": "64b4e9c7541043b0aeec98e88e165414", "query": "how to reset wifi password?", "status": "demo", "domains": ["it"], "elapsed_ms": 8797.39}
+{"ts": "2026-10-05T10:50:47", "request_id": "ef419b1c83c84148a3247b01df97b1b2", "query": "how to reset wifi password?", "status": "demo", "domains": ["it"], "elapsed_ms": 223.32}
+{"ts": "2026-10-05T10:52:29", "request_id": "b06683ab98434beeb1384de9d9c6718b", "query": "How do I apply for annual leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 3032.22}
+{"ts": "2026-10-05T10:52:29", "request_id": "a2be4c185a464f2c8949ce5568b8264f", "query": "How do I apply for annual leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 654.15}
+{"ts": "2026-10-05T11:05:06", "request_id": "8fdee7c4bef74b158f6ea87230c2a79a", "query": "How do I apply for annual leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 670.44}
+{"ts": "2026-10-05T11:05:06", "request_id": "e059c38cbe7741be8ae64db81ced2f47", "query": "How do I apply for annual leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 671.91}
+{"ts": "2026-10-05T11:05:14", "request_id": "bf304ba8edee4cdaa0996c09a8214f4d", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 664.96}
+{"ts": "2026-10-05T11:05:15", "request_id": "d5fb3b86763545e281b6b2939016bfae", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 747.0}
+{"ts": "2026-10-05T11:07:34", "request_id": "1079da11dcc94a1fbb53f30ea2233501", "query": "How do I reset my password?", "status": "demo", "domains": ["it"], "elapsed_ms": 736.79}
+{"ts": "2026-10-05T12:53:08", "request_id": "bd8d86e35d9c424cb7756867b5924a26", "query": "When is the semester fee deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 28313.44}
+{"ts": "2026-10-05T12:54:31", "request_id": "05fa9bc5152b4029b1d26a5ca6455703", "query": "When is the semester fee deadline?", "status": "demo", "domains": ["fees"], "elapsed_ms": 861.73}
+{"ts": "2026-10-05T12:54:43", "request_id": "c9295b2402ca4aa889424e220f0d094b", "query": "How do I apply for annual leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 854.68}
+{"ts": "2026-10-05T12:54:50", "request_id": "a51f6470915641619604935d271f1d66", "query": "The projector keeps flickering", "status": "clarify", "domains": ["facilities"], "elapsed_ms": 1294.42}
+{"ts": "2026-10-05T12:55:05", "request_id": "5bb8ee59cb1a4bc08d1d8428ed476ed8", "query": "The projector keeps flickering", "status": "demo", "domains": ["it"], "elapsed_ms": 2612.23}
+{"ts": "2026-10-05T12:58:01", "request_id": "e0c723e33d0c44a1bcebcea9f2586397", "query": "How can i take leave in such a way so that it cannot be sanwich?", "status": "demo", "domains": ["hr"], "elapsed_ms": 8703.17}
+{"ts": "2026-10-05T12:58:57", "request_id": "f77304e105954fc999cdd626ec3ce394", "query": "If i am taking causal leave on Friday, can i take leave on Monday as Sick leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 4819.23}

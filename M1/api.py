@@ -4,6 +4,7 @@ import json
 import os
 import re
 import secrets
+import uuid
 from pathlib import Path
 from typing import Literal
 
@@ -406,22 +407,54 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
 
         async def stream():
             task = asyncio.create_task(engine.run(model_request, on_event=emit))
-            while not (task.done() and queue.empty()):
+            try:
+                while not (task.done() and queue.empty()):
+                    try:
+                        event = await asyncio.wait_for(queue.get(), timeout=10)
+                        yield f"event: {event['event']}\ndata: {json.dumps(event, ensure_ascii=False)}\n\n"
+                    except asyncio.TimeoutError:
+                        yield ": keep-alive\n\n"  # comment heartbeat keeps proxies from closing idle streams
+                if task.cancelled():
+                    return
+                if task.exception() is not None:
+                    # Never end the stream without a result: the UI only shows
+                    # "Something interrupted this response" when no result event
+                    # arrives, so emit a degraded result the UI can render.
+                    degraded = {"request_id": f"stream-{uuid.uuid4().hex[:12]}",
+                                "status": "failed", "response": None, "draft": None,
+                                "routing": None, "message": "The pipeline hit an unexpected error before finishing. Please try again.",
+                                "skills": [], "citations": [], "errors": [{"service": "pipeline", "code": "transport_unavailable"}],
+                                "verification": {"status": "not_run"}, "mock_services": [], "elapsed_ms": 0,
+                                "mode": mode}
+                    yield f"event: result\ndata: {json.dumps(degraded, ensure_ascii=False)}\n\n"
+                    yield 'event: error\ndata: {"service": "pipeline", "code": "transport_unavailable", "hint": "pipeline error"}\n\n'
+                    yield "event: done\ndata: {}\n\n"
+                    return
+                result = task.result()
+                result["mode"] = mode
+                yield f"event: result\ndata: {json.dumps(result, ensure_ascii=False)}\n\n"
+                for error in result.get("errors", []):
+                    hint = ERROR_HINTS.get(error["code"], "pipeline error")
+                    yield f"event: error\ndata: {json.dumps({'service': error['service'], 'code': error['code'], 'hint': hint})}\n\n"
+                yield "event: done\ndata: {}\n\n"
+            except asyncio.CancelledError:
+                if not task.done():
+                    task.cancel()
+                raise
+            except Exception:
+                # Last-resort degraded result — a closed stream with no result
+                # is what the UI reports as "interrupted".
                 try:
-                    event = await asyncio.wait_for(queue.get(), timeout=10)
-                    yield f"event: {event['event']}\ndata: {json.dumps(event)}\n\n"
-                except asyncio.TimeoutError:
-                    yield ": keep-alive\n\n"  # comment heartbeat keeps proxies from closing idle streams
-            if task.exception() is not None:
-                yield 'event: error\ndata: {"detail": "pipeline error"}\n\n'
-                return
-            result = task.result()
-            result["mode"] = mode
-            yield f"event: result\ndata: {json.dumps(result)}\n\n"
-            for error in result.get("errors", []):
-                hint = ERROR_HINTS.get(error["code"], "pipeline error")
-                yield f"event: error\ndata: {json.dumps({'service': error['service'], 'code': error['code'], 'hint': hint})}\n\n"
-            yield "event: done\ndata: {}\n\n"
+                    degraded = {"request_id": f"stream-{uuid.uuid4().hex[:12]}",
+                                "status": "failed", "response": None, "draft": None,
+                                "routing": None, "message": "The pipeline hit an unexpected error before finishing. Please try again.",
+                                "skills": [], "citations": [], "errors": [{"service": "pipeline", "code": "transport_unavailable"}],
+                                "verification": {"status": "not_run"}, "mock_services": [], "elapsed_ms": 0,
+                                "mode": mode}
+                    yield f"event: result\ndata: {json.dumps(degraded, ensure_ascii=False)}\n\n"
+                    yield "event: done\ndata: {}\n\n"
+                except Exception:
+                    pass
 
         return StreamingResponse(stream(), media_type="text/event-stream",
                                  headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})

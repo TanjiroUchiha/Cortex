@@ -702,7 +702,7 @@ function applyLiveResult(result, query, { s, typing, t0, hints }) {
     setText('#runStatus', isHandoff ? 'Human assistance recommended' : 'Outside the knowledge base');
     return;
   }
-  if (!skills.length || !['completed','partial','needs_review','unverified','demo'].includes(result.status)) {
+  if (!skills.length || !['completed','partial','needs_review','unverified','demo','aggregation_unavailable'].includes(result.status)) {
     const noEvidence = result.status === 'no_evidence';
     stage('m2', 'No answer to merge', 'skipped');
     stage('v1', 'No citations to check', 'skipped');
@@ -717,9 +717,14 @@ function applyLiveResult(result, query, { s, typing, t0, hints }) {
   if (abstained.length) sections.push({ text:`No supporting evidence was found for ${abstained.map(d => DOMAINS[d]?.title || d).join(', ')}. That part of your question is still unresolved.` });
   showEvidence(skills);
   const passed = result.verification?.status === 'passed';
-  pushMsg({ id:uid(), role:'bot', badge:passed && !abstained.length ? 'verified' : 'review', sections, citations,
-    statusLine:`${skills.length} department${skills.length>1?'s':''} · ${citations.length} sources · ${(result.elapsed_ms/1000).toFixed(1)}s${hints.length ? ` · ${hints[0]}` : ''}`,
-    statusCls:passed && !abstained.length ? 'good' : 'warn', feedback:true, fbChosen:null, req:result.request_id, trace:trace() });
+  const elapsed = Number.isFinite(result.elapsed_ms) ? `${(result.elapsed_ms/1000).toFixed(1)}s` : null;
+  const mergeNote = result.status === 'aggregation_unavailable'
+    ? 'Showing department answers directly · merge step unavailable'
+    : null;
+  const line = `${skills.length} department${skills.length>1?'s':''} · ${citations.length} sources${elapsed ? ` · ${elapsed}` : ''}${mergeNote ? ` · ${mergeNote}` : ''}${hints.length ? ` · ${hints[0]}` : ''}`;
+  pushMsg({ id:uid(), role:'bot', badge:passed && !abstained.length && !mergeNote ? 'verified' : 'review', sections, citations,
+    statusLine: line,
+    statusCls:passed && !abstained.length && !mergeNote ? 'good' : 'warn', feedback:true, fbChosen:null, req:result.request_id, trace:{ ...(state.lastTrace.m1 || {}) } });
   s.clarifyAttempts = 0;
   s.pendingQuery = null;
   setText('#runStatus', passed && !abstained.length ? 'Complete · sources checked' : 'Complete · some parts need review');
@@ -750,10 +755,11 @@ async function liveRun(query, forcedDomain, ctx) {
       let name = '', data = '';
       for (const line of frame.split('\n')) {
         if (line.startsWith('event:')) name = line.slice(6).trim();
-        else if (line.startsWith('data:')) data += line.slice(5);
+        else if (line.startsWith('data:')) data += (data ? '\n' : '') + line.slice(5).replace(/^ /, '');
       }
-      if (!data) continue;
-      const evt = JSON.parse(data);
+      if (!data || name === 'done') continue;
+      let evt;
+      try { evt = JSON.parse(data); } catch { continue; }   // one bad frame must not kill a good answer
       if (name === 'result') result = evt;
       else if (name === 'error') hints.push(evt.hint || `${evt.service}: ${evt.code}`);
       else liveStage(evt);
