@@ -419,11 +419,12 @@ def local_pipeline(corpus, mock=False, merger=None, verifier=None, answerer=None
 
 
 def demo_services(corpus=None, merger=None, verifier=None, answerer=None):
-    """Seed-corpus-backed demo pipeline. Answers are real extractive retrieval over the
-    seed documents, still labelled demo because the corpus is synthetic starter data."""
+    """Corpus-backed demo pipeline. Real retrieval over the bundled documents, so
+    results claim the actual V1 verdict — the mock stamp is reserved for stand-in
+    services (live mode rejects them outright)."""
     from store import CorpusIndex, load_documents
     corpus = corpus or CorpusIndex(load_documents())
-    return local_pipeline(corpus, mock=True, merger=merger, verifier=verifier, answerer=answerer)
+    return local_pipeline(corpus, mock=False, merger=merger, verifier=verifier, answerer=answerer)
 
 
 def load_services(path):
