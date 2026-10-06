@@ -1,0 +1,20 @@
+{
+  "services": [
+    {"name":"it","url":"http://127.0.0.1:8101/answer","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"hr","url":"http://127.0.0.1:8102/answer","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"fees","url":"http://127.0.0.1:8103/answer","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"facilities","url":"http://127.0.0.1:8104/answer","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"general","url":"http://127.0.0.1:8105/answer","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"academics","url":"http://127.0.0.1:8106/answer","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"m2","url":"http://127.0.0.1:8201/merge","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null},
+    {"name":"v1","url":"http://127.0.0.1:8202/verify","location":"local","enabled":false,"resource_group":"shared-local-models","token_env":null}
+  ],
+  "domain_metadata": {
+    "it": {"title": "IT help", "keywords": ["password", "wifi", "vpn", "network", "software", "laptop", "email", "login", "printer", "account", "mfa"]},
+    "hr": {"title": "HR & Admissions", "keywords": ["employee", "leave", "payroll", "salary", "hiring", "admission", "applicant", "enrolment", "recruitment", "attendance"]},
+    "fees": {"title": "Fees & Finance", "keywords": ["fee", "tuition", "scholarship", "student payment", "refund", "financial hold", "exam fee", "expense", "reimbursement", "procurement", "budget", "invoice", "supplier", "audit"]},
+    "facilities": {"title": "Facilities, Security & Transport", "keywords": ["hostel", "maintenance", "room", "repair", "plumbing", "accommodation", "mess", "building", "cleaning", "security", "emergency", "evacuation", "cctv", "visitor pass", "badge", "transport", "bus", "shuttle", "parking", "vehicle"]},
+    "general": {"title": "General, Library & Services", "keywords": ["campus contact", "office hours", "student services", "counselling", "student support", "no dues", "bonafide", "student event", "library", "book", "journal", "borrowing", "study room"]},
+    "academics": {"title": "Academics & Research", "keywords": ["academic", "exam", "course", "grade", "degree", "transcript", "semester", "credit", "curriculum", "research", "laboratory", "lab", "experiment", "grant", "ethics", "publication", "attendance", "condonation"]}
+  }
+}

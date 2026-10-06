@@ -1,0 +1,212 @@
+[
+  {
+    "question": "What is the university policy for flying a privately owned drone over the central quad?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Which office issues permits for commercial filming inside student bedrooms?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the exact password for the campus emergency administrator account?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can students receive a guaranteed job offer from a named employer?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the private home address of the campus security director?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Does the institution reimburse personal holiday travel?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the approved treatment for a medical condition not described in the support materials?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can an applicant bypass identity verification by sending a social media message?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the secret override code for the laboratory chemical store?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Does the library guarantee access to every commercial ebook ever published?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What date will an unannounced examination take place?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can a student use another person's credentials to clear a financial hold?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the personal mobile number of the employee identified as EMP-1001?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the exact bank account password used for supplier payments?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Is an unlisted research chemical approved for use in every laboratory?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can a visitor enter a restricted plant room without a sponsor?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What drone flight altitude is allowed above campus buildings?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Does a pending payment screenshot automatically cancel every late fee?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Which employee received the highest salary this month?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What are the unredacted medical details for synthetic student STU-2026-002?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can students park in a marked emergency vehicle bay overnight?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the guaranteed restoration time for every network outage?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Does the institution promise an automatic scholarship to all international applicants?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can a student change a published grade by editing the course portal?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Which restricted CCTV camera covers the research archive entrance?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the unpublished security response route for the data centre?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Does the institution permit storing production passwords in a public code repository?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Can a student receive a refund for a service they used for the full term?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "What is the identity number of a real employee at the institution?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  },
+  {
+    "question": "Is a personal firearm permitted inside campus accommodation?",
+    "expected_sources": [],
+    "department": "out-of-scope",
+    "difficulty": "negative",
+    "expected_behavior": "abstain"
+  }
+]

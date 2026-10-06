@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f8fa">
+<script>try { const t = localStorage.getItem('cortex.theme'); document.documentElement.dataset.theme = (t === 'dark' || t === 'light') ? t : (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'; }</script>
+<meta name="description" content="Sign in to Cortex — one front door for campus help.">
+<title>Sign in — Cortex</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%237e74ef'/%3E%3Cpath d='M43 20a17 17 0 1 0 0 24M22 32h25' fill='none' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=16">
+<style>
+  body { min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--text); font-family:var(--font-b,Inter,sans-serif); }
+  .login-card { width:min(380px, calc(100vw - 32px)); padding:36px 32px; background:var(--surface); border:1px solid var(--panel-border); border-radius:18px; box-shadow:var(--shadow); }
+  .login-mark { width:44px; height:44px; border-radius:12px; background:var(--accent-solid); display:grid; place-items:center; margin-bottom:18px; }
+  .login-mark svg { width:26px; height:26px; }
+  h1 { font-family:var(--font-d,'Space Grotesk',sans-serif); font-size:24px; font-weight:600; letter-spacing:-.03em; margin:0 0 6px; }
+  .login-sub { color:var(--muted); font-size:13px; margin:0 0 24px; }
+  .field { display:block; margin-bottom:14px; }
+  .field span { display:block; font-size:11px; color:var(--muted); margin-bottom:5px; }
+  .field input { width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid var(--panel-border-hi); border-radius:9px; background:var(--surface-raised); color:var(--text); font:inherit; font-size:13px; }
+  .field input:focus { outline:2px solid var(--accent); outline-offset:-1px; }
+  .login-btn { width:100%; padding:11px; border:0; border-radius:9px; background:var(--accent-solid); color:#fff; font:inherit; font-size:13px; font-weight:600; cursor:pointer; margin-top:4px; }
+  .login-btn:disabled { opacity:.55; cursor:default; }
+  .login-err { color:var(--bad); font-size:12px; margin:12px 0 0; min-height:16px; }
+  .login-foot { margin-top:22px; font-size:11px; color:var(--faint); text-align:center; display:grid; gap:8px; }
+  .login-foot a, .login-foot button.link { color:var(--accent); text-decoration:none; background:none; border:0; font:inherit; cursor:pointer; padding:0; }
+  .guest-btn { margin-top:14px; width:100%; padding:10px; border:1px solid var(--panel-border-hi); border-radius:9px; background:none; color:var(--muted); font:inherit; font-size:12px; cursor:pointer; }
+  .guest-btn:hover { color:var(--text); background:var(--panel-2); }
+  .login-note { font-size:10px; color:var(--faint); text-align:center; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="login-card">
+  <div class="login-mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M17.5 6.5a7.8 7.8 0 1 0 0 11M8 12h12"/></svg>
+  </div>
+  <h1>Sign in to Cortex</h1>
+  <p class="login-sub">One front door for every department.</p>
+
+  <form id="loginForm" autocomplete="on">
+    <label class="field" id="nameField" hidden><span>Name</span>
+      <input id="name" type="text" autocomplete="name" maxlength="120">
+    </label>
+    <label class="field"><span>Email</span>
+      <input id="email" type="email" required autocomplete="username" maxlength="254">
+    </label>
+    <label class="field"><span>Password</span>
+      <input id="password" type="password" required autocomplete="current-password" maxlength="256">
+    </label>
+    <button class="login-btn" id="loginBtn" type="submit">Sign in</button>
+    <p class="login-err" id="loginErr" role="alert"></p>
+  </form>
+
+  <button class="guest-btn" id="guestBtn" type="button">Continue as guest — try it without an account</button>
+  <p class="login-note">Guests get a short session and a capped number of questions.</p>
+
+  <p class="login-foot">
+    <button class="link" id="modeToggle" type="button">New here? Create an account</button>
+    <a href="/">‹ Back to overview</a>
+  </p>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const err = t => { $('#loginErr').textContent = t || ''; };
+
+  // already signed in? skip the form entirely
+  const existing = sessionStorage.getItem('cortex.jwt');
+  if (existing) {
+    fetch('/auth/me', { headers: { Authorization: `Bearer ${existing}` } })
+      .then(r => { if (r.ok) location.replace('/app'); else sessionStorage.removeItem('cortex.jwt'); })
+      .catch(() => {});
+  }
+
+  const finish = async (path, body) => {
+    const res = await fetch(path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || `Sign-in failed (${res.status})`);
+    sessionStorage.setItem('cortex.jwt', data.token);
+    location.replace('/app');
+  };
+
+  /* sign-in ⇄ create-account toggle */
+  let signup = false;
+  $('#modeToggle').addEventListener('click', () => {
+    signup = !signup;
+    err('');
+    $('#nameField').hidden = !signup;
+    $('#password').autocomplete = signup ? 'new-password' : 'current-password';
+    $('#loginBtn').textContent = signup ? 'Create account' : 'Sign in';
+    $('#modeToggle').textContent = signup ? 'Have an account? Sign in' : 'New here? Create an account';
+  });
+
+  $('#loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    err('');
+    const btn = $('#loginBtn');
+    btn.disabled = true; btn.textContent = signup ? 'Creating…' : 'Signing in…';
+    try {
+      const body = { email: $('#email').value.trim(), password: $('#password').value };
+      if (signup) body.name = $('#name').value.trim();
+      await finish(signup ? '/auth/signup' : '/auth/login', body);
+    } catch (ex) {
+      err(ex.message === 'Failed to fetch' ? 'Cannot reach the server — is the backend running?' : ex.message);
+      btn.disabled = false; btn.textContent = signup ? 'Create account' : 'Sign in';
+    }
+  });
+
+  $('#guestBtn').addEventListener('click', async e => {
+    err('');
+    e.target.disabled = true; e.target.textContent = 'Starting guest session…';
+    try {
+      await finish('/auth/guest', {});
+    } catch (ex) {
+      err(ex.message);
+      e.target.disabled = false; e.target.textContent = 'Continue as guest — try it without an account';
+    }
+  });
+})();
+</script>
+</body>
+</html>

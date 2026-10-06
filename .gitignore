@@ -1,23 +1,39 @@
-# Secrets/config — JWT secret, admin bootstrap, OAuth client id
+# Secrets/config — JWT secret, MongoDB credentials, admin bootstrap
 .env
+.env.*
 *.env
-!M2/.env.example
+!.env.example
+!models/m2/.env.example
 
 # Rotating observability logs
 logs/
-M1/logs/
+backend/logs/
+*.log
 
-# Auth database — contains password hashes; never commit
-M1/data/auth.db
+# Legacy SQLite auth database — contains password hashes; never commit
+backend/data/auth.db
 *.db-journal
+*.sql
+*.dump
+*.sqlite3
 
 # Server-generated runtime data
-M1/data/metrics.json
-M1/data/queries.jsonl
-M1/data/tickets.json
-M1/data/embed-cache.json
+backend/data/metrics.json
+backend/data/queries.jsonl
+backend/data/tickets.json
+backend/data/embed-cache.json
+
+# Uploads / local scratch
+uploads/
 
 # Python
 __pycache__/
 *.pyc
+venv/
 .venv/
+env/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

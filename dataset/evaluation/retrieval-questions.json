@@ -1,0 +1,362 @@
+[
+  {
+    "question": "What does the institution require for attendance shortage and recovery?",
+    "expected_sources": [
+      "academics/attendance-shortage.md"
+    ],
+    "department": "academics",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for attendance condonation request?",
+    "expected_sources": [
+      "academics/attendance-condonation.md"
+    ],
+    "department": "academics",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for course registration?",
+    "expected_sources": [
+      "academics/course-registration.md"
+    ],
+    "department": "academics",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for undergraduate admission eligibility?",
+    "expected_sources": [
+      "hr/eligibility-undergraduate.md"
+    ],
+    "department": "hr",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for application submission steps?",
+    "expected_sources": [
+      "hr/application-steps.md"
+    ],
+    "department": "hr",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for application deadline calendar?",
+    "expected_sources": [
+      "hr/application-deadlines.md"
+    ],
+    "department": "hr",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for lost institute id card?",
+    "expected_sources": [
+      "facilities/lost-id-card.md"
+    ],
+    "department": "facilities",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for faulty access card troubleshooting?",
+    "expected_sources": [
+      "facilities/faulty-access-card.md"
+    ],
+    "department": "facilities",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for temporary campus access pass?",
+    "expected_sources": [
+      "facilities/temporary-access-pass.md"
+    ],
+    "department": "facilities",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for tuition installment request?",
+    "expected_sources": [
+      "fees/tuition-installment-plan.md"
+    ],
+    "department": "fees",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for semester fee component explanation?",
+    "expected_sources": [
+      "fees/semester-fee-breakdown.md"
+    ],
+    "department": "fees",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for examination fee circular 2025?",
+    "expected_sources": [
+      "fees/exam-fee-circular-2025.md"
+    ],
+    "department": "fees",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for employee expense claim?",
+    "expected_sources": [
+      "finance/employee-expense-claim.md"
+    ],
+    "department": "finance",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for business travel pre-approval?",
+    "expected_sources": [
+      "finance/travel-preapproval.md"
+    ],
+    "department": "finance",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for travel reimbursement evidence?",
+    "expected_sources": [
+      "finance/travel-reimbursement.md"
+    ],
+    "department": "finance",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for campus contact directory use?",
+    "expected_sources": [
+      "general/campus-contact-directory.md"
+    ],
+    "department": "general",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for campus announcement submission?",
+    "expected_sources": [
+      "general/campus-announcement-submission.md"
+    ],
+    "department": "general",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for campus-wide event calendar?",
+    "expected_sources": [
+      "general/campus-event-calendar.md"
+    ],
+    "department": "general",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for recruitment requisition approval?",
+    "expected_sources": [
+      "hr/recruitment-approval.md"
+    ],
+    "department": "hr",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for employee onboarding checklist?",
+    "expected_sources": [
+      "hr/employee-onboarding-checklist.md"
+    ],
+    "department": "hr",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What does the institution require for employee id card replacement?",
+    "expected_sources": [
+      "hr/employee-id-replacement.md"
+    ],
+    "department": "hr",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for multi-factor authentication enrolment?",
+    "expected_sources": [
+      "it/mfa-enrolment.md"
+    ],
+    "department": "it",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for student account activation?",
+    "expected_sources": [
+      "it/student-account-creation.md"
+    ],
+    "department": "it",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for employee account provisioning?",
+    "expected_sources": [
+      "it/employee-account-provisioning.md"
+    ],
+    "department": "it",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for hostel application and eligibility?",
+    "expected_sources": [
+      "facilities/hostel-application.md"
+    ],
+    "department": "facilities",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for hostel room allocation?",
+    "expected_sources": [
+      "facilities/hostel-room-allocation.md"
+    ],
+    "department": "facilities",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for hostel room change request?",
+    "expected_sources": [
+      "facilities/hostel-room-change.md"
+    ],
+    "department": "facilities",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for library membership activation?",
+    "expected_sources": [
+      "library/library-membership.md"
+    ],
+    "department": "library",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for book borrowing limits?",
+    "expected_sources": [
+      "library/book-borrowing-limits.md"
+    ],
+    "department": "library",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for book return and receipt?",
+    "expected_sources": [
+      "library/book-return-procedure.md"
+    ],
+    "department": "library",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for bonafide certificate request?",
+    "expected_sources": [
+      "general/bonafide-certificate.md"
+    ],
+    "department": "general",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for official transcript delivery options?",
+    "expected_sources": [
+      "general/official-transcript-request.md"
+    ],
+    "department": "general",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for degree certificate application?",
+    "expected_sources": [
+      "general/degree-certificate-application.md"
+    ],
+    "department": "general",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for campus bus route map?",
+    "expected_sources": [
+      "transport/campus-bus-route-map.md"
+    ],
+    "department": "transport",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for campus bus timetable?",
+    "expected_sources": [
+      "transport/bus-timetable.md"
+    ],
+    "department": "transport",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for student bus pass application?",
+    "expected_sources": [
+      "transport/bus-pass-application.md"
+    ],
+    "department": "transport",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for research proposal intake?",
+    "expected_sources": [
+      "research/research-proposal-intake.md"
+    ],
+    "department": "research",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for internal research funding call?",
+    "expected_sources": [
+      "research/research-funding-call.md"
+    ],
+    "department": "research",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for external grant approval before submission?",
+    "expected_sources": [
+      "research/external-grant-approval.md"
+    ],
+    "department": "research",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for laboratory access induction?",
+    "expected_sources": [
+      "research/laboratory-access-induction.md"
+    ],
+    "department": "research",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for laboratory safety rules?",
+    "expected_sources": [
+      "research/lab-safety-rules.md"
+    ],
+    "department": "research",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for shared equipment booking?",
+    "expected_sources": [
+      "research/equipment-booking.md"
+    ],
+    "department": "research",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for campus emergency contact routing?",
+    "expected_sources": [
+      "security/campus-emergency-contacts.md"
+    ],
+    "department": "security",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for campus incident report intake?",
+    "expected_sources": [
+      "security/incident-reporting.md"
+    ],
+    "department": "security",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What does the institution require for fire alarm and evacuation?",
+    "expected_sources": [
+      "security/fire-alarm-evacuation.md"
+    ],
+    "department": "security",
+    "difficulty": "medium"
+  }
+]

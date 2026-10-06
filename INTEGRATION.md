@@ -2,18 +2,18 @@
 
 ## How it fits
 M1 (router, orchestrator, domain skills) calls M2 (merger) over HTTP.
-Adapter: `M1/services.py` → `RemoteMerger` (`_to_m2_input` is the only place
+Adapter: `backend/services.py` → `RemoteMerger` (`_to_m2_input` is the only place
 that maps M1's payload to M2's schema). V1 is still M1's own verifier.
 
 ## Start (3 things must be running)
-1. Ollama (`ollama list` should show the model named in M2/.env)
+1. Ollama (`ollama list` should show the model named in models/m2/.env)
 2. M2, from the Cortex folder:
    M2\.venv\Scripts\activate
    uvicorn M2.api:app --host 127.0.0.1 --port 9001 --env-file M2\.env
 3. M1, from Cortex\M1:
-   python api.py --mode demo --retrieval keyword --m2-url http://127.0.0.1:9001/merge
+   python -m backend.api --mode demo --retrieval keyword --m2-url http://127.0.0.1:9001/merge
 
-## M2/.env (copy from .env.example)
+## models/m2/.env (copy from .env.example)
 M2_ENDPOINT=http://127.0.0.1:11434/api/chat
 M2_MODEL=<exact name from `ollama list`>
 M2_TIMEOUT_SECONDS=50        # M2 retries once; 2x this must stay under M1's 110s
@@ -47,8 +47,8 @@ and opens the UI. Ctrl+C stops everything it started.
     python run.py --llm-route --llm-merge
     python run.py --frontend-port 5500   # UI served separately on :5500 (see CORS below)
 
-M2 runs under `M2/.venv` when one exists and reads `M2/.env` directly (no
-python-dotenv needed); the API runs under `M1/.venv` when present, else the
+M2 runs under `models/m2/.venv` when one exists and reads `models/m2/.env` directly (no
+python-dotenv needed); the API runs under `backend/.venv` when present, else the
 launcher's own interpreter. Ollama is optional — without it M1 falls back to
 keyword retrieval and the deterministic merge.
 
@@ -57,7 +57,7 @@ keyword retrieval and the deterministic merge.
 By default the API is same-origin only (`authorize()` rejects other origins). To
 serve the UI from a different origin — e.g. the VS Code Live Server — allowlist it:
 
-    python api.py --mode demo --allow-origin http://127.0.0.1:5500
+    python -m backend.api --mode demo --allow-origin http://127.0.0.1:5500
     # or: set CORTEX_ALLOWED_ORIGINS=http://127.0.0.1:5500
 
 then open the assistant with the API base set:

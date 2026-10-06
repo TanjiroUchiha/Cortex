@@ -1,0 +1,393 @@
+[
+  {
+    "question": "What does the protected record say about synthetic student course record stu-2026-001?",
+    "expected_sources": [
+      "academics/student-course-record.md"
+    ],
+    "department": "academics",
+    "required_role": "STUDENT",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "HR",
+    "required_user": "STU-2026-001",
+    "denied_user": "STU-2026-002"
+  },
+  {
+    "question": "What does the protected record say about admission document verification?",
+    "expected_sources": [
+      "hr/document-verification.md"
+    ],
+    "department": "hr",
+    "required_role": "STAFF",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about restricted-area access request?",
+    "expected_sources": [
+      "facilities/restricted-area-access.md"
+    ],
+    "department": "facilities",
+    "required_role": "FACILITIES",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about fee dispute evidence checklist?",
+    "expected_sources": [
+      "fees/fee-dispute-evidence.md"
+    ],
+    "department": "fees",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about employee expense claim?",
+    "expected_sources": [
+      "finance/employee-expense-claim.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about recruitment requisition approval?",
+    "expected_sources": [
+      "hr/recruitment-approval.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about multi-factor authentication enrolment?",
+    "expected_sources": [
+      "it/mfa-enrolment.md"
+    ],
+    "department": "it",
+    "required_role": "IT",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about hostel visitor registration?",
+    "expected_sources": [
+      "facilities/hostel-visitor-registration.md"
+    ],
+    "department": "facilities",
+    "required_role": "STAFF",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about library membership activation?",
+    "expected_sources": [
+      "library/library-membership.md"
+    ],
+    "department": "library",
+    "required_role": "LIBRARY",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about student record access request?",
+    "expected_sources": [
+      "general/student-record-access.md"
+    ],
+    "department": "general",
+    "required_role": "STAFF",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about transport accessibility review?",
+    "expected_sources": [
+      "transport/transport-access-review.md"
+    ],
+    "department": "transport",
+    "required_role": "STAFF",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about research proposal intake?",
+    "expected_sources": [
+      "research/research-proposal-intake.md"
+    ],
+    "department": "research",
+    "required_role": "FACULTY",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about chemical inventory and storage?",
+    "expected_sources": [
+      "research/chemical-inventory.md"
+    ],
+    "department": "research",
+    "required_role": "FACULTY",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about campus emergency contact routing?",
+    "expected_sources": [
+      "security/campus-emergency-contacts.md"
+    ],
+    "department": "security",
+    "required_role": "SECURITY",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about identity document requirements?",
+    "expected_sources": [
+      "hr/identity-document-rules.md"
+    ],
+    "department": "hr",
+    "required_role": "STAFF",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about after-hours building access?",
+    "expected_sources": [
+      "facilities/after-hours-building-access.md"
+    ],
+    "department": "facilities",
+    "required_role": "FACILITIES",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about financial hold release?",
+    "expected_sources": [
+      "fees/financial-hold-release.md"
+    ],
+    "department": "fees",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about procurement approval thresholds?",
+    "expected_sources": [
+      "finance/procurement-thresholds.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about vendor invoice submission?",
+    "expected_sources": [
+      "finance/vendor-invoice-submission.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about financial delegation matrix?",
+    "expected_sources": [
+      "finance/financial-delegation-matrix.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about department budget request?",
+    "expected_sources": [
+      "finance/department-budget-request.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT",
+    "required_entity": "CC-ENG-07",
+    "denied_entity": "CC-OTHER-09"
+  },
+  {
+    "question": "What does the protected record say about finance audit evidence retention?",
+    "expected_sources": [
+      "finance/finance-audit-evidence.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about supplier payment authorization?",
+    "expected_sources": [
+      "finance/payment-authorization.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about rejected expense claim review?",
+    "expected_sources": [
+      "finance/rejected-expense-appeal.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about institutional purchase receiving?",
+    "expected_sources": [
+      "finance/institutional-purchase-receiving.md"
+    ],
+    "department": "finance",
+    "required_role": "FINANCE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about employee attendance correction?",
+    "expected_sources": [
+      "hr/employee-attendance-correction.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about remote-work eligibility and review?",
+    "expected_sources": [
+      "hr/remote-work-eligibility.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about employee insurance claim support?",
+    "expected_sources": [
+      "hr/employee-insurance-claims.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about promotion case evidence?",
+    "expected_sources": [
+      "hr/promotion-case-evidence.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about employee resignation notice?",
+    "expected_sources": [
+      "hr/employee-resignation-notice.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about employee personal record correction?",
+    "expected_sources": [
+      "hr/employee-data-correction.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about employee data privacy request?",
+    "expected_sources": [
+      "hr/employee-data-privacy.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about workplace accommodation request?",
+    "expected_sources": [
+      "hr/workplace-accommodation.md"
+    ],
+    "department": "hr",
+    "required_role": "HR",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  },
+  {
+    "question": "What does the protected record say about synthetic leave case emp-1001?",
+    "expected_sources": [
+      "hr/leave-case-emp-1001.md"
+    ],
+    "department": "hr",
+    "required_role": "EMPLOYEE",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT",
+    "required_user": "EMP-1001",
+    "denied_user": "EMP-1002"
+  },
+  {
+    "question": "What does the protected record say about personal device network registration?",
+    "expected_sources": [
+      "it/network-device-registration.md"
+    ],
+    "department": "it",
+    "required_role": "IT",
+    "difficulty": "restricted",
+    "expected_access": "allow_for_required_principal",
+    "denied_role": "STUDENT"
+  }
+]

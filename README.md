@@ -66,7 +66,7 @@ first *retrieve* relevant documents, then *ground* the answer in them.
 | Piece | What Cortex uses | Why |
 |---|---|---|
 | Chunking | Docs split into ~1200-char paragraph chunks at index time | finer retrieval granularity |
-| Embeddings | `qwen3-embedding:8b` via local Ollama `/api/embed` | maps text to vectors; cosine similarity finds *meaningful* matches ("cant sign in" → "login help") |
+| Embeddings | `qwen3-embedding:0.6b` via local Ollama `/api/embed` | maps text to vectors; cosine similarity finds *meaningful* matches ("cant sign in" → "login help") |
 | Fallback retrieval | keyword/IDF token overlap (deterministic) | works with zero models — demo/offline path |
 | Answer | extractive — real sentences from retrieved chunks | can never invent a fact; citations are literal |
 | Optional per-skill prose | `--llm-answer` lets qwen3:4b rewrite the retrieved chunks into fluent 1–3 sentence answers | citations + evidence stay code-computed; a `NOT_COVERED` or dead model falls back to the extractive answer |
@@ -112,10 +112,10 @@ first *retrieve* relevant documents, then *ground* the answer in them.
 | `GET  /health` | liveness probe (frontend's connect check) |
 | `GET  /domains` | domain registry + titles |
 | `GET  /corpus` | real corpus contents — the UI's corpus browser reads this; each source carries a `format` shown as a DOCX/PDF/TXT badge |
-| `GET  /metrics` | request/clarify/resolved counters + `route.<domain>` routing mix (persisted to `data/metrics.json`) |
+| `GET  /metrics` | request/clarify/resolved counters + `route.<domain>` routing mix (persisted to `backend/data/metrics.json`) |
 | `GET  /models` | which model powers each stage + env override names |
 | `GET  /contracts` | service payload schemas |
-| `POST /corpus/upload` | add a `.md`/`.txt`/`.pdf`/`.docx` to a domain; indexed instantly, persisted to `data/corpus.d/` |
+| `POST /corpus/upload` | add a `.md`/`.txt`/`.pdf`/`.docx` to a domain; indexed instantly, persisted to `dataset/corpus.d/` |
 | `GET  /corpus/file/{doc_id}` | download the original file behind a corpus doc (404 when none) |
 
 Auth: `CORTEX_API_TOKEN` (env) → Bearer required on every endpoint; loopback +
@@ -126,64 +126,65 @@ same-origin otherwise. Docs at `/docs`.
 ## File structure
 
 ```
-Microhard/
-├── backend/               # ← this directory — the whole engine
+Cortex/
+├── run.py                 # launcher: boots models.m2 + backend.api, opens the UI
+├── frontend/              # the client (no engine inside)
+│   ├── landing.html       # landing page at / — live health/corpus/metrics stats
+│   ├── index.html         # assistant at /app (chat, pipeline panel, corpus browser)
+│   ├── login.html         # sign-in / signup / guest
+│   ├── styles.css         # dark/light themes, responsive, reduced-motion
+│   └── app.js             # pure API client: SSE pipeline, evidence, citations,
+│                          #   feedback, history, upload UI
+├── backend/               # the engine (FastAPI + pipeline)
+│   ├── api.py             # all endpoints, SSE streaming, auth, static mount, CLI
+│   ├── auth.py + db.py     # MongoDB Atlas accounts (users/admin_users), argon2, JWT, roles
+│   ├── orchestrator.py    # parallel skill dispatch, timeouts/retries, clarify→
+│                          #   handoff, confidence gate, merge/verify, metrics
+│   ├── store.py           # CorpusIndex (corpus load, chunking, IDF, keyword
+│                          #   retrieval, uploads) + SemanticIndex (Ollama
+│                          #   embeddings, cosine retrieval, cached vectors)
+│   ├── services.py        # HTTPHandler, OllamaRouter/KeywordRouter,
+│                          #   OllamaMerger/OllamaVerifier, service loaders
+│   ├── corpus_package.py  # expanded-corpus importer + YAML frontmatter parser
+│   ├── obs.py             # structured request/pipeline logging (contextvars)
+│   ├── service/           # live-mode service config examples
+│   └── data/              # runtime state (metrics, queries, tickets,
+│                          #   embed-cache — all gitignored)
+├── models/
 │   ├── m1.py              # M1 router contract: decision schema, parse_decision,
-│                          #   tokenizer/stopwords, keyword_scores, ambiguity
-│                          #   guards, LOCATION_WORDS + secondary_confirmed,
-│                          #   smalltalk vocabulary, Ollama route call
-├── orchestrator.py        # The spine: parallel skill dispatch, timeouts/retries,
-│                          #   clarify→handoff limit, confidence gate, invoke()
-│                          #   + validate_result(), merge/verify locals,
-│                          #   feedback + durable metrics
-├── store.py               # CorpusIndex: corpus load (corpus.json + corpus.d),
-│                          #   chunking, IDF, keyword retrieve/classify,
-│                          #   extractive summarize, smalltalk answers,
-│                          #   PDF/DOCX extraction, add_source (uploads)
-│                          #   SemanticIndex: OllamaEmbedder, cosine retrieve,
-│                          #   hybrid semantic/keyword classify — vectors cache
-│                          #   to data/embed-cache.json (restart = instant)
-├── services.py            # HTTPHandler (loopback/HTTPS rules, timeouts),
-│                          #   OllamaRouter / KeywordRouter / OllamaMerger /
-│                          #   OllamaVerifier, service registry loaders
-├── api.py                 # FastAPI: all endpoints, SSE streaming, auth gate,
-│                          #   static frontend mount, CLI flags, model warm-up
-├── evaluate_m1.py         # routing-accuracy scorer (--guarded for system-level)
-├── dataset.py             # routing dataset validation
-├── data/
-│   ├── corpus.json        # seed corpus (5 domains, 14 docs, synthetic)
-│   ├── corpus.d/<domain>/ # 54 authored drop-in docs (.md/.docx; uploads land here)
-│   ├── metrics.json       # durable counters (runtime-generated, gitignored)
-│   ├── queries.jsonl      # per-request analytics log (runtime-generated, gitignored)
-│   ├── tickets.json       # handoff ticket records (runtime-generated, gitignored)
-│   ├── embed-cache.json   # persisted embedding vectors (runtime-generated, gitignored)
-│   └── starter.json       # 76 labeled routing records (28 train/18 eval/12 test/18 heldout)
-│   ├── tests/             # 139 unittest + 3 node + 21 Playwright browser checks
-│   ├── AGENTS.md          # contributor guide (commands, contracts, limitations)
-│   └── .devin/services.example.json   # live-mode service config template
-│
-└── frontend/              # ← sibling of backend/ — the client (no engine inside)
-    ├── landing.html       # landing page at / — live health/corpus/metrics stats
-    ├── landing.css        # landing layout (shares styles.css tokens)
-    ├── index.html         # assistant at /app (chat, pipeline panel, corpus browser)
-    ├── styles.css         # dark/light themes, responsive, reduced-motion
-    └── app.js             # pure API client: SSE pipeline rendering, evidence,
-                           #   citations, feedback, history, upload UI — no engine
+│                          #   keyword_scores, ambiguity guards, smalltalk,
+│                          #   PACKAGE_DOMAIN folder→domain merge map
+│   ├── v1_checks.py       # V1 deterministic grounding verifier
+│   └── m2/                # M2 merger service (FastAPI package: api/service/
+│                          #   schemas/safety/demo/fixtures)
+├── dataset/
+│   ├── corpus.json        # seed corpus (14 docs, synthetic)
+│   ├── corpus.d/<category>/ # all document sources (11 folders → 6 domains); uploads land here
+│   ├── evaluation/        # 130 eval questions (retrieval/governance/multi/negative)
+│   ├── starter.json       # 76 labeled routing records (train/eval/test/heldout)
+│   ├── backcheck-tuning.json
+│   └── baseline-eval-*.json
+├── test/                  # unittest suite + eval/tuning tools
+│   ├── test_*.py          # auth, corpus, observability, V1 verifier
+│   ├── dataset.py         # routing dataset validation
+│   ├── evaluate_m1.py     # routing-accuracy scorer (--guarded = system level)
+│   ├── evaluate_corpus.py # 130-question corpus evaluation
+│   └── tune_*.py, probe_m2.py, run_queries.py
+└── AGENTS.md              # contributor guide (commands, contracts, limitations)
 ```
 
 ## Running it
 
 ```bash
-python run.py                              # one command from the repo root: M2 + M1, opens the UI
-python api.py --mode demo --port 8000      # landing at http://127.0.0.1:8000/ · assistant at /app
-python api.py --mode demo --llm-route      # qwen3:4B does the routing (slow on CPU)
-python api.py --mode demo --llm-merge --llm-verify   # LLM merger + verifier
-python -m unittest discover -s tests -v               # backend tests
-node --test tests/frontend.test.cjs                   # frontend unit tests
+python run.py                              # one command: M2 + M1, opens the UI
+python -m backend.api --mode demo --port 8000   # landing at :8000 · assistant at /app
+python -m backend.api --mode demo --llm-route   # qwen3:4B does the routing (slow on CPU)
+python -m backend.api --mode demo --llm-merge --llm-verify  # LLM merger + verifier
+python -m unittest discover -s test -v          # backend tests
 ```
 
-Ollama needs `qwen3-embedding:8b` pulled for semantic mode (`ollama pull
-qwen3-embedding:8b`); without it the API falls back to keyword retrieval.
+Ollama needs `qwen3-embedding:0.6b` pulled for semantic mode (`ollama pull
+qwen3-embedding:0.6b`); without it the API falls back to keyword retrieval.
 
 ---
 
@@ -207,8 +208,8 @@ qwen3-embedding:8b`); without it the API falls back to keyword retrieval.
 **Manav & Malay (the live-mode services):**
 - Remote M2 merger and V1 verifier (+ optionally remote domain skills) running
   as hosted services. When they ship, their endpoints go into
-  `.devin/services.local.json` (template at `.devin/services.example.json`)
-  and `python api.py --mode live` swaps the local merge/verify for their URLs —
+  `backend/service/services.local.json` (template at `backend/service/services.example.json`)
+  and `python -m backend.api --mode live` swaps the local merge/verify for their URLs —
   **no code changes needed**: the orchestrator already calls M2/V1 through the
   same `{response, citations}` / `{status, flags, explanation}` contracts, and
   `validate_result` will reject anything malformed.

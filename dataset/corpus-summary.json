@@ -1,0 +1,67 @@
+{
+  "total_documents": 502,
+  "source_documents_preserved": 54,
+  "new_documents_authored": 448,
+  "seed_sources_merged_into_related_documents": 14,
+  "documents_by_category": {
+    "academics": 69,
+    "facilities": 106,
+    "fees": 36,
+    "finance": 20,
+    "general": 50,
+    "hr": 59,
+    "it": 50,
+    "library": 21,
+    "research": 48,
+    "security": 18,
+    "transport": 25
+  },
+  "documents_by_type": {
+    "Checklist": 44,
+    "Eligibility rule": 44,
+    "Escalation procedure": 46,
+    "FAQ": 46,
+    "Guideline": 44,
+    "Institutional guidance": 54,
+    "Notice": 45,
+    "Policy": 46,
+    "Procedure": 45,
+    "SOP": 44,
+    "Troubleshooting guide": 44
+  },
+  "documents_by_sensitivity": {
+    "CONFIDENTIAL": 42,
+    "INTERNAL": 415,
+    "PUBLIC": 20,
+    "RESTRICTED": 25
+  },
+  "versioned_policy_families": 3,
+  "versioned_policy_documents": 6,
+  "evaluation_questions_total": 130,
+  "evaluation_questions_by_file": {
+    "retrieval-questions.json": 45,
+    "governance-questions.json": 35,
+    "multi-document-questions.json": 20,
+    "negative-questions.json": 30
+  },
+  "documents_by_word_count": {
+    "short_under_100_words": 107,
+    "medium_100_to_250_words": 371,
+    "long_251_to_1200_words": 24,
+    "very_long_over_1200_words": 0
+  },
+  "known_limitations": [
+    "This is a standalone 11-category corpus and is not loadable by the current five-domain Cortex router without application changes.",
+    "Access-control metadata is descriptive test data; the current application does not enforce it.",
+    "The long and very-long document bands are below the requested approximate distribution; add authored manuals before treating this as a full long-context benchmark."
+  ],
+  "validation": "Passed YAML, category, role, version-link, relationship-link, evaluation-source, duplicate-body and manifest consistency checks.",
+  "ignored_source_items": "Four two-byte extensionless artifacts in the existing corpus.d tree were left untouched and excluded as unsupported document formats.",
+  "reclassified_documents": 117,
+  "category_mapping": {
+    "admissions": "hr (source department remains Admissions in metadata)",
+    "student-services": "general",
+    "hostel": "facilities",
+    "labs": "research"
+  }
+}

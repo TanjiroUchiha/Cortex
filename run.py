@@ -14,9 +14,9 @@ merge, so the demo still answers.
 
 Ctrl+C stops every process this launcher started.
 
-The M2 service is loaded from ``M2/.env`` (read here, so ``python-dotenv`` is not
-required) and runs under ``M2/.venv`` when one exists; the API runs under the same
-interpreter as this launcher (or ``M1/.venv`` when present).
+The M2 service is loaded from ``models/m2/.env`` (read here, so ``python-dotenv`` is not
+required) and runs under ``models/m2/.venv`` when one exists; the API runs under the same
+interpreter as this launcher (or ``backend/.venv`` when present).
 """
 from __future__ import annotations
 
@@ -67,14 +67,26 @@ def health_ok(url: str) -> bool:
         return False
 
 
-def wait_for_health(url: str, timeout: float, label: str) -> bool:
+def wait_for_health(url: str, timeout: float, label: str, probe=None) -> bool:
+    probe = probe or health_ok
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        if health_ok(url):
+        if probe(url):
             print(f"  {label} ready.")
             return True
         time.sleep(0.4)
     return False
+
+
+def m2_already_up(base: str) -> bool:
+    """A Cortex M2 already listening? The service marker distinguishes a
+    stale-but-genuine M2 (safe to reuse) from a foreign process on the port."""
+    try:
+        with urllib.request.urlopen(base + "/health", timeout=2) as response:
+            body = json.loads(response.read())
+        return body.get("status") == "ok" and body.get("service") == "cortex-m2"
+    except (urllib.error.URLError, OSError, ValueError):
+        return False
 
 
 def cortex_already_up(url: str) -> bool:
@@ -124,7 +136,7 @@ def main() -> int:
     parser.add_argument("--m2-port", type=int, default=9001, help="M2 merger port")
     parser.add_argument("--no-m2", action="store_true", help="skip M2 (M1 uses its local merge)")
     parser.add_argument("--frontend-port", type=int, default=None,
-                        help="serve Frontend/ statically on this port as a separate origin "
+                        help="serve frontend/ statically on this port as a separate origin "
                              "(enables CORS on the API and opens that origin)")
     parser.add_argument("--retrieval", choices=("semantic", "keyword"), default="semantic",
                         help="M1 retrieval backend; semantic falls back to keyword without the model")
@@ -165,19 +177,25 @@ def main() -> int:
                 webbrowser.open(f"{api_url}/")
             return 0
         if not args.no_m2:
-            m2_env = {**os.environ, **load_env_file(ROOT / "M2" / ".env")}
-            m2_python = venv_python(ROOT / "M2") or sys.executable
-            m2_cmd = [m2_python, "-m", "uvicorn", "M2.api:app", "--host", "127.0.0.1",
-                      "--port", str(args.m2_port), "--log-level", "warning"]
-            children.append((start(m2_cmd, m2_env), "M2"))
-            print(f"  starting M2 on http://127.0.0.1:{args.m2_port} …")
-            if wait_for_health(f"http://127.0.0.1:{args.m2_port}/health", min(args.ready_timeout, 40), "M2"):
-                m2_url = f"http://127.0.0.1:{args.m2_port}/merge"
+            m2_base = f"http://127.0.0.1:{args.m2_port}"
+            if m2_already_up(m2_base):
+                print(f"  reusing the M2 already serving on {m2_base}")
+                m2_url = f"{m2_base}/merge"
             else:
-                print("  M2 did not come up — M1 will use its local merge.")
+                m2_env = {**os.environ, **load_env_file(ROOT / "models" / "m2" / ".env")}
+                m2_python = venv_python(ROOT / "models" / "m2") or sys.executable
+                m2_cmd = [m2_python, "-m", "uvicorn", "models.m2.api:app", "--host", "127.0.0.1",
+                          "--port", str(args.m2_port), "--log-level", "warning"]
+                children.append((start(m2_cmd, m2_env), "M2"))
+                print(f"  starting M2 on {m2_base} …")
+                if wait_for_health(f"{m2_base}/health", min(args.ready_timeout, 40), "M2",
+                                   probe=lambda u: m2_already_up(u.rsplit('/health', 1)[0])):
+                    m2_url = f"{m2_base}/merge"
+                else:
+                    print("  M2 did not come up — M1 will use its local merge.")
 
-        m1_python = venv_python(ROOT / "M1") or sys.executable
-        m1_cmd = [m1_python, str(ROOT / "M1" / "api.py"), "--mode", "demo",
+        m1_python = venv_python(ROOT / "backend") or sys.executable
+        m1_cmd = [m1_python, "-m", "backend.api", "--mode", "demo",
                   "--retrieval", args.retrieval, "--port", str(args.port)]
         for flag in ("llm_route", "llm_merge", "llm_verify", "llm_answer"):
             if getattr(args, flag):
@@ -192,9 +210,9 @@ def main() -> int:
 
         if args.frontend_port:
             fe_cmd = [sys.executable, "-m", "http.server", str(args.frontend_port),
-                      "--bind", "127.0.0.1", "--directory", str(ROOT / "Frontend")]
+                      "--bind", "127.0.0.1", "--directory", str(ROOT / "frontend")]
             children.append((start(fe_cmd, os.environ.copy()), "frontend"))
-            print(f"  serving Frontend/ on {ui_url} (separate origin) …")
+            print(f"  serving frontend/ on {ui_url} (separate origin) …")
 
         assistant_url = (f"{ui_url}/index.html?api={api_url}" if args.frontend_port else f"{api_url}/app")
         print(f"\n  Landing:   {api_url}/")

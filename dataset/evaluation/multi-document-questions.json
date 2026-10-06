@@ -1,0 +1,222 @@
+[
+  {
+    "question": "What must a graduating student clear before receiving final degree documents?",
+    "expected_sources": [
+      "academics/degree-requirements.md",
+      "fees/fee-clearance-for-graduation.md",
+      "library/library-clearance.md",
+      "facilities/hostel-checkout.md",
+      "general/student-no-dues-certificate.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "I lost my access card and need to enter my hostel tonight. What should I do?",
+    "expected_sources": [
+      "facilities/access-cards.md",
+      "facilities/lost-id-card.md",
+      "security/security-badge-lifecycle.md",
+      "facilities/hostel-access-badge.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "What is the correct process when an exam payment is pending but the bank shows a debit?",
+    "expected_sources": [
+      "fees/payment-failures.md",
+      "fees/online-payment-status.md",
+      "fees/fee-dispute-evidence.md",
+      "finance/payment-authorization.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "What should an employee complete when resigning, including system access and expense claims?",
+    "expected_sources": [
+      "hr/resignation-and-relieving.md",
+      "hr/exit-formalities.md",
+      "finance/employee-expense-claim.md",
+      "it/account-deactivation.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "How do I register for an exam and confirm the applicable fee?",
+    "expected_sources": [
+      "academics/exam-registration.md",
+      "academics/end-semester-examination.md",
+      "fees/exam-fees.md",
+      "fees/exam-fee-circular-2026.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "A hostel resident has a water leak and cannot reach the room because their badge is lost. Which steps and offices apply?",
+    "expected_sources": [
+      "facilities/hostel-room-maintenance.md",
+      "facilities/hostel-access-badge.md",
+      "facilities/plumbing-leak-response.md",
+      "security/campus-emergency-contacts.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "What approvals and records are needed to start externally funded research using a laboratory?",
+    "expected_sources": [
+      "research/external-grant-approval.md",
+      "research/research-ethics-review.md",
+      "research/laboratory-access-induction.md",
+      "research/lab-safety-rules.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "How do I arrange an accessible transport route to an accessible hostel room?",
+    "expected_sources": [
+      "transport/accessible-transport-request.md",
+      "facilities/hostel-accessibility-request.md",
+      "general/accessibility-support-plan.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "A student has an attendance shortage and an examination registration hold. Which academic review and account steps apply?",
+    "expected_sources": [
+      "academics/attendance-shortage.md",
+      "academics/attendance-condonation.md",
+      "academics/exam-registration.md",
+      "fees/financial-hold-release.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "How should a campus event request coordinate venue setup, visitor access, and evacuation planning?",
+    "expected_sources": [
+      "general/campus-event-calendar.md",
+      "facilities/event-infrastructure-request.md",
+      "security/contractor-check-in.md",
+      "security/fire-alarm-evacuation.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "Before collecting research participant data in a lab, what approvals, consent handling, and access induction are required?",
+    "expected_sources": [
+      "research/research-ethics-review.md",
+      "research/research-participant-consent.md",
+      "research/research-data-plan.md",
+      "research/laboratory-access-induction.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "An employee working remotely cannot access a research database. What HR approval, VPN steps, and library access rules should they check?",
+    "expected_sources": [
+      "hr/remote-work-eligibility.md",
+      "it/vpn-client-troubleshooting.md",
+      "it/remote-access-review.md",
+      "library/research-database-remote-access.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "What should an international applicant do to request admission, a scholarship review, and a hostel place?",
+    "expected_sources": [
+      "hr/international-applicant-checklist.md",
+      "hr/admission-scholarship-application.md",
+      "hr/hostel-request-at-admission.md",
+      "facilities/hostel-application.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "A library book is lost just before graduation. What library account, fee settlement, and no-dues steps are needed?",
+    "expected_sources": [
+      "library/lost-library-book.md",
+      "library/library-clearance.md",
+      "fees/library-fine-dispute.md",
+      "general/student-no-dues-certificate.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "A lab instrument fails during a booked experiment. How should the researcher preserve samples, report the fault, and arrange maintenance?",
+    "expected_sources": [
+      "research/equipment-booking.md",
+      "research/equipment-maintenance-tagout.md",
+      "research/sample-chain-of-custody.md",
+      "research/experiment-record-retention.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "What checks must happen before a department buys research equipment from a new vendor using a restricted award?",
+    "expected_sources": [
+      "finance/vendor-onboarding.md",
+      "finance/procurement-thresholds.md",
+      "finance/purchase-order-change.md",
+      "research/research-funding-restricted-access.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "A hostel resident's Wi-Fi works on one device but not another. Which device registration and support processes should be followed?",
+    "expected_sources": [
+      "facilities/hostel-wifi-support.md",
+      "it/network-device-registration.md",
+      "it/vpn-client-troubleshooting.md",
+      "it/it-helpdesk.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "What is needed to arrange an accessible examination room and accessible campus transport?",
+    "expected_sources": [
+      "academics/exam-room-accommodation.md",
+      "general/accessibility-support-plan.md",
+      "transport/accessible-transport-request.md",
+      "academics/exam-accommodation.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "How are payroll and account access handled when an employee's departure date is confirmed?",
+    "expected_sources": [
+      "hr/resignation-and-relieving.md",
+      "hr/exit-formalities.md",
+      "hr/payroll-and-payslips.md",
+      "it/account-deactivation.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  },
+  {
+    "question": "A fee payment was debited twice and the student needs graduation clearance. How should the payment trace and clearance review interact?",
+    "expected_sources": [
+      "fees/payment-failures.md",
+      "fees/fee-dispute-evidence.md",
+      "fees/fee-clearance-for-graduation.md",
+      "general/student-no-dues-certificate.md"
+    ],
+    "department": "cross-department",
+    "difficulty": "multi-document"
+  }
+]

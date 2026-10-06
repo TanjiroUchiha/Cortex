@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f8fa">
+<script>try { const t = localStorage.getItem('cortex.theme'); document.documentElement.dataset.theme = (t === 'dark' || t === 'light') ? t : (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'; }</script>
+<meta name="description" content="Cortex brings every department into one conversation — domain routing, cited answers, and transparent verification.">
+<title>Cortex — One Front Door</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%237e74ef'/%3E%3Cpath d='M43 20a17 17 0 1 0 0 24M22 32h25' fill='none' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=16">
+</head>
+<body>
+<svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-cortex" viewBox="0 0 24 24"><path d="M17.5 6.5a7.8 7.8 0 1 0 0 11M8 12h12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m6 11 6-6 6 6M12 5v14"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 2 1.5-6A8 8 0 1 1 20 11.5Z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5ZM20 2v4m-2-2h4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-it" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M9 9l-2 2 2 2m6-4 2 2-2 2"/></symbol>
+  <symbol id="i-hr" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-15a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5"/></symbol>
+  <symbol id="i-fees" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h4"/></symbol>
+  <symbol id="i-facilities" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18m0-12h8v12M2 21h20M8 7v1m0 4v1m0 4v1m8-5v1m0 3v1"/></symbol>
+  <symbol id="i-general" viewBox="0 0 24 24"><path d="M12 6C8 3 4 4 2 5v15c3-2 7-2 10 0 3-2 7-2 10 0V5c-2-1-6-2-10 1Zm0 0v14"/></symbol>
+  <symbol id="i-academics" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Zm4 3.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></symbol>
+  <symbol id="i-finance" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3m4 0h3M16 6V4H8v2"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 4h4v16H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm5 0h4v16H9V4Zm5 0 4-1 4 16-4 1-4-16Z"/></symbol>
+  <symbol id="i-research" viewBox="0 0 24 24"><path d="M9 3h6M10 3v5l-5.5 9.5A2.4 2.4 0 0 0 6.6 21h10.8a2.4 2.4 0 0 0 2.1-3.5L14 8V3M7 15h10"/></symbol>
+  <symbol id="i-security" viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6l-8-4Z"/><circle cx="12" cy="10" r="2.5"/><path d="M12 12.5V16"/></symbol>
+  <symbol id="i-transport" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="3"/><path d="M3 11h18M7 21l1-4m9 4-1-4"/><circle cx="8" cy="14" r="1"/><circle cx="16" cy="14" r="1"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8m-8 4h6"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 12h4m0 0V5h6m-6 7v7h6"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><path d="M5 4v3c0 5 7 4 7 9v5M19 4v3c0 5-7 4-7 9m-4 1 4 4 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M14 4v16m3-11h1m-1 4h1"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14A8.5 8.5 0 0 1 10 4a8.5 8.5 0 1 0 10 10Z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h17M8 15v-4m5 4V7m5 8v-6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+</svg>
+<a class="skip-link" href="#input">Skip to message</a>
+<div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="grid-overlay" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="app" id="app">
+
+  <!-- ─────────────── SIDEBAR ─────────────── -->
+  <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+    <div class="brand">
+      <a class="brand-home" href="/" title="Cortex home" aria-label="Back to the Cortex home page">
+        <span class="logo"><svg class="icon"><use href="#i-cortex"/></svg></span>
+        <span class="brand-text"><h1>Cortex<span class="brand-period">.</span></h1><p>One front door</p></span>
+      </a>
+      <button class="icon-btn panel-close" data-close-panel aria-label="Close navigation"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="workspace-label"><span class="workspace-mark">C</span><span>Campus workspace<small>Student edition</small></span></div>
+    <button class="new-chat" id="newChat" type="button"><svg class="icon"><use href="#i-plus"/></svg>New conversation</button>
+    <div class="history-heading"><div class="side-label">Recent conversations</div><span id="chatCount">0</span></div>
+    <div class="history-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input id="historySearch" type="search" placeholder="Search conversations" aria-label="Search conversations" autocomplete="off"></div>
+    <nav class="chat-list" id="chatList" aria-label="Conversation history"></nav>
+    <div class="side-label">Connected knowledge <span class="label-count">04</span><button class="text-btn peek-btn" id="browseCorpus" title="Peek inside the knowledge base">Peek inside</button></div>
+    <nav class="domain-list" id="domainList" aria-label="Explore knowledge domains"></nav>
+    <div class="side-spacer"></div>
+    <details class="sidebar-insights"><summary>Workspace activity <svg class="icon"><use href="#i-chart"/></svg></summary><div class="metrics-card">
+      <div class="metric-heading"><svg class="icon"><use href="#i-chart"/></svg><span>Backend counters</span><span class="tiny-dot"></span></div>
+      <div class="mini-metrics"><div><b id="mRequests">0</b><span>Requests</span></div><div><b id="mRouted">0</b><span>Answered</span></div><div><b id="mClarified">0</b><span>Clarified</span></div></div>
+      <div class="metric-row"><span>Resolved by user feedback</span><b id="mRes">—</b></div>
+      <div class="res-bar"><div class="res-fill" id="resFill"></div></div>
+    </div></details>
+    <div class="privacy-chip"><svg class="icon"><use href="#i-shield"/></svg><span>Local-first workspace<small>History in your browser. Queries and handoff records may be stored by the backend.</small></span></div>
+    <div class="sidebar-footer"><span>CORTEX / STUDENT EDITION</span><span>v0.1</span></div>
+  </aside>
+
+  <!-- ─────────────── CHAT ─────────────── -->
+  <main class="chat" id="chatMain">
+    <header class="chat-header">
+      <div class="header-title">
+        <button class="icon-btn mobile-menu" id="menuBtn" aria-label="Hide navigation" aria-controls="sidebar" aria-expanded="true"><span class="bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
+        <div><div class="breadcrumb">Workspace <span>/</span> Assistant</div><h2 id="conversationTitle">A little clarity, for everything.</h2></div>
+      </div>
+      <div class="header-tools">
+        <div class="user-wrap">
+          <button class="user-chip" id="userChip" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" title="Account">
+            <span class="user-avatar" id="userAvatar" aria-hidden="true"></span>
+            <span class="user-name" id="userBadge"></span>
+          </button>
+          <div class="user-menu" id="userMenu" role="menu" aria-label="Account menu" hidden>
+            <div class="user-menu-id">
+              <span id="userMenuName"></span>
+              <span class="user-role" id="userMenuRole"></span>
+              <span class="user-email" id="userMenuEmail"></span>
+            </div>
+            <button class="user-menu-item" id="logoutBtn" role="menuitem"><svg class="icon"><use href="#i-logout"/></svg>Sign out</button>
+          </div>
+        </div>
+        <button class="icon-btn" id="metricsBtn" title="Activity insights" aria-label="Open activity insights" aria-controls="metricsDrawer"><svg class="icon"><use href="#i-chart"/></svg></button>
+        <button type="button" class="theme-switch" id="themeBtn" role="switch" aria-checked="false" title="Switch color theme" aria-label="Switch to dark theme"></button>
+        <button class="icon-btn inspector-toggle" id="inspectorBtn" title="Sources and activity" aria-label="Hide sources and activity" aria-controls="pipelinePanel" aria-expanded="true"><svg class="icon"><use href="#i-panel"/></svg></button>
+      </div>
+    </header>
+    <div class="messages" id="messages" role="region" aria-label="Conversation" tabindex="0"></div>
+    <div class="composer">
+      <button class="jump-latest" id="jumpLatest" type="button" inert><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Jump to latest</button>
+      <div class="composer-shell">
+        <div class="composer-inner">
+          <label for="input" class="sr-only">Your question for Cortex</label>
+          <textarea id="input" rows="1" maxlength="4000" autocomplete="off" placeholder="Ask a question. We’ll find the right department." aria-describedby="composerHint"></textarea>
+          <button id="send" class="send-btn" aria-label="Send message" disabled>
+            <span class="orbits" aria-hidden="true"><i class="orb o1" style="--oc:var(--it)"></i><i class="orb o2" style="--oc:var(--hr)"></i><i class="orb o3" style="--oc:var(--fees)"></i><i class="orb o4" style="--oc:var(--facilities)"></i></span>
+            <svg class="icon"><use href="#i-send"/></svg>
+          </button>
+        </div>
+        <div class="composer-bottom">
+          <details class="scope-picker" id="scopePicker">
+            <summary aria-label="Choose departments"><svg class="icon"><use href="#i-route"/></svg><span id="scopeLabel">All departments</span><span aria-hidden="true">⌄</span></summary>
+            <div class="scope-popover"><div class="scope-header"><span>Search in</span><button id="resetScope" class="text-btn" type="button">Use all departments</button></div><p>Cortex routes automatically. Narrow the search only if you need to.</p><div class="filter-row" id="filterRow" role="group" aria-label="Search departments"></div></div>
+          </details>
+        </div>
+      </div>
+      <div class="composer-hint" id="composerHint"><span>Check sources before acting on an answer.</span></div>
+    </div>
+  </main>
+
+  <!-- ─────────────── PIPELINE PANEL ─────────────── -->
+  <aside class="pipeline" id="pipelinePanel" aria-label="Activity and sources">
+    <div class="inspector-heading"><div><span class="eyebrow">BEHIND THE ANSWER</span><h2>Your answer, explained.</h2></div><button class="icon-btn panel-close" data-close-panel aria-label="Close inspector"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <div class="inspector-idle" id="inspectorIdle"><span class="inspector-idle-icon"><svg class="icon"><use href="#i-doc"/></svg></span><h3>Every answer has a story.</h3><p>Ask a question to see the departments involved and the documents behind the response.</p><span class="inspector-idle-note">Sources appear here when available.</span></div>
+    <div class="inspector-content" id="inspectorContent" hidden>
+    <section class="routing-context" aria-label="Selected answer routing"><span class="side-label">Knowledge in this answer</span><div id="activeDomains"><span class="routing-empty">Your question sets the direction.</span></div><p id="routeConfidence" hidden></p></section>
+    <div class="run-summary"><span class="run-light"></span><span id="runStatus">Ready when you are</span><span id="runTime">—</span></div>
+    <div class="inspector-tabs" role="tablist" aria-label="Answer inspector"><button id="sourcesTab" class="inspector-tab on" role="tab" aria-selected="true" aria-controls="sourcesPanel">Sources<span id="sourceCount">0</span></button><button id="activityTab" class="inspector-tab" role="tab" aria-selected="false" aria-controls="activityPanel" tabindex="-1">Processing details<svg class="icon"><use href="#i-route"/></svg></button></div>
+    <section class="activity-panel" id="activityPanel" role="tabpanel" aria-labelledby="activityTab" hidden>
+      <div class="pipeline-progress" aria-hidden="true"><span id="pipelineProgress"></span></div>
+      <div class="pipe-track" id="pipeTrack">
+        <button class="pipe-node" data-stage="m1" aria-expanded="false" aria-controls="nodePop"><span class="node-head"><span class="node-symbol"><svg class="icon"><use href="#i-route"/></svg></span><span class="node-name">Understand & route</span><span class="node-badge">M1</span></span><span class="node-body" data-detail>Find the right knowledge domains</span><span class="node-state">01 <span>Waiting</span></span></button>
+        <div class="pipe-link"></div>
+        <button class="pipe-node" data-stage="skills" aria-expanded="false" aria-controls="nodePop"><span class="node-head"><span class="node-symbol"><svg class="icon"><use href="#i-search"/></svg></span><span class="node-name">Find the evidence</span><span class="node-badge">RAG</span></span><span class="node-body" data-detail>Search each department’s sources</span><span class="node-state">02 <span>Waiting</span></span></button>
+        <div class="pipe-link"></div>
+        <button class="pipe-node" data-stage="m2" aria-expanded="false" aria-controls="nodePop"><span class="node-head"><span class="node-symbol"><svg class="icon"><use href="#i-merge"/></svg></span><span class="node-name">Connect the answers</span><span class="node-badge">M2</span></span><span class="node-body" data-detail>Bring every part into one response</span><span class="node-state">03 <span>Waiting</span></span></button>
+        <div class="pipe-link"></div>
+        <button class="pipe-node" data-stage="v1" aria-expanded="false" aria-controls="nodePop"><span class="node-head"><span class="node-symbol"><svg class="icon"><use href="#i-shield"/></svg></span><span class="node-name">Check the sources</span><span class="node-badge">V1</span></span><span class="node-body" data-detail>Match citations with retrieved evidence</span><span class="node-state">04 <span>Waiting</span></span></button>
+      </div>
+      <div class="inspector-note"><svg class="icon"><use href="#i-spark"/></svg><p>Follow every step.<br><span>Select a stage to inspect its output.</span></p></div>
+    </section>
+    <section class="evidence-card" id="sourcesPanel" role="tabpanel" aria-labelledby="sourcesTab">
+      <div class="evidence-heading"><span class="side-label">Retrieved evidence</span><button class="sample-label corpus-link" id="browseCorpus2" type="button" title="Open the knowledge base browser">KNOWLEDGE BASE</button></div>
+      <div class="evidence-list" id="evidenceList"><div class="evidence-empty"><svg class="icon"><use href="#i-doc"/></svg><strong>Good answers leave a trail.</strong><p>Ask a question to see the source documents that support your answer.</p></div></div>
+    </section>
+    </div>
+  </aside>
+</div>
+
+<dialog class="conversation-dialog" id="conversationDialog" aria-labelledby="conversationDialogTitle" aria-describedby="conversationDialogNote">
+  <form id="conversationForm">
+    <div class="dialog-heading"><h2 id="conversationDialogTitle">Conversation settings</h2><button class="icon-btn" id="conversationClose" type="button" aria-label="Close conversation settings"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <p id="conversationDialogNote">Give this conversation a name you can find later.</p>
+    <label id="conversationNameField">Conversation name<input id="conversationName" type="text" maxlength="80" required autocomplete="off"></label>
+    <div class="dialog-actions"><button id="conversationDelete" class="danger-link" type="button">Delete…</button><button id="conversationCancel" class="dialog-secondary" type="button">Cancel</button><button id="conversationSave" class="dialog-primary" type="submit">Save name</button></div>
+  </form>
+</dialog>
+
+<template id="welcomeTemplate">
+  <div class="hero" id="hero">
+    <div class="hero-eyebrow"><span class="tiny-dot"></span>ONE ASSISTANT. EVERY DEPARTMENT.</div>
+    <div class="hero-network" aria-hidden="true">
+      <svg class="network-lines" viewBox="0 0 460 136" fill="none"><path class="beam-track" d="M50 46C130 46 142 68 230 68S320 34 410 34M112 114C154 114 178 68 230 68S308 110 356 110M230 15V68"/><path class="beam" d="M50 46C130 46 142 68 230 68S320 34 410 34M112 114C154 114 178 68 230 68S308 110 356 110M230 15V68"/></svg>
+      <div class="network-hub"><div class="hub-ring"></div><svg class="icon"><use href="#i-cortex"/></svg></div>
+      <span class="network-node n-it" style="--c:var(--it)"><svg class="icon"><use href="#i-it"/></svg><span>IT</span></span>
+      <span class="network-node n-hr" style="--c:var(--hr)"><svg class="icon"><use href="#i-hr"/></svg><span>HR</span></span>
+      <span class="network-node n-fees" style="--c:var(--fees)"><svg class="icon"><use href="#i-fees"/></svg><span>Fees</span></span>
+      <span class="network-node n-fac" style="--c:var(--facilities)"><svg class="icon"><use href="#i-facilities"/></svg><span>Facilities</span></span>
+      <span class="network-node n-gen" style="--c:var(--general)"><svg class="icon"><use href="#i-general"/></svg></span>
+    </div>
+    <h2 class="hero-title">What can we<br><span>clear up today?</span></h2>
+    <p class="hero-sub">From “I can’t log in” to “when are my fees due?”<br> One conversation. The right knowledge. A clear way forward.</p>
+    <div class="hero-proof"><span><svg class="icon"><use href="#i-route"/></svg>5 knowledge domains</span><span><svg class="icon"><use href="#i-doc"/></svg>Answers with sources</span></div>
+    <div class="suggestion-heading"><span>MAKE YOURSELF AT HOME</span><button class="text-btn" id="demoBtn"><svg class="icon"><use href="#i-play"/></svg>Try a multi-topic question</button></div>
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+</template>
+
+<!-- metrics drawer -->
+<div class="drawer-scrim" id="drawerScrim"></div>
+<aside class="drawer" id="metricsDrawer" role="dialog" aria-modal="true" aria-labelledby="metricsTitle" aria-hidden="true" inert>
+  <div class="drawer-head"><div><span class="eyebrow">WORKSPACE INSIGHTS</span><h3 id="metricsTitle">What the backend has answered.</h3></div><button class="icon-btn" id="drawerClose" aria-label="Close analytics"><svg class="icon"><use href="#i-close"/></svg></button></div>
+  <p class="drawer-intro">Actual backend activity. Resolution reflects submitted user feedback, not independently verified success across all requests.</p>
+  <div class="side-label">Conversations & routing</div><div class="drawer-grid" id="drawerCounters"></div>
+  <div class="side-label">Did we help?</div><div class="drawer-grid" id="drawerFeedback"></div>
+  <div class="side-label">Knowledge coverage</div><div class="drawer-domains" id="drawerDomains"></div>
+  <div id="svcPanel" hidden>
+    <div class="side-label">Connected service</div><div class="drawer-grid" id="svcCounters"></div>
+    <div class="side-label">Engine</div><dl class="engine-list" id="engineList"></dl>
+    <p class="drawer-note" id="svcNote"></p>
+  </div>
+  <p class="drawer-note">Counts are recorded by the backend and survive restarts.</p>
+</aside>
+
+<!-- pipeline node detail popover -->
+<div class="node-pop" id="nodePop" role="region" aria-label="Stage output" aria-hidden="true">
+  <div class="cc-head"><span class="cc-lights" aria-hidden="true"><i class="cc-dot r"></i><i class="cc-dot y"></i><i class="cc-dot g"></i></span><span class="cc-file" id="nodePopFile">stage.json</span><button class="icon-btn" id="popClose" aria-label="Close stage output"><svg class="icon"><use href="#i-close"/></svg></button></div>
+  <div class="inspector-stage-label">STAGE OUTPUT</div><pre class="cc-body" id="nodePopBody" tabindex="0"></pre>
+</div>
+<!-- corpus browser modal -->
+<aside class="corpus-modal" id="corpusModal" aria-hidden="true" aria-labelledby="corpusTitle" inert>
+  <div class="drawer-head"><div><span class="eyebrow">KNOWLEDGE BASE</span><h3 id="corpusTitle">What do you need help with?</h3></div><button class="icon-btn" id="corpusClose" aria-label="Close knowledge base"><svg class="icon"><use href="#i-close"/></svg></button></div>
+  <p class="drawer-intro">Every answer is retrieved from these documents. Open a folder to peek inside — nothing is searched that isn’t here.</p>
+  <div class="corpus-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="corpusSearch" placeholder="Search all documents…" aria-label="Search the knowledge base" autocomplete="off"></div>
+  <div class="corpus-upload" id="corpusUpload" hidden>
+    <select id="uploadDomain" aria-label="Department to add the document to"></select>
+    <label class="upload-drop continue-application" id="uploadDrop" tabindex="0" role="button"><div aria-hidden="true"><div class="pencil"></div><div class="folder"><div class="top"><svg viewBox="0 0 24 27"><path d="M1,0 L23,0 C23.55,0 24,0.45 24,1 L24,8.17 C24,8.7 23.79,9.21 23.41,9.59 L20.59,12.41 C20.21,12.79 20,13.3 20,13.83 L20,26 C20,26.55 19.55,27 19,27 L1,27 C0.45,27 0,26.55 0,26 L0,1 C0,0.45 0.45,0 1,0 Z"/></svg></div><div class="paper"></div></div></div>Add a document<input type="file" id="uploadFile" hidden accept=".md,.txt,.pdf,.docx"></label>
+    <span class="upload-hint" id="uploadHint">.md, .txt, .pdf or .docx — becomes part of the knowledge base</span>
+  </div>
+  <div class="corpus-shelf" id="corpusShelf"></div>
+  <div class="corpus-reader" id="corpusReader" hidden>
+    <button class="text-btn corpus-back" id="corpusBack" type="button">‹ Back to folders</button>
+    <div id="corpusReaderBody"></div>
+  </div>
+  <p class="drawer-note" id="corpusNote">Scope a question to one department with the sidebar list.</p>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="sr-only" id="liveStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+<script src="app.js?v=16"></script>
+</body>
+</html>
