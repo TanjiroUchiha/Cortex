@@ -159,7 +159,7 @@ Cortex/
 │                          #   schemas/safety/demo/fixtures)
 ├── dataset/
 │   ├── corpus.json        # seed corpus (14 docs, synthetic)
-│   ├── corpus.d/<category>/ # all document sources (11 folders → 6 domains); uploads land here
+│   ├── corpus.d/<domain>/  # all document sources (one folder per routing domain); uploads land here
 │   ├── evaluation/        # 130 eval questions (retrieval/governance/multi/negative)
 │   ├── starter.json       # 76 labeled routing records (train/eval/test/heldout)
 │   ├── backcheck-tuning.json

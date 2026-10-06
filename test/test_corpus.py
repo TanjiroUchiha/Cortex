@@ -19,15 +19,14 @@ from backend.store import CorpusIndex, document_source, load_documents
 from backend.orchestrator import Orchestrator
 
 EXPECTED_DOMAINS = {"it", "hr", "fees", "facilities", "general", "academics"}
-FOLDER_COUNTS = {"academics": 69, "facilities": 106, "fees": 36, "finance": 20,
-                 "general": 50, "hr": 59, "it": 50, "library": 21,
-                 "research": 48, "security": 18, "transport": 25}
-MOVED = {"hr": "admissions", "general": "student-services",
-         "facilities": "hostel", "academics": "labs"}
-# Effective-domain package counts after the folder->domain merge.
-MERGED_COUNTS = {"it": 50, "hr": 59, "fees": 36 + 20,
-                 "facilities": 106 + 18 + 25, "general": 50 + 21,
-                 "academics": 69 + 48}
+FOLDER_COUNTS = {"academics": 117, "facilities": 149, "fees": 56,
+                 "general": 71, "hr": 59, "it": 50}
+MOVED = {"hr": ["admissions"], "general": ["student-services", "library"],
+         "facilities": ["hostel", "security", "transport"],
+         "academics": ["labs", "research"], "fees": ["finance"]}
+# corpus.d folders are the routing domains now — library/finance/security/
+# transport/research were merged into their domains with original_category.
+MERGED_COUNTS = dict(FOLDER_COUNTS)
 EVAL_COUNTS = {"retrieval-questions.json": 45, "governance-questions.json": 35,
                "multi-document-questions.json": 20, "negative-questions.json": 30}
 
@@ -100,10 +99,11 @@ class PackageTests(unittest.TestCase):
             m = s["metadata"]
             self.assertNotEqual(m["original_category"], m["category"])
             self.assertTrue(m["department"])
-        for domain, prior in MOVED.items():
-            self.assertTrue(any(s["metadata"].get("original_category") == prior
-                                for s in self.corpus.documents[domain]["sources"].values()),
-                            f"no {prior} doc preserved under {domain}")
+        for domain, priors in MOVED.items():
+            for prior in priors:
+                self.assertTrue(any(s["metadata"].get("original_category") == prior
+                                    for s in self.corpus.documents[domain]["sources"].values()),
+                                f"no {prior} doc preserved under {domain}")
 
     def test_version_links_and_active_precedence(self):
         superseded = {doc_id: s for body in self.corpus.documents.values()

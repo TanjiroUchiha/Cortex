@@ -77,7 +77,7 @@ The application needs the enrolment number, programme, passing year and a fee pe
 The certificate is issued only after all no-dues clearances are recorded; a pending library or fees hold blocks printing.
 """
 
-BODIES["research/equipment-booking.md"] = """# Shared equipment booking
+BODIES["academics/equipment-booking.md"] = """# Shared equipment booking
 
 ## Summary
 Shared research equipment is booked through the lab booking system by trained users only. A user selects the instrument, picks a slot (maximum 4 hours core hours, longer overnight by approval), and records the project or grant code the usage will be charged to.
@@ -89,7 +89,7 @@ First use of any instrument requires the supervisor's authorization plus a compl
 Equipment leaving the lab for field work needs a signed equipment movement form approved by the lab manager.
 """
 
-BODIES["security/incident-reporting.md"] = """# Campus incident report intake
+BODIES["facilities/incident-reporting.md"] = """# Campus incident report intake
 
 ## Summary
 Any campus incident — theft, injury, safety hazard, harassment, security breach or suspicious activity — is reported to the Security Control Room on ext 4001 (24 hours) or the online incident form on the security portal. Emergencies go to the control room first; the form follows within 24 hours.
@@ -137,7 +137,7 @@ Applicants upload scans at application and present originals at first-day verifi
 An expired photo document is not acceptable; renewal receipts are accepted for up to 30 days while a replacement is issued.
 """
 
-BODIES["finance/institutional-purchase-receiving.md"] = """# Institutional purchase receiving
+BODIES["fees/institutional-purchase-receiving.md"] = """# Institutional purchase receiving
 
 ## Summary
 Institutional purchases are received only at the Central Stores loading dock. The delivery is checked against the purchase order and delivery note, inspected for damage, and a goods received note (GRN) is raised the same day. Payment to the supplier starts only after the GRN matches the PO and invoice.
@@ -209,7 +209,7 @@ While the replacement is printed, the desk issues a temporary access pass valid 
 If a lost card is later found, it must still be surrendered; access logs flag any swipe attempt on a deactivated card.
 """
 
-BODIES["security/security-badge-lifecycle.md"] = """# Security badge lifecycle
+BODIES["facilities/security-badge-lifecycle.md"] = """# Security badge lifecycle
 
 ## Summary
 A security badge moves through five stages: issue (printed after identity verification and photo), activation (enabled for the approved buildings), use (entries logged by door readers), renewal (re-validated each year or on role change), and return (surrendered and deactivated on exit). Badge access rights follow the holder's current role, not the issue date.
@@ -257,7 +257,7 @@ Regular exam fee is charged per registered course and backlog exams carry a high
 Bank debits without a portal receipt are resolved through the fee dispute process, not by re-paying immediately.
 """
 
-BODIES["research/external-grant-approval.md"] = """# External grant approval
+BODIES["academics/external-grant-approval.md"] = """# External grant approval
 
 ## Summary
 An externally funded research project needs four approvals before work starts: the principal investigator submits the proposal and budget to the Grants Office, the department head approves capacity, the Finance Office clears the budget and overhead rate, and the Ethics Committee approves any human or animal work. The Grants Office issues the award number after all four clear.
@@ -269,7 +269,7 @@ Submission is on the research portal at least 30 days before the funder deadline
 Spending before the award number is issued is not reimbursable even if the funder later confirms the grant.
 """
 
-BODIES["research/research-ethics-review.md"] = """# Research ethics review
+BODIES["academics/research-ethics-review.md"] = """# Research ethics review
 
 ## Summary
 Research involving human participants, animal subjects, personal data or hazardous materials requires Ethics Committee approval before the work begins. The principal investigator files the ethics application with the protocol, consent forms and risk assessment on the research portal.
@@ -281,7 +281,7 @@ Standard review returns a decision within 20 working days; expedited review cove
 Data collected before approval cannot be added to the study afterwards; the committee treats it as a protocol violation.
 """
 
-BODIES["research/laboratory-access-induction.md"] = """# Laboratory access induction
+BODIES["academics/laboratory-access-induction.md"] = """# Laboratory access induction
 
 ## Summary
 Laboratory access starts only after a three-step induction: the supervisor authorizes the person and project, the lab manager runs the safety induction covering hazards, PPE and emergency equipment, and Security activates badge access to the specific lab. The induction is logged against the person's record.
@@ -293,7 +293,7 @@ Inductions are run weekly; access activates within 2 working days of completion.
 An induction on one lab does not transfer to another; each lab has its own hazard briefing.
 """
 
-BODIES["research/lab-safety-rules.md"] = """# Lab safety rules
+BODIES["academics/lab-safety-rules.md"] = """# Lab safety rules
 
 ## Summary
 Core lab safety rules: PPE (lab coat, eye protection, closed shoes) is mandatory in wet labs, chemicals are handled only in the designated fume hoods, eating and drinking are banned, and every incident or spill is reported to the lab manager the same day. Lone working outside office hours needs supervisor approval.
@@ -353,7 +353,7 @@ Managers confirm the access list each quarter; exceptions need IT Security sign-
 Remote access is a requirement layered on top of VPN — holding a VPN account alone does not imply remote work approval.
 """
 
-BODIES["library/research-database-remote-access.md"] = """# Research database remote access
+BODIES["general/research-database-remote-access.md"] = """# Research database remote access
 
 ## Summary
 Library research databases are available off campus through the library remote-access proxy using campus credentials. From the library portal, choose the database and sign in once; sessions last 8 hours. Campus VPN also works and routes traffic the same way.
@@ -413,7 +413,7 @@ Disputes are filed on the fees portal within 14 days of the transaction. The Fee
 A bank debit without a portal reference usually means a gateway timeout; the payment is not treated as made until reconciliation posts it.
 """
 
-BODIES["finance/payment-authorization.md"] = """# Payment authorization
+BODIES["fees/payment-authorization.md"] = """# Payment authorization
 
 ## Summary
 Supplier payments are authorized under a two-person rule: the department certifies goods or services were received (via the GRN or service confirmation), and Finance releases payment after matching PO, GRN and invoice. No payment leaves without both signatures on the authorization record.

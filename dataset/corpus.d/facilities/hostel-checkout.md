@@ -28,7 +28,7 @@ preserved_seed_sources: []
 related_documents:
 - academics/degree-requirements.md
 - fees/fee-clearance-for-graduation.md
-- library/library-clearance.md
+- general/library-clearance.md
 - general/student-no-dues-certificate.md
 original_category: hostel
 access_level: Internal

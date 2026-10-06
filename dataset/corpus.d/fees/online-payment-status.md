@@ -28,7 +28,7 @@ preserved_seed_sources: []
 related_documents:
 - fees/payment-failures.md
 - fees/fee-dispute-evidence.md
-- finance/payment-authorization.md
+- fees/payment-authorization.md
 access_level: Internal
 synthetic: true
 relationship_clusters:

@@ -52,7 +52,7 @@ Leaks near electrical fittings or above ceilings are treated as emergencies — 
 Do not attempt DIY repair on building plumbing; warranty and insurance require the maintenance team to do the work.
 """
 
-BODIES["security/campus-emergency-contacts.md"] = """# Campus emergency contacts
+BODIES["facilities/campus-emergency-contacts.md"] = """# Campus emergency contacts
 
 ## Summary
 Campus emergency contacts: Security Control Room ext 4001 (24 hours, all incidents), medical emergency ext 4111, fire and evacuation ext 4222, Facilities emergency maintenance ext 4600, and the counselling crisis line ext 4333. The control room dispatches the right responder even when the wrong line is called.
@@ -112,7 +112,7 @@ The request includes the date, venue, expected audience, equipment needs and any
 Only approved calendar entries get visitor passes and facility setup; informal events are not supported by Facilities or Security.
 """
 
-BODIES["security/contractor-check-in.md"] = """# Contractor check-in
+BODIES["facilities/contractor-check-in.md"] = """# Contractor check-in
 
 ## Summary
 Contractors check in at the main gate security office on every visit: photo ID, work order or purchase order reference, and the sponsoring staff member's name are verified before a temporary contractor pass is issued. The pass is valid for the stated work window and buildings only.
@@ -124,7 +124,7 @@ The sponsor confirms the work order in advance; tools and equipment are logged a
 A contractor without a verified work order is turned away; Security cannot issue access on verbal confirmation.
 """
 
-BODIES["security/fire-alarm-evacuation.md"] = """# Fire alarm evacuation
+BODIES["facilities/fire-alarm-evacuation.md"] = """# Fire alarm evacuation
 
 ## Summary
 On a fire alarm, occupants evacuate by the nearest marked exit, close doors behind them, and assemble at the building's posted assembly point. Lifts are not used during an alarm. Floor wardens sweep their areas and report to the incident officer at the assembly point.
@@ -136,7 +136,7 @@ Re-entry is allowed only after Security or the fire service declares the buildin
 Visitors and contractors follow the same procedure; the sponsoring staff member accounts for them at the assembly point.
 """
 
-BODIES["research/research-data-plan.md"] = """# Research data plan
+BODIES["academics/research-data-plan.md"] = """# Research data plan
 
 ## Summary
 Before collecting research participant data, the project needs an approved data management plan covering what data is collected, consent handling, storage location, retention period and who may access it. The plan is filed with the ethics application and approved alongside it.
@@ -148,7 +148,7 @@ Participant consent is documented on the approved consent form; data with identi
 A breach or lost dataset is reported to the Ethics Committee and IT Security within 24 hours.
 """
 
-BODIES["research/equipment-maintenance-tagout.md"] = """# Equipment maintenance tagout
+BODIES["academics/equipment-maintenance-tagout.md"] = """# Equipment maintenance tagout
 
 ## Summary
 When lab equipment fails during an experiment, the researcher stops use, preserves samples under their handling protocol, and tags the instrument OUT OF SERVICE in the booking system so no one else books it. The fault is reported to the lab manager with the tagout reference.
@@ -160,7 +160,7 @@ The lab manager assigns a maintenance job; vendor service for warranty instrumen
 Using a tagged-out instrument is a safety violation and suspends booking rights.
 """
 
-BODIES["research/sample-chain-of-custody.md"] = """# Sample chain of custody
+BODIES["academics/sample-chain-of-custody.md"] = """# Sample chain of custody
 
 ## Summary
 Research samples are tracked under a chain of custody: each transfer records who collected, who received, the time, the storage condition and the sample identifier. The custody log travels with the sample and is part of the project's audit record.
@@ -172,7 +172,7 @@ Samples leaving the lab for analysis elsewhere get a custody form signed at both
 A sample without a complete custody record cannot be cited in project results or publications.
 """
 
-BODIES["finance/procurement-thresholds.md"] = """# Procurement thresholds
+BODIES["fees/procurement-thresholds.md"] = """# Procurement thresholds
 
 ## Summary
 Procurement thresholds set the approval route by value: small purchases under the departmental threshold need one quote and the budget head's approval; mid-value purchases need three quotes and Procurement review; high-value purchases above the institutional threshold go through competitive tender and the Finance Committee.
@@ -184,7 +184,7 @@ Threshold amounts are published on the finance portal and reviewed annually. Spl
 New vendors are onboarded before the first purchase order; quotes from unregistered vendors are not accepted.
 """
 
-BODIES["finance/purchase-order-change.md"] = """# Purchase order change
+BODIES["fees/purchase-order-change.md"] = """# Purchase order change
 
 ## Summary
 A purchase order change — quantity, price, specification or delivery date — is submitted as a change request on the procurement portal with the original PO number and the reason. The change needs the same approval level as the original order before the supplier is informed.
@@ -196,7 +196,7 @@ Price increases above the delegated limit route to the next approval tier. Chang
 A supplier's verbal agreement to a change is not binding; only the amended PO on the portal counts.
 """
 
-BODIES["finance/vendor-onboarding.md"] = """# Vendor onboarding
+BODIES["fees/vendor-onboarding.md"] = """# Vendor onboarding
 
 ## Summary
 A new vendor is onboarded before the first purchase order: the department submits the vendor registration form with the vendor's tax details, bank information and business registration. Finance verifies the details, runs a sanctions and duplicate check, and activates the vendor code within 5 working days.
@@ -208,7 +208,7 @@ Bank details are verified by callback to the vendor's known contact, not to the 
 Purchases from unregistered vendors are not paid; onboarding cannot be backdated to cover an order already placed.
 """
 
-BODIES["research/research-funding-restricted-access.md"] = """# Restricted research funding access
+BODIES["academics/research-funding-restricted-access.md"] = """# Restricted research funding access
 
 ## Summary
 Restricted awards — grants with funder-imposed conditions — can be spent only on the cost lines in the award letter. Before a department buys research equipment or services on a restricted award, the Grants Office confirms the item is an allowed cost and the funding code has balance.
@@ -292,7 +292,7 @@ A badge that stops working at the hostel gate is re-encoded at the hostel office
 The badge does not open other hostel blocks; guests are signed in at the warden's register instead.
 """
 
-BODIES["research/sample-chain-of-custody.md"] = BODIES["research/sample-chain-of-custody.md"]
+BODIES["academics/sample-chain-of-custody.md"] = BODIES["academics/sample-chain-of-custody.md"]
 
 changed = 0
 for rel, body in BODIES.items():

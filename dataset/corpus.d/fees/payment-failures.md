@@ -28,7 +28,7 @@ preserved_seed_sources: []
 related_documents:
 - fees/online-payment-status.md
 - fees/fee-dispute-evidence.md
-- finance/payment-authorization.md
+- fees/payment-authorization.md
 access_level: Internal
 synthetic: true
 source_file: M1/data/corpus.d/fees/payment-failures.md

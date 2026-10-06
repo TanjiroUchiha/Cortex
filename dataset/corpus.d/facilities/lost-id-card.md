@@ -27,7 +27,7 @@ origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents:
 - facilities/access-cards.md
-- security/security-badge-lifecycle.md
+- facilities/security-badge-lifecycle.md
 - facilities/hostel-access-badge.md
 access_level: Internal
 synthetic: true

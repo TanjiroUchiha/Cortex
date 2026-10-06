@@ -28,7 +28,7 @@ preserved_seed_sources: []
 related_documents:
 - hr/resignation-and-relieving.md
 - hr/exit-formalities.md
-- finance/employee-expense-claim.md
+- fees/employee-expense-claim.md
 access_level: Internal
 synthetic: true
 relationship_clusters:

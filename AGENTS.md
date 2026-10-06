@@ -3,10 +3,11 @@
 Domain-routed RAG assistant for the Student Edition challenge: one assistant that routes questions
 to the right knowledge area (6 routing domains: it, hr, fees, facilities, general, academics —
 `models.m1.DOMAIN_METADATA` is the registry), handles several topics in one
-chat, and asks to clarify when unsure. The expanded corpus's 11 folders fold into the 6
-routing domains via `models.m1.PACKAGE_DOMAIN` (finance→fees, security+transport→facilities,
-library→general, research→academics); each document keeps its package folder as
-`metadata.category` — provenance, not a routing label.
+chat, and asks to clarify when unsure. `dataset/corpus.d/` has one folder per routing
+domain; documents merged from former category folders (library→general, finance→fees,
+security+transport→facilities, research→academics, and earlier admissions/student-services/
+hostel/labs) keep provenance via `metadata.original_category` — `metadata.category` always
+equals the folder/domain.
 
 ## Layout
 
@@ -19,8 +20,8 @@ library→general, research→academics); each document keeps its package folder
 - `models/` — model-side contracts: `m1.py` (router), `v1_checks.py` (verifier),
   `m2/` (merger service package: `api.py`, `service.py`, `schemas.py`, `safety.py`,
   `demo.py`, `fixtures.py`).
-- `dataset/` — `corpus.json` seed, `corpus.d/` all document sources (11 category
-  folders mapped to 6 domains via `PACKAGE_DOMAIN`, `manifest.json` at its root),
+- `dataset/` — `corpus.json` seed, `corpus.d/` all document sources (one folder
+  per routing domain, `manifest.json` at its root),
   `evaluation/` (130 eval questions), `corpus-summary.json`, `starter.json` labeled
   routes, `backcheck-tuning.json`, `baseline-eval-*.json`.
 - `test/` — unittest suite (`test_*.py`) plus tools: `dataset.py`, `evaluate_m1.py`,
@@ -106,16 +107,17 @@ library→general, research→academics); each document keeps its package folder
   routing counters live in `/metrics` as `route.<domain>`.
 - `test/dataset.py` / `test/evaluate_m1.py` — routing dataset validation and accuracy scoring.
 - `dataset/corpus.json` — seed corpus (14 docs, synthetic, not authoritative) plus
-  `dataset/corpus.d/` — the single document store: 11 category folders
-  (`academics`, `facilities`, `fees`, `finance`, `general`, `hr`, `it`, `library`,
-  `research`, `security`, `transport`) holding the 502 expanded-corpus docs plus
-  12 authored drop-ins the package did not supersede. `manifest.json` lives at the
-  `corpus.d/` root; eval questions moved to `dataset/evaluation/`. `merge_doc_dir`
-  resolves folder→domain via `PACKAGE_DOMAIN` (library→general, finance→fees,
-  security+transport→facilities, research→academics). `corpus_package.py` parses
+  `dataset/corpus.d/` — the single document store: six domain folders
+  (`academics`, `facilities`, `fees`, `general`, `hr`, `it`) holding the 502
+  expanded-corpus docs plus 12 authored drop-ins the package did not supersede.
+  `manifest.json` lives at the `corpus.d/` root; eval questions moved to
+  `dataset/evaluation/`. `merge_doc_dir` resolves folder→domain via
+  `PACKAGE_DOMAIN` (legacy categories like `library` still fold to their domain
+  if a folder reappears). `corpus_package.py` parses
   frontmatter into structured `metadata` (never indexed as prose), preserves
-  `original_category`/`department` provenance for moved folders (admissions→hr,
-  student-services→general, hostel→facilities, labs→research), keeps `relative_path`,
+  `original_category`/`department` provenance for merged categories
+  (admissions→hr, student-services+library→general, hostel+security+transport→facilities,
+  labs+research→academics, finance→fees), keeps `relative_path`,
   and `version_eligible` suppresses `status: superseded` docs unless the query
   names their year. `evaluate_corpus.py` runs the 130-question suite
   (keyword or `semantic`, `--role` for tier-filtered runs).

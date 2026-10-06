@@ -27,7 +27,7 @@ origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents:
 - academics/degree-requirements.md
-- library/library-clearance.md
+- general/library-clearance.md
 - facilities/hostel-checkout.md
 - general/student-no-dues-certificate.md
 access_level: Internal

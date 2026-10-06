@@ -66,7 +66,7 @@
     {
       "document_id": "ACAD-ACADEMIC-CALENDAR-2025",
       "path": "academics/academic-calendar-2025.md",
-      "title": "Academic calendar 2025–26 archive",
+      "title": "Academic calendar 2025\u201326 archive",
       "category": "academics",
       "department": "Academic Affairs",
       "document_type": "Escalation procedure",
@@ -96,7 +96,7 @@
     {
       "document_id": "ACAD-ACADEMIC-CALENDAR-VERSION-2026",
       "path": "academics/academic-calendar-version-2026.md",
-      "title": "Academic calendar 2026–27 update",
+      "title": "Academic calendar 2026\u201327 update",
       "category": "academics",
       "department": "Academic Affairs",
       "document_type": "Troubleshooting guide",
@@ -971,7 +971,7 @@
       "preserved_seed_sources": [],
       "related_documents": [
         "fees/fee-clearance-for-graduation.md",
-        "library/library-clearance.md",
+        "general/library-clearance.md",
         "facilities/hostel-checkout.md",
         "general/student-no-dues-certificate.md"
       ]
@@ -2924,7 +2924,7 @@
       "preserved_seed_sources": [],
       "related_documents": [
         "facilities/lost-id-card.md",
-        "security/security-badge-lifecycle.md",
+        "facilities/security-badge-lifecycle.md",
         "facilities/hostel-access-badge.md"
       ]
     },
@@ -4097,7 +4097,7 @@
       "preserved_seed_sources": [],
       "related_documents": [
         "facilities/access-cards.md",
-        "security/security-badge-lifecycle.md",
+        "facilities/security-badge-lifecycle.md",
         "facilities/hostel-access-badge.md"
       ]
     },
@@ -5100,7 +5100,7 @@
       "preserved_seed_sources": [],
       "related_documents": [
         "academics/degree-requirements.md",
-        "library/library-clearance.md",
+        "general/library-clearance.md",
         "facilities/hostel-checkout.md",
         "general/student-no-dues-certificate.md"
       ]
@@ -5163,7 +5163,7 @@
       "related_documents": [
         "fees/payment-failures.md",
         "fees/online-payment-status.md",
-        "finance/payment-authorization.md"
+        "fees/payment-authorization.md"
       ]
     },
     {
@@ -5586,7 +5586,7 @@
       "related_documents": [
         "fees/payment-failures.md",
         "fees/fee-dispute-evidence.md",
-        "finance/payment-authorization.md"
+        "fees/payment-authorization.md"
       ]
     },
     {
@@ -5652,7 +5652,7 @@
       "related_documents": [
         "fees/online-payment-status.md",
         "fees/fee-dispute-evidence.md",
-        "finance/payment-authorization.md"
+        "fees/payment-authorization.md"
       ]
     },
     {
@@ -5869,9 +5869,9 @@
     },
     {
       "document_id": "FINA-BUDGET-TRANSFER-REQUEST",
-      "path": "finance/budget-transfer-request.md",
+      "path": "fees/budget-transfer-request.md",
       "title": "Budget transfer request",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -5895,13 +5895,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-DEPARTMENT-BUDGET-REQUEST",
-      "path": "finance/department-budget-request.md",
+      "path": "fees/department-budget-request.md",
       "title": "Department budget request",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Notice",
       "sensitivity": "RESTRICTED",
@@ -5924,13 +5925,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-DUPLICATE-EXPENSE-DETECTION",
-      "path": "finance/duplicate-expense-detection.md",
+      "path": "fees/duplicate-expense-detection.md",
       "title": "Duplicate expense claim controls",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -5954,13 +5956,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-EMPLOYEE-EXPENSE-CLAIM",
-      "path": "finance/employee-expense-claim.md",
+      "path": "fees/employee-expense-claim.md",
       "title": "Employee expense claim",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Eligibility rule",
       "sensitivity": "CONFIDENTIAL",
@@ -5985,13 +5988,14 @@
         "hr/resignation-and-relieving.md",
         "hr/exit-formalities.md",
         "it/account-deactivation.md"
-      ]
+      ],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-EXPENSE-LIMIT-EXCEPTIONS",
-      "path": "finance/expense-limit-exceptions.md",
+      "path": "fees/expense-limit-exceptions.md",
       "title": "Expense limit exception",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -6015,13 +6019,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-FINANCE-AUDIT-EVIDENCE",
-      "path": "finance/finance-audit-evidence.md",
+      "path": "fees/finance-audit-evidence.md",
       "title": "Finance audit evidence retention",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Escalation procedure",
       "sensitivity": "CONFIDENTIAL",
@@ -6042,13 +6047,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-FINANCIAL-DELEGATION-MATRIX",
-      "path": "finance/financial-delegation-matrix.md",
+      "path": "fees/financial-delegation-matrix.md",
       "title": "Financial delegation matrix",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Checklist",
       "sensitivity": "RESTRICTED",
@@ -6069,13 +6075,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-INSTITUTIONAL-PURCHASE-RECEIVING",
-      "path": "finance/institutional-purchase-receiving.md",
+      "path": "fees/institutional-purchase-receiving.md",
       "title": "Institutional purchase receiving",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Checklist",
       "sensitivity": "CONFIDENTIAL",
@@ -6096,13 +6103,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-PAYMENT-AUTHORIZATION",
-      "path": "finance/payment-authorization.md",
+      "path": "fees/payment-authorization.md",
       "title": "Supplier payment authorization",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Policy",
       "sensitivity": "RESTRICTED",
@@ -6127,13 +6135,14 @@
         "fees/payment-failures.md",
         "fees/online-payment-status.md",
         "fees/fee-dispute-evidence.md"
-      ]
+      ],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-PETTY-CASH-RECONCILIATION",
-      "path": "finance/petty-cash-reconciliation.md",
+      "path": "fees/petty-cash-reconciliation.md",
       "title": "Petty cash reconciliation",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -6157,13 +6166,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-PROCUREMENT-THRESHOLDS",
-      "path": "finance/procurement-thresholds.md",
+      "path": "fees/procurement-thresholds.md",
       "title": "Procurement approval thresholds",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Policy",
       "sensitivity": "CONFIDENTIAL",
@@ -6184,13 +6194,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-PURCHASE-ORDER-CHANGE",
-      "path": "finance/purchase-order-change.md",
+      "path": "fees/purchase-order-change.md",
       "title": "Purchase order change control",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -6214,13 +6225,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-REIMBURSEMENT-SERVICE-LEVEL",
-      "path": "finance/reimbursement-service-level.md",
+      "path": "fees/reimbursement-service-level.md",
       "title": "Reimbursement processing timeline",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -6244,13 +6256,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-REJECTED-EXPENSE-APPEAL",
-      "path": "finance/rejected-expense-appeal.md",
+      "path": "fees/rejected-expense-appeal.md",
       "title": "Rejected expense claim review",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "FAQ",
       "sensitivity": "CONFIDENTIAL",
@@ -6271,13 +6284,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-RESTRICTED-FUND-USE",
-      "path": "finance/restricted-fund-use.md",
+      "path": "fees/restricted-fund-use.md",
       "title": "Restricted grant and donor funds",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -6301,13 +6315,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-TAX-DOCUMENT-REQUEST",
-      "path": "finance/tax-document-request.md",
+      "path": "fees/tax-document-request.md",
       "title": "Employee tax document request",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -6331,13 +6346,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-TRAVEL-PREAPPROVAL",
-      "path": "finance/travel-preapproval.md",
+      "path": "fees/travel-preapproval.md",
       "title": "Business travel pre-approval",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -6361,13 +6377,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-TRAVEL-REIMBURSEMENT",
-      "path": "finance/travel-reimbursement.md",
+      "path": "fees/travel-reimbursement.md",
       "title": "Travel reimbursement evidence",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -6391,13 +6408,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-VENDOR-INVOICE-SUBMISSION",
-      "path": "finance/vendor-invoice-submission.md",
+      "path": "fees/vendor-invoice-submission.md",
       "title": "Vendor invoice submission",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "SOP",
       "sensitivity": "CONFIDENTIAL",
@@ -6418,13 +6436,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "FINA-VENDOR-ONBOARDING",
-      "path": "finance/vendor-onboarding.md",
+      "path": "fees/vendor-onboarding.md",
       "title": "Vendor onboarding checks",
-      "category": "finance",
+      "category": "fees",
       "department": "Finance",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -6448,7 +6467,8 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "finance"
     },
     {
       "document_id": "GENE-CAMPUS-ANNOUNCEMENT-SUBMISSION",
@@ -7257,7 +7277,7 @@
       "related_documents": [
         "facilities/access-cards.md",
         "facilities/lost-id-card.md",
-        "security/security-badge-lifecycle.md"
+        "facilities/security-badge-lifecycle.md"
       ],
       "original_category": "hostel"
     },
@@ -7354,7 +7374,7 @@
       "related_documents": [
         "academics/degree-requirements.md",
         "fees/fee-clearance-for-graduation.md",
-        "library/library-clearance.md",
+        "general/library-clearance.md",
         "general/student-no-dues-certificate.md"
       ],
       "original_category": "hostel"
@@ -8930,7 +8950,7 @@
       "preserved_seed_sources": [],
       "related_documents": [
         "hr/resignation-and-relieving.md",
-        "finance/employee-expense-claim.md",
+        "fees/employee-expense-claim.md",
         "it/account-deactivation.md"
       ]
     },
@@ -9451,7 +9471,7 @@
       "preserved_seed_sources": [],
       "related_documents": [
         "hr/exit-formalities.md",
-        "finance/employee-expense-claim.md",
+        "fees/employee-expense-claim.md",
         "it/account-deactivation.md"
       ]
     },
@@ -9600,7 +9620,7 @@
       "related_documents": [
         "hr/resignation-and-relieving.md",
         "hr/exit-formalities.md",
-        "finance/employee-expense-claim.md"
+        "fees/employee-expense-claim.md"
       ]
     },
     {
@@ -11057,9 +11077,9 @@
     },
     {
       "document_id": "LABS-BIOLOGICAL-MATERIAL-APPROVAL",
-      "path": "research/biological-material-approval.md",
+      "path": "academics/biological-material-approval.md",
       "title": "Biological material approval",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -11088,9 +11108,9 @@
     },
     {
       "document_id": "LABS-CHEMICAL-INVENTORY",
-      "path": "research/chemical-inventory.md",
+      "path": "academics/chemical-inventory.md",
       "title": "Chemical inventory and storage",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Troubleshooting guide",
       "sensitivity": "RESTRICTED",
@@ -11116,9 +11136,9 @@
     },
     {
       "document_id": "LABS-COMPUTING-CLUSTER-STORAGE",
-      "path": "research/computing-cluster-storage.md",
+      "path": "academics/computing-cluster-storage.md",
       "title": "Research cluster storage allocation",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -11147,9 +11167,9 @@
     },
     {
       "document_id": "LABS-EQUIPMENT-BOOKING",
-      "path": "research/equipment-booking.md",
+      "path": "academics/equipment-booking.md",
       "title": "Shared equipment booking",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -11178,9 +11198,9 @@
     },
     {
       "document_id": "LABS-EQUIPMENT-MAINTENANCE-TAGOUT",
-      "path": "research/equipment-maintenance-tagout.md",
+      "path": "academics/equipment-maintenance-tagout.md",
       "title": "Equipment maintenance and lockout",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -11209,9 +11229,9 @@
     },
     {
       "document_id": "LABS-GPU-CLUSTER-QUEUE",
-      "path": "research/gpu-cluster-queue.md",
+      "path": "academics/gpu-cluster-queue.md",
       "title": "GPU cluster job queue",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -11240,9 +11260,9 @@
     },
     {
       "document_id": "LABS-INSTRUMENT-CALIBRATION",
-      "path": "research/instrument-calibration.md",
+      "path": "academics/instrument-calibration.md",
       "title": "Instrument calibration record",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -11271,9 +11291,9 @@
     },
     {
       "document_id": "LABS-LAB-ACCESS-REVIEW",
-      "path": "research/lab-access-review.md",
+      "path": "academics/lab-access-review.md",
       "title": "Laboratory access recertification",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Eligibility rule",
       "sensitivity": "RESTRICTED",
@@ -11299,9 +11319,9 @@
     },
     {
       "document_id": "LABS-LAB-CLEANROOM-GOWNING",
-      "path": "research/lab-cleanroom-gowning.md",
+      "path": "academics/lab-cleanroom-gowning.md",
       "title": "Cleanroom gowning and entry",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -11330,9 +11350,9 @@
     },
     {
       "document_id": "LABS-LAB-COMPUTING-ACCOUNT",
-      "path": "research/lab-computing-account.md",
+      "path": "academics/lab-computing-account.md",
       "title": "Laboratory computing account",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -11361,9 +11381,9 @@
     },
     {
       "document_id": "LABS-LAB-EMERGENCY-SHOWER-INSPECTION",
-      "path": "research/lab-emergency-shower-inspection.md",
+      "path": "academics/lab-emergency-shower-inspection.md",
       "title": "Emergency shower and eyewash check",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -11392,9 +11412,9 @@
     },
     {
       "document_id": "LABS-LAB-EQUIPMENT-LOAN",
-      "path": "research/lab-equipment-loan.md",
+      "path": "academics/lab-equipment-loan.md",
       "title": "Portable lab equipment loan",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -11423,9 +11443,9 @@
     },
     {
       "document_id": "LABS-LAB-INCIDENT-REPORT",
-      "path": "research/lab-incident-report.md",
+      "path": "academics/lab-incident-report.md",
       "title": "Laboratory incident and near-miss report",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -11454,9 +11474,9 @@
     },
     {
       "document_id": "LABS-LAB-POWER-FAILURE",
-      "path": "research/lab-power-failure.md",
+      "path": "academics/lab-power-failure.md",
       "title": "Laboratory power failure response",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -11485,9 +11505,9 @@
     },
     {
       "document_id": "LABS-LAB-SAFETY-RULES",
-      "path": "research/lab-safety-rules.md",
+      "path": "academics/lab-safety-rules.md",
       "title": "Laboratory safety rules",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -11516,9 +11536,9 @@
     },
     {
       "document_id": "LABS-LAB-STANDARD-OPERATING-PROCEDURE",
-      "path": "research/lab-standard-operating-procedure.md",
+      "path": "academics/lab-standard-operating-procedure.md",
       "title": "Laboratory SOP review cycle",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -11547,9 +11567,9 @@
     },
     {
       "document_id": "LABS-LAB-TEMPERATURE-MONITORING",
-      "path": "research/lab-temperature-monitoring.md",
+      "path": "academics/lab-temperature-monitoring.md",
       "title": "Cold-storage temperature excursion",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -11578,9 +11598,9 @@
     },
     {
       "document_id": "LABS-LAB-VISITOR-SAFETY",
-      "path": "research/lab-visitor-safety.md",
+      "path": "academics/lab-visitor-safety.md",
       "title": "Laboratory visitor briefing",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -11609,9 +11629,9 @@
     },
     {
       "document_id": "LABS-LAB-WASTE-DISPOSAL",
-      "path": "research/lab-waste-disposal.md",
+      "path": "academics/lab-waste-disposal.md",
       "title": "Laboratory waste disposal",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -11640,9 +11660,9 @@
     },
     {
       "document_id": "LABS-LABORATORY-ACCESS-INDUCTION",
-      "path": "research/laboratory-access-induction.md",
+      "path": "academics/laboratory-access-induction.md",
       "title": "Laboratory access induction",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -11671,9 +11691,9 @@
     },
     {
       "document_id": "LABS-LASER-SAFETY-ACCESS",
-      "path": "research/laser-safety-access.md",
+      "path": "academics/laser-safety-access.md",
       "title": "Laser laboratory access",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -11702,9 +11722,9 @@
     },
     {
       "document_id": "LABS-MACHINE-SHOP-PERMIT",
-      "path": "research/machine-shop-permit.md",
+      "path": "academics/machine-shop-permit.md",
       "title": "Machine shop permit and supervision",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -11733,9 +11753,9 @@
     },
     {
       "document_id": "LABS-RESEARCH-LAB-BOOKING",
-      "path": "research/research-lab-booking.md",
+      "path": "academics/research-lab-booking.md",
       "title": "Research laboratory booking",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -11764,9 +11784,9 @@
     },
     {
       "document_id": "LABS-SAMPLE-CHAIN-OF-CUSTODY",
-      "path": "research/sample-chain-of-custody.md",
+      "path": "academics/sample-chain-of-custody.md",
       "title": "Sample chain-of-custody",
-      "category": "research",
+      "category": "academics",
       "department": "Laboratory Operations",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -11795,9 +11815,9 @@
     },
     {
       "document_id": "LIBR-BOOK-BORROWING-LIMITS",
-      "path": "library/book-borrowing-limits.md",
+      "path": "general/book-borrowing-limits.md",
       "title": "Book borrowing limits",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -11821,13 +11841,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-BOOK-RENEWAL",
-      "path": "library/book-renewal.md",
+      "path": "general/book-renewal.md",
       "title": "Book renewal and holds",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -11851,13 +11872,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-BOOK-RETURN-PROCEDURE",
-      "path": "library/book-return-procedure.md",
+      "path": "general/book-return-procedure.md",
       "title": "Book return and receipt",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -11881,13 +11903,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-DAMAGED-BOOK-REVIEW",
-      "path": "library/damaged-book-review.md",
+      "path": "general/damaged-book-review.md",
       "title": "Damaged library item review",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -11911,13 +11934,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-DIGITAL-LIBRARY-LOGIN",
-      "path": "library/digital-library-login.md",
+      "path": "general/digital-library-login.md",
       "title": "Digital library sign-in",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -11941,13 +11965,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-EBOOK-LOAN",
-      "path": "library/ebook-loan.md",
+      "path": "general/ebook-loan.md",
       "title": "E-book lending and download rules",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -11971,13 +11996,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-GROUP-STUDY-CONDUCT",
-      "path": "library/group-study-conduct.md",
+      "path": "general/group-study-conduct.md",
       "title": "Group study room conduct",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -12001,13 +12027,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-INTERLIBRARY-LOAN-REQUEST",
-      "path": "library/interlibrary-loan-request.md",
+      "path": "general/interlibrary-loan-request.md",
       "title": "Interlibrary loan request",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -12031,13 +12058,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-JOURNAL-ACCESS",
-      "path": "library/journal-access.md",
+      "path": "general/journal-access.md",
       "title": "Print journal and archive access",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -12061,13 +12089,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LIBRARY-CLEARANCE",
-      "path": "library/library-clearance.md",
+      "path": "general/library-clearance.md",
       "title": "Library clearance for graduation or exit",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Notice",
       "sensitivity": "RESTRICTED",
@@ -12093,13 +12122,14 @@
         "fees/fee-clearance-for-graduation.md",
         "facilities/hostel-checkout.md",
         "general/student-no-dues-certificate.md"
-      ]
+      ],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LIBRARY-COMPUTER-USE",
-      "path": "library/library-computer-use.md",
+      "path": "general/library-computer-use.md",
       "title": "Library computer use",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -12123,13 +12153,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LIBRARY-HOURS-EXAM-PERIOD",
-      "path": "library/library-hours-exam-period.md",
+      "path": "general/library-hours-exam-period.md",
       "title": "Library opening hours and exam periods",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -12153,13 +12184,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LIBRARY-MEMBERSHIP",
-      "path": "library/library-membership.md",
+      "path": "general/library-membership.md",
       "title": "Library membership activation",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Eligibility rule",
       "sensitivity": "RESTRICTED",
@@ -12180,13 +12212,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LIBRARY-PRINT-SCAN",
-      "path": "library/library-print-scan.md",
+      "path": "general/library-print-scan.md",
       "title": "Library printing and scanning",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -12210,13 +12243,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LIBRARY-SERVICES",
-      "path": "library/library-services.md",
+      "path": "general/library-services.md",
       "title": "Library",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Institutional guidance",
       "sensitivity": "INTERNAL",
@@ -12240,13 +12274,14 @@
       "superseded_by": null,
       "origin": "M1/data/corpus.d/general/library.md",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-LOST-LIBRARY-BOOK",
-      "path": "library/lost-library-book.md",
+      "path": "general/lost-library-book.md",
       "title": "Lost library book process",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -12270,13 +12305,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-OVERDUE-BOOK-RESPONSE",
-      "path": "library/overdue-book-response.md",
+      "path": "general/overdue-book-response.md",
       "title": "Overdue book reminder and fine",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -12300,13 +12336,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-QUIET-ZONE-GUIDANCE",
-      "path": "library/quiet-zone-guidance.md",
+      "path": "general/quiet-zone-guidance.md",
       "title": "Quiet-zone rules",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -12330,13 +12367,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-REFERENCE-BOOK-ACCESS",
-      "path": "library/reference-book-access.md",
+      "path": "general/reference-book-access.md",
       "title": "Reference book access",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -12360,13 +12398,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-RESEARCH-DATABASE-REMOTE-ACCESS",
-      "path": "library/research-database-remote-access.md",
+      "path": "general/research-database-remote-access.md",
       "title": "Research database remote access",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -12390,13 +12429,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "LIBR-STUDY-ROOM-RESERVATION",
-      "path": "library/study-room-reservation.md",
+      "path": "general/study-room-reservation.md",
       "title": "Study room reservation",
-      "category": "library",
+      "category": "general",
       "department": "Library Services",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -12420,13 +12460,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "library"
     },
     {
       "document_id": "RESE-CONFERENCE-TRAVEL-FUNDING",
-      "path": "research/conference-travel-funding.md",
+      "path": "academics/conference-travel-funding.md",
       "title": "Conference travel funding request",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -12450,13 +12491,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-EXPERIMENT-RECORD-RETENTION",
-      "path": "research/experiment-record-retention.md",
+      "path": "academics/experiment-record-retention.md",
       "title": "Research experiment record retention",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -12480,13 +12522,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-EXTERNAL-GRANT-APPROVAL",
-      "path": "research/external-grant-approval.md",
+      "path": "academics/external-grant-approval.md",
       "title": "External grant approval before submission",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -12510,13 +12553,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-PATENT-INVENTION-DISCLOSURE",
-      "path": "research/patent-invention-disclosure.md",
+      "path": "academics/patent-invention-disclosure.md",
       "title": "Invention disclosure and patent review",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -12540,13 +12584,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-PUBLICATION-AFFILIATION",
-      "path": "research/publication-affiliation.md",
+      "path": "academics/publication-affiliation.md",
       "title": "Publication affiliation and acknowledgement",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -12570,13 +12615,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-AWARD-AMENDMENT",
-      "path": "research/research-award-amendment.md",
+      "path": "academics/research-award-amendment.md",
       "title": "Research award amendment request",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -12600,13 +12646,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-BUDGET-MONITORING",
-      "path": "research/research-budget-monitoring.md",
+      "path": "academics/research-budget-monitoring.md",
       "title": "Research award budget monitoring",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -12630,13 +12677,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-CLOSURE-CHECKLIST",
-      "path": "research/research-closure-checklist.md",
+      "path": "academics/research-closure-checklist.md",
       "title": "Research award closeout checklist",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Guideline",
       "sensitivity": "INTERNAL",
@@ -12660,13 +12708,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-COLLABORATION-AGREEMENT",
-      "path": "research/research-collaboration-agreement.md",
+      "path": "academics/research-collaboration-agreement.md",
       "title": "Research collaboration agreement",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Policy",
       "sensitivity": "CONFIDENTIAL",
@@ -12687,13 +12736,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-COMPUTING-REQUEST",
-      "path": "research/research-computing-request.md",
+      "path": "academics/research-computing-request.md",
       "title": "Research computing resource request",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -12717,13 +12767,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-CONFLICT-DISCLOSURE",
-      "path": "research/research-conflict-disclosure.md",
+      "path": "academics/research-conflict-disclosure.md",
       "title": "Research conflict-of-interest disclosure",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -12747,13 +12798,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-DATA-PLAN",
-      "path": "research/research-data-plan.md",
+      "path": "academics/research-data-plan.md",
       "title": "Research data management plan",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Checklist",
       "sensitivity": "RESTRICTED",
@@ -12774,13 +12826,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-DATA-SHARING",
-      "path": "research/research-data-sharing.md",
+      "path": "academics/research-data-sharing.md",
       "title": "Research data sharing approval",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -12804,13 +12857,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-ETHICS-REVIEW",
-      "path": "research/research-ethics-review.md",
+      "path": "academics/research-ethics-review.md",
       "title": "Research ethics review submission",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Guideline",
       "sensitivity": "CONFIDENTIAL",
@@ -12831,13 +12885,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-FIELDWORK-SAFETY",
-      "path": "research/research-fieldwork-safety.md",
+      "path": "academics/research-fieldwork-safety.md",
       "title": "Research fieldwork safety plan",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -12861,13 +12916,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-FUNDING-CALL",
-      "path": "research/research-funding-call.md",
+      "path": "academics/research-funding-call.md",
       "title": "Internal research funding call",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -12891,13 +12947,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-FUNDING-RESTRICTED-ACCESS",
-      "path": "research/research-funding-restricted-access.md",
+      "path": "academics/research-funding-restricted-access.md",
       "title": "Restricted research award record",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "SOP",
       "sensitivity": "RESTRICTED",
@@ -12920,13 +12977,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-INTELLECTUAL-PROPERTY",
-      "path": "research/research-intellectual-property.md",
+      "path": "academics/research-intellectual-property.md",
       "title": "Research intellectual property disclosure",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -12950,13 +13008,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-MATERIAL-TRANSFER",
-      "path": "research/research-material-transfer.md",
+      "path": "academics/research-material-transfer.md",
       "title": "Research material transfer request",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -12980,13 +13039,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-MISCONDUCT-REPORT",
-      "path": "research/research-misconduct-report.md",
+      "path": "academics/research-misconduct-report.md",
       "title": "Research integrity concern reporting",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -13010,13 +13070,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-OPEN-ACCESS",
-      "path": "research/research-open-access.md",
+      "path": "academics/research-open-access.md",
       "title": "Open access and repository deposit",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Notice",
       "sensitivity": "CONFIDENTIAL",
@@ -13037,13 +13098,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-PARTICIPANT-CONSENT",
-      "path": "research/research-participant-consent.md",
+      "path": "academics/research-participant-consent.md",
       "title": "Participant consent record handling",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -13067,13 +13129,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-RESEARCH-PROPOSAL-INTAKE",
-      "path": "research/research-proposal-intake.md",
+      "path": "academics/research-proposal-intake.md",
       "title": "Research proposal intake",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Troubleshooting guide",
       "sensitivity": "CONFIDENTIAL",
@@ -13094,13 +13157,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "RESE-TECHNOLOGY-TRANSFER-REVIEW",
-      "path": "research/technology-transfer-review.md",
+      "path": "academics/technology-transfer-review.md",
       "title": "Technology transfer and licensing review",
-      "category": "research",
+      "category": "academics",
       "department": "Research Office",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -13124,13 +13188,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "research"
     },
     {
       "document_id": "SECU-ACCEPTABLE-USE-POLICY",
-      "path": "security/acceptable-use-policy.md",
+      "path": "facilities/acceptable-use-policy.md",
       "title": "Campus acceptable use rules",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -13154,13 +13219,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-AFTER-HOURS-SECURITY-CHECK",
-      "path": "security/after-hours-security-check.md",
+      "path": "facilities/after-hours-security-check.md",
       "title": "After-hours campus safety check",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -13184,13 +13250,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-CAMPUS-EMERGENCY-CONTACTS",
-      "path": "security/campus-emergency-contacts.md",
+      "path": "facilities/campus-emergency-contacts.md",
       "title": "Campus emergency contact routing",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Troubleshooting guide",
       "sensitivity": "CONFIDENTIAL",
@@ -13211,13 +13278,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-CCTV-ACCESS-AND-RETENTION",
-      "path": "security/cctv-access-and-retention.md",
+      "path": "facilities/cctv-access-and-retention.md",
       "title": "CCTV access and retention request",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "FAQ",
       "sensitivity": "RESTRICTED",
@@ -13238,13 +13306,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-CONTRACTOR-CHECK-IN",
-      "path": "security/contractor-check-in.md",
+      "path": "facilities/contractor-check-in.md",
       "title": "Contractor campus access",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -13268,13 +13337,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-EMERGENCY-COMMAND-POST",
-      "path": "security/emergency-command-post.md",
+      "path": "facilities/emergency-command-post.md",
       "title": "Emergency command post access",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -13298,13 +13368,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-EMERGENCY-RESPONSE-COORDINATION",
-      "path": "security/emergency-response-coordination.md",
+      "path": "facilities/emergency-response-coordination.md",
       "title": "Emergency response coordination",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -13328,13 +13399,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-EMERGENCY-SHELTER-IN-PLACE",
-      "path": "security/emergency-shelter-in-place.md",
+      "path": "facilities/emergency-shelter-in-place.md",
       "title": "Shelter-in-place notice",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -13358,13 +13430,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-FIRE-ALARM-EVACUATION",
-      "path": "security/fire-alarm-evacuation.md",
+      "path": "facilities/fire-alarm-evacuation.md",
       "title": "Fire alarm and evacuation",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -13388,13 +13461,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-INCIDENT-REPORTING",
-      "path": "security/incident-reporting.md",
+      "path": "facilities/incident-reporting.md",
       "title": "Campus incident report intake",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Escalation procedure",
       "sensitivity": "INTERNAL",
@@ -13418,13 +13492,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-INFORMATION-SECURITY-CLASSIFICATION",
-      "path": "security/information-security-classification.md",
+      "path": "facilities/information-security-classification.md",
       "title": "Institutional information classification",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -13448,13 +13523,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-LOST-AND-FOUND",
-      "path": "security/lost-and-found.md",
+      "path": "facilities/lost-and-found.md",
       "title": "Lost and found",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Institutional guidance",
       "sensitivity": "CONFIDENTIAL",
@@ -13475,13 +13551,14 @@
       "superseded_by": null,
       "origin": "M1/data/corpus.d/general/lost-and-found.md",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-PRIVACY-INCIDENT-ESCALATION",
-      "path": "security/privacy-incident-escalation.md",
+      "path": "facilities/privacy-incident-escalation.md",
       "title": "Privacy incident escalation",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -13505,13 +13582,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-RESTRICTED-AREA-SECURITY",
-      "path": "security/restricted-area-security.md",
+      "path": "facilities/restricted-area-security.md",
       "title": "Restricted area security control",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Procedure",
       "sensitivity": "RESTRICTED",
@@ -13532,13 +13610,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-SECURITY-BADGE-LIFECYCLE",
-      "path": "security/security-badge-lifecycle.md",
+      "path": "facilities/security-badge-lifecycle.md",
       "title": "Security badge issue and disablement",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Guideline",
       "sensitivity": "CONFIDENTIAL",
@@ -13563,13 +13642,14 @@
         "facilities/access-cards.md",
         "facilities/lost-id-card.md",
         "facilities/hostel-access-badge.md"
-      ]
+      ],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-SECURITY-CASE-SYNTHETIC",
-      "path": "security/security-case-synthetic.md",
+      "path": "facilities/security-case-synthetic.md",
       "title": "Synthetic restricted security case SEC-2026-008",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "FAQ",
       "sensitivity": "RESTRICTED",
@@ -13590,13 +13670,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-SECURITY-INCIDENT-EVIDENCE",
-      "path": "security/security-incident-evidence.md",
+      "path": "facilities/security-incident-evidence.md",
       "title": "Security incident evidence preservation",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Policy",
       "sensitivity": "CONFIDENTIAL",
@@ -13617,13 +13698,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "SECU-VISITOR-PASSES",
-      "path": "security/visitor-passes.md",
+      "path": "facilities/visitor-passes.md",
       "title": "Visitor passes and gate entry",
-      "category": "security",
+      "category": "facilities",
       "department": "Campus Security",
       "document_type": "Institutional guidance",
       "sensitivity": "CONFIDENTIAL",
@@ -13644,7 +13726,8 @@
       "superseded_by": null,
       "origin": "M1/data/corpus.d/general/visitor-passes.md",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "security"
     },
     {
       "document_id": "STUD-ACCESSIBILITY-SUPPORT-PLAN",
@@ -14266,7 +14349,7 @@
       "related_documents": [
         "academics/degree-requirements.md",
         "fees/fee-clearance-for-graduation.md",
-        "library/library-clearance.md",
+        "general/library-clearance.md",
         "facilities/hostel-checkout.md"
       ],
       "original_category": "student-services"
@@ -14456,9 +14539,9 @@
     },
     {
       "document_id": "TRAN-ACCESSIBLE-TRANSPORT-REQUEST",
-      "path": "transport/accessible-transport-request.md",
+      "path": "facilities/accessible-transport-request.md",
       "title": "Accessible transport accommodation",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -14482,13 +14565,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-BUS-PASS-APPLICATION",
-      "path": "transport/bus-pass-application.md",
+      "path": "facilities/bus-pass-application.md",
       "title": "Student bus pass application",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -14512,13 +14596,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-BUS-SAFETY-GUIDELINES",
-      "path": "transport/bus-safety-guidelines.md",
+      "path": "facilities/bus-safety-guidelines.md",
       "title": "Passenger bus safety guidelines",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Escalation procedure",
       "sensitivity": "PUBLIC",
@@ -14548,13 +14633,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-BUS-STOP-SAFETY",
-      "path": "transport/bus-stop-safety.md",
+      "path": "facilities/bus-stop-safety.md",
       "title": "Bus stop safety and queueing",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -14578,13 +14664,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-BUS-TIMETABLE",
-      "path": "transport/bus-timetable.md",
+      "path": "facilities/bus-timetable.md",
       "title": "Campus bus timetable",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -14608,13 +14695,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-CAMPUS-BUS-ROUTE-MAP",
-      "path": "transport/campus-bus-route-map.md",
+      "path": "facilities/campus-bus-route-map.md",
       "title": "Campus bus route map",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Escalation procedure",
       "sensitivity": "PUBLIC",
@@ -14644,13 +14732,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-DRIVER-CONDUCT-REPORT",
-      "path": "transport/driver-conduct-report.md",
+      "path": "facilities/driver-conduct-report.md",
       "title": "Bus driver conduct report",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -14674,13 +14763,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-DUPLICATE-BUS-PASS",
-      "path": "transport/duplicate-bus-pass.md",
+      "path": "facilities/duplicate-bus-pass.md",
       "title": "Duplicate bus pass request",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -14704,13 +14794,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-EMERGENCY-TRANSPORT",
-      "path": "transport/emergency-transport.md",
+      "path": "facilities/emergency-transport.md",
       "title": "Emergency campus transport",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Eligibility rule",
       "sensitivity": "INTERNAL",
@@ -14734,13 +14825,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-LATE-BUS-REPORT",
-      "path": "transport/late-bus-report.md",
+      "path": "facilities/late-bus-report.md",
       "title": "Late or missed bus report",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Guideline",
       "sensitivity": "PUBLIC",
@@ -14770,13 +14862,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-LOST-BUS-PASS",
-      "path": "transport/lost-bus-pass.md",
+      "path": "facilities/lost-bus-pass.md",
       "title": "Lost bus pass response",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -14800,13 +14893,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-PARKING-ACCESSIBILITY-BAY",
-      "path": "transport/parking-accessibility-bay.md",
+      "path": "facilities/parking-accessibility-bay.md",
       "title": "Accessible parking and drop-off",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "FAQ",
       "sensitivity": "INTERNAL",
@@ -14830,13 +14924,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-ROUTE-CHANGE-REQUEST",
-      "path": "transport/route-change-request.md",
+      "path": "facilities/route-change-request.md",
       "title": "Requesting a route change",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Checklist",
       "sensitivity": "INTERNAL",
@@ -14860,13 +14955,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSIT-CONDUCT",
-      "path": "transport/transit-conduct.md",
+      "path": "facilities/transit-conduct.md",
       "title": "Passenger conduct on institutional transport",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Escalation procedure",
       "sensitivity": "PUBLIC",
@@ -14896,13 +14992,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-ACCESS-REVIEW",
-      "path": "transport/transport-access-review.md",
+      "path": "facilities/transport-access-review.md",
       "title": "Transport accessibility review",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Eligibility rule",
       "sensitivity": "RESTRICTED",
@@ -14923,13 +15020,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-BUS",
-      "path": "transport/transport-bus.md",
+      "path": "facilities/transport-bus.md",
       "title": "Transport and bus routes",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Institutional guidance",
       "sensitivity": "INTERNAL",
@@ -14953,13 +15051,14 @@
       "superseded_by": null,
       "origin": "M1/data/corpus.d/general/transport-bus.md",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-COMPLAINT",
-      "path": "transport/transport-complaint.md",
+      "path": "facilities/transport-complaint.md",
       "title": "Transport service complaint",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -14983,13 +15082,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-FEE-ADJUSTMENT",
-      "path": "transport/transport-fee-adjustment.md",
+      "path": "facilities/transport-fee-adjustment.md",
       "title": "Transport fee adjustment procedure",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "SOP",
       "sensitivity": "INTERNAL",
@@ -15013,13 +15113,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-LOST-PROPERTY",
-      "path": "transport/transport-lost-property.md",
+      "path": "facilities/transport-lost-property.md",
       "title": "Lost property on campus buses",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Notice",
       "sensitivity": "INTERNAL",
@@ -15043,13 +15144,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-OPERATOR-INCIDENT",
-      "path": "transport/transport-operator-incident.md",
+      "path": "facilities/transport-operator-incident.md",
       "title": "Operator incident escalation",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -15073,13 +15175,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-ROUTE-CAPACITY",
-      "path": "transport/transport-route-capacity.md",
+      "path": "facilities/transport-route-capacity.md",
       "title": "Route capacity and waitlist",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -15103,13 +15206,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-TRANSPORT-SERVICE-ALERTS",
-      "path": "transport/transport-service-alerts.md",
+      "path": "facilities/transport-service-alerts.md",
       "title": "Transport service alert subscription",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Troubleshooting guide",
       "sensitivity": "INTERNAL",
@@ -15133,13 +15237,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-VEHICLE-PARKING-REGISTRATION",
-      "path": "transport/vehicle-parking-registration.md",
+      "path": "facilities/vehicle-parking-registration.md",
       "title": "Campus vehicle registration",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Policy",
       "sensitivity": "INTERNAL",
@@ -15163,13 +15268,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-VISITOR-SHUTTLE-REQUEST",
-      "path": "transport/visitor-shuttle-request.md",
+      "path": "facilities/visitor-shuttle-request.md",
       "title": "Visitor shuttle request",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Procedure",
       "sensitivity": "INTERNAL",
@@ -15193,13 +15299,14 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     },
     {
       "document_id": "TRAN-WEATHER-ROUTE-DIVERSION",
-      "path": "transport/weather-route-diversion.md",
+      "path": "facilities/weather-route-diversion.md",
       "title": "Weather-related route diversion",
-      "category": "transport",
+      "category": "facilities",
       "department": "Campus Transport",
       "document_type": "Guideline",
       "sensitivity": "PUBLIC",
@@ -15229,7 +15336,8 @@
       "superseded_by": null,
       "origin": "authored synthetic corpus record",
       "preserved_seed_sources": [],
-      "related_documents": []
+      "related_documents": [],
+      "original_category": "transport"
     }
   ]
 }

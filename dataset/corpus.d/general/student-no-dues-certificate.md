@@ -28,7 +28,7 @@ preserved_seed_sources: []
 related_documents:
 - academics/degree-requirements.md
 - fees/fee-clearance-for-graduation.md
-- library/library-clearance.md
+- general/library-clearance.md
 - facilities/hostel-checkout.md
 original_category: student-services
 access_level: Internal

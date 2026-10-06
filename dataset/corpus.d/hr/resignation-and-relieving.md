@@ -24,7 +24,7 @@ origin: M1/data/corpus.d/hr/resignation-and-relieving.md
 preserved_seed_sources: []
 related_documents:
 - hr/exit-formalities.md
-- finance/employee-expense-claim.md
+- fees/employee-expense-claim.md
 - it/account-deactivation.md
 access_level: Confidential
 synthetic: true

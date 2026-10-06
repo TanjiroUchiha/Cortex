@@ -61,9 +61,10 @@ def load_documents(path=DEFAULT_CORPUS, docs_dir=None):
     """Load corpus.json and merge every document under corpus.d/.
 
     corpus.d/<folder>/<name>.md|txt|pdf|docx becomes a source for that folder's
-    routing domain. Folder names may be a routing domain directly or a package
-    category (library, finance, transport...) resolved through PACKAGE_DOMAIN —
-    this is how the team adds real org docs without touching the seed file."""
+    routing domain. Folders are routing domains; PACKAGE_DOMAIN also accepts a
+    legacy/extra category folder (library→general, finance→fees...) and folds
+    it in, with metadata.original_category keeping provenance — this is how the
+    team adds real org docs without touching the seed file."""
     with Path(path).open(encoding="utf-8") as handle:
         value = json.load(handle, object_pairs_hook=unique_object)
     documents = value["documents"] if isinstance(value, dict) and "documents" in value else value

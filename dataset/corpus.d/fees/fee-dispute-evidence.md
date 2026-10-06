@@ -25,7 +25,7 @@ preserved_seed_sources: []
 related_documents:
 - fees/payment-failures.md
 - fees/online-payment-status.md
-- finance/payment-authorization.md
+- fees/payment-authorization.md
 access_level: Restricted
 synthetic: true
 relationship_clusters:

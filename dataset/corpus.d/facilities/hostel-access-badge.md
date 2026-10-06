@@ -28,7 +28,7 @@ preserved_seed_sources: []
 related_documents:
 - facilities/access-cards.md
 - facilities/lost-id-card.md
-- security/security-badge-lifecycle.md
+- facilities/security-badge-lifecycle.md
 original_category: hostel
 access_level: Internal
 synthetic: true
