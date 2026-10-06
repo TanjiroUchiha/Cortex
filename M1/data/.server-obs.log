@@ -1,0 +1,55 @@
+Cortex launcher
+  Ollama: up · qwen3-embedding:8b, qwen3-embedding:0.6b, llama3.1:latest, qwen2.5:0.5b, qwen2.5:7b, qwen3:4b, starcoder:latest, gemma4:latest, llama3:latest, llama2:7b, codellama:7b, qwen2.5:1.5b, deepseek-coder:latest
+  starting M2 on http://127.0.0.1:9001 …
+  M2 ready.
+  starting M1 on http://127.0.0.1:8000 …
+C:\Users\ARAHAN\Microhard\Cortex\M1\api.py:266: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [22216]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-10-06 20:33:46.793 INFO    REQUEST_START request_id=1176fd56c8d7 method=GET path=/health client=127.0.0.1
+2026-10-06 20:33:46.794 INFO    RESPONSE_READY request_id=1176fd56c8d7 http_status=200 total_ms=0.8
+2026-10-06 20:33:46.794 INFO    REQUEST_END request_id=1176fd56c8d7 http_status=200 total_ms=0.8
+  M1 ready.
+
+  Landing:   http://127.0.0.1:8000/
+  Assistant: http://127.0.0.1:8000/app
+  API docs:  http://127.0.0.1:8000/docs
+  Press Ctrl+C to stop.
+
+2026-10-06 20:33:50.322 INFO    REQUEST_START request_id=4d944f51c8af method=GET path=/health client=127.0.0.1
+2026-10-06 20:33:50.323 INFO    RESPONSE_READY request_id=4d944f51c8af http_status=200 total_ms=1.0
+2026-10-06 20:33:50.323 INFO    REQUEST_END request_id=4d944f51c8af http_status=200 total_ms=1.0
+2026-10-06 20:33:50.434 INFO    REQUEST_START request_id=b631955a1b1d method=POST path=/auth/login client=127.0.0.1
+2026-10-06 20:33:50.546 INFO    RESPONSE_READY request_id=b631955a1b1d http_status=200 total_ms=110.1
+2026-10-06 20:33:50.546 INFO    REQUEST_END request_id=b631955a1b1d http_status=200 total_ms=110.1
+2026-10-06 20:33:50.645 INFO    REQUEST_START request_id=a65fc710a0ff method=POST path=/query client=127.0.0.1
+2026-10-06 20:33:50.648 INFO    QUERY_RECEIVED request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin query_length=27 query_sha256_12=b5e96206461a available="[\"it\", \"hr\", \"fees\", \"facilities\", \"general\"]" clarify_attempts=0
+2026-10-06 20:33:50.648 INFO    M1_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin model=deterministic input_chars=27 scope=5
+2026-10-06 20:33:50.648 INFO    EMBEDDING_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin model=qwen3-embedding:8b input_chars=27
+2026-10-06 20:33:50.649 INFO    EMBEDDING_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=0.0 state=ok cached=true dims=4096
+2026-10-06 20:33:50.703 INFO    M1_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=55.2 state=ok action=route domains="[\"it\"]" options=0
+2026-10-06 20:33:50.704 INFO    EMBEDDING_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin model=qwen3-embedding:8b input_chars=27
+2026-10-06 20:33:50.704 INFO    EMBEDDING_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=0.0 state=ok cached=true dims=4096
+2026-10-06 20:33:50.755 INFO    RETRIEVAL_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin domain=it engine=semantic top_k=3
+2026-10-06 20:33:50.756 INFO    EMBEDDING_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin model=qwen3-embedding:8b input_chars=81
+2026-10-06 20:33:50.756 INFO    EMBEDDING_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=0.0 state=ok cached=true dims=4096
+2026-10-06 20:33:50.771 INFO    RETRIEVAL_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=15.3 state=ok hits=3 score_max=0.813 score_min=0.611 score_avg=0.703
+2026-10-06 20:33:50.771 INFO    CONTEXT_BUILT request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin domain=it chunks=3 context_chars=1546 citations=3 top_k=3 context_truncated=false
+2026-10-06 20:33:50.773 INFO    M2_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin service=local domain_answers=1 failures=0
+2026-10-06 20:33:50.796 INFO    M2_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=24.3 state=ok response_chars=352 citations=3
+2026-10-06 20:33:50.797 INFO    V1_START request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin service=local citations=3 draft_chars=352
+2026-10-06 20:33:50.799 INFO    V1_VERDICT request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin status=passed flags="[]" explanation="All deterministic checks passed." source="check+legacy"
+2026-10-06 20:33:50.800 INFO    V1_END request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin latency_ms=2.7 state=ok verdict=passed flags="[]"
+2026-10-06 20:33:50.800 INFO    FLAGS_GENERATED request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin flag_count=0 flags="[]" verdict=passed explanation="All deterministic checks passed."
+2026-10-06 20:33:50.800 INFO    ROUTING_DECISION request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin action=COMPLETED reason=v1:passed flags="[]"
+2026-10-06 20:33:50.805 INFO    PIPELINE_SUMMARY request_id=a65fc710a0ff user_id=2b6b372ea22b4445b25dbcda6dff72a3 role=admin status=completed total_ms=141.0 stage_order="embedding>m1>embedding>embedding>retrieval>m2>v1" embedding_ms=0.0 m1_ms=55.2 retrieval_ms=15.3 m2_ms=24.3 v1_ms=2.7 skills=1 citations=3 errors=0 flags="[]"
+2026-10-06 20:33:50.805 INFO    RESPONSE_READY request_id=a65fc710a0ff http_status=200 total_ms=159.6
+2026-10-06 20:33:50.805 INFO    REQUEST_END request_id=a65fc710a0ff http_status=200 total_ms=159.6

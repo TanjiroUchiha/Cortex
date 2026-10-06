@@ -9,6 +9,7 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Awaitable, Callable
 
+import obs
 from m1 import (DOMAINS, Request, SMALLTALK_MESSAGES, ambiguous_item_options,
                 parse_decision, require_keys, require_text)
 
@@ -208,7 +209,10 @@ class Orchestrator:
         """on_event: optional sync callback receiving stage-telemetry dicts
         ({"event": "stage"|"skill", ...}) as the pipeline progresses — the SSE
         endpoint streams them; they never change the result."""
-        request_id = uuid.uuid4().hex
+        obs.ensure_request()          # HTTP requests arrive scoped; direct callers get one here
+        request_id = obs.request_id()
+        obs.log_query(request.query, available=list(request.available),
+                      clarify_attempts=request.clarify_attempts)
         result = {"request_id": request_id, "status": "started", "response": None, "draft": None,
                   "routing": None, "message": None, "skills": [], "citations": [], "errors": [],
                   "verification": {"status": "not_run"}, "mock_services": [], "elapsed_ms": 0}
@@ -228,6 +232,11 @@ class Orchestrator:
         self.metrics[result["status"]] += 1
         self._save_metrics()
         self._record_request(request, result)
+        obs.pipeline_summary(result["status"], result["elapsed_ms"],
+                             skills=len(result["skills"]), citations=len(result["citations"]),
+                             errors=len(result["errors"]),
+                             flags=(result.get("v1_verdict") or {}).get("flags", []))
+        obs.pipeline_trace()
         return result
 
     def _record_request(self, request, result):
@@ -309,15 +318,22 @@ class Orchestrator:
             emit("stage", stage="m1", state="done", action="unsupported", domains=[])
             return
         emit("stage", stage="m1", state="active")
-        try:
-            async with self.resources["shared-local-models"]:
-                decision = await asyncio.wait_for(self.router(effective), self.call_timeout)
-            decision = parse_decision(json.dumps(decision), effective, options_pool=request.available)
-        except Exception:
-            emit("stage", stage="m1", state="fail")
-            result.update(status="routing_failed")
-            result["errors"].append({"service": "m1", "code": "invalid_or_unavailable_router"})
-            return
+        with obs.stage("M1", model=getattr(self.router, "model", "deterministic"),
+                       input_chars=len(effective.query), scope=len(effective.available)) as m1_out:
+            try:
+                async with self.resources["shared-local-models"]:
+                    decision = await asyncio.wait_for(self.router(effective), self.call_timeout)
+                decision = parse_decision(json.dumps(decision), effective, options_pool=request.available)
+            except Exception:
+                m1_out["state"] = "fail"
+                emit("stage", stage="m1", state="fail")
+                result.update(status="routing_failed")
+                result["errors"].append({"service": "m1", "code": "invalid_or_unavailable_router"})
+                obs.log_decision("REJECT", reason="router_failed")
+                return
+            m1_out.update(action=decision["action"],
+                          domains=[t["domain"] for t in decision["tasks"]],
+                          options=len(decision["options"]))
         result["routing"] = {"action": decision["action"],
                              "domains": [t["domain"] for t in decision["tasks"]],
                              "message": decision["message"],
@@ -354,6 +370,8 @@ class Orchestrator:
                 result["routing"].update(action=action, options=ambiguous, message=message)
                 result["status"] = action
                 result["message"] = message
+                obs.log_decision(action.upper(), reason="ambiguous_term",
+                                 options=[o["domain"] for o in ambiguous])
                 emit("stage", stage="m1", state="done", action=action, domains=[])
                 return
             gated, options = await self._confidence_gate(effective, decision, result)
@@ -366,10 +384,15 @@ class Orchestrator:
                 result["routing"].update(action=action, options=options or [], message=gate_message)
                 result["status"] = action
                 result["message"] = result["routing"]["message"]
+                obs.log_decision(action.upper(), reason="insufficient_evidence",
+                                 options=[o["domain"] for o in (options or [])])
                 emit("stage", stage="m1", state="done", action=action, domains=[])
                 return
             decision = gated
         if decision["action"] != "route":
+            reason = "clarify_limit_reached" if decision["action"] == "handoff" else "router_decision"
+            obs.log_decision(decision["action"].upper(), reason=reason,
+                             clarify_attempts=effective.clarify_attempts)
             emit("stage", stage="m1", state="done", action=decision["action"], domains=[])
             if decision["action"] == "unsupported":
                 reply = await self._assistant_reply(effective.query, "unsupported")
@@ -410,6 +433,8 @@ class Orchestrator:
         emit("stage", stage="skills", state="done" if result["skills"] else "fail",
              answered=len(result["skills"]), failed=len(result["errors"]))
         if not result["skills"]:
+            obs.log_decision("STOP", reason="all_skills_failed",
+                             codes=[e["code"] for e in result["errors"]])
             all_missing = all(e["code"] == "no_evidence" for e in result["errors"])
             message = None
             if all_missing:
@@ -422,27 +447,40 @@ class Orchestrator:
             return
         payload = {**base_payload, "domain_answers": result["skills"], "failures": result["errors"]}
         emit("stage", stage="m2", state="active")
-        try:
-            merged = await self.invoke("m2", effective, payload, result["request_id"])
-        except ServiceError as exc:
-            emit("stage", stage="m2", state="fail", code=exc.code)
-            result["status"] = "aggregation_unavailable"
-            result["errors"].append({"service": "m2", "code": exc.code})
-            return
+        with obs.stage("M2", service=self.services["m2"].location,
+                       domain_answers=len(result["skills"]), failures=len(result["errors"])) as m2_out:
+            try:
+                merged = await self.invoke("m2", effective, payload, result["request_id"])
+            except ServiceError as exc:
+                m2_out["state"] = "fail"
+                emit("stage", stage="m2", state="fail", code=exc.code)
+                result["status"] = "aggregation_unavailable"
+                result["errors"].append({"service": "m2", "code": exc.code})
+                obs.log_decision("REJECT", reason="m2_failed", code=exc.code)
+                return
+            m2_out.update(response_chars=len(merged["response"]), citations=len(merged["citations"]))
         emit("stage", stage="m2", state="done", citations=len(merged["citations"]))
         if self.services["m2"].mock:
             result["mock_services"].append("m2")
         result["draft"] = merged["response"]
         result["citations"] = merged["citations"]
         emit("stage", stage="v1", state="active")
-        try:
-            verification = await self.invoke("v1", effective, {**payload, "response": merged["response"], "citations": merged["citations"]}, result["request_id"])
-        except ServiceError as exc:
-            emit("stage", stage="v1", state="fail", code=exc.code)
-            result.update(status="unverified", verification={"status": "unavailable"})
-            result["errors"].append({"service": "v1", "code": exc.code})
-            return
+        with obs.stage("V1", service=self.services["v1"].location,
+                       citations=len(merged["citations"]),
+                       draft_chars=len(merged["response"])) as v1_out:
+            try:
+                verification = await self.invoke("v1", effective, {**payload, "response": merged["response"], "citations": merged["citations"]}, result["request_id"])
+            except ServiceError as exc:
+                v1_out["state"] = "fail"
+                emit("stage", stage="v1", state="fail", code=exc.code)
+                result.update(status="unverified", verification={"status": "unavailable"})
+                result["errors"].append({"service": "v1", "code": exc.code})
+                obs.log_decision("REJECT", reason="v1_unavailable", code=exc.code)
+                return
+            v1_out.update(verdict=verification["status"], flags=verification.get("flags", []))
         emit("stage", stage="v1", state="done", status=verification["status"])
+        obs.log_flags(verification.get("flags", []), verdict=verification["status"],
+                      explanation=verification.get("explanation", ""))
         result["v1_verdict"] = verification
         if self.services["v1"].mock:
             result["mock_services"].append("v1")
@@ -453,4 +491,6 @@ class Orchestrator:
             result.update(status="partial" if result["errors"] else "completed", response=merged["response"])
         else:
             result["status"] = "needs_review"
+        obs.log_decision(result["status"].upper(), reason=f"v1:{verification['status']}",
+                         flags=verification.get("flags", []))
         result["verification"] = verification

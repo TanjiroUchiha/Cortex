@@ -44,7 +44,21 @@ const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)'
 /* '' = same origin: when the page is served by api.py the backend is already
    here. ?api=http://127.0.0.1:8000 overrides for a separate server. */
 const API = (typeof location !== 'undefined' ? new URLSearchParams(location.search).get('api') : null) || '';
-const apiFetch = typeof fetch === 'function' ? fetch.bind(window) : null;
+const AUTH_KEY = 'cortex.jwt';
+const rawFetch = typeof fetch === 'function' ? fetch.bind(window) : null;
+/* Every backend call carries the session JWT. A 401 means the token is gone or
+   dead — drop it and send the user back to sign in. */
+const apiFetch = !rawFetch ? null : async (path, opts = {}) => {
+  const headers = { ...(opts.headers || {}) };
+  const token = sessionStorage.getItem(AUTH_KEY);
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const res = await rawFetch(path, { ...opts, headers });
+  if (res.status === 401 && !location.pathname.startsWith('/login')) {
+    sessionStorage.removeItem(AUTH_KEY);
+    location.replace('/login');
+  }
+  return res;
+};
 const announce = text => { $('#liveStatus').textContent = text; };
 let toastTimer;
 function toast(text) {
@@ -73,11 +87,12 @@ const state = {
   conversationEdit: null,
   live: false,               // set by probeBackend() when the API answers /health
   apiModels: null,           // GET /models payload, cached
+  user: null,                // /auth/me result — role gates admin-only UI
 };
 
 const session = () => state.sessions.find(s => s.id === state.activeId);
 
-function saveSessions() {
+function persistLocal() {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify(state.sessions));
     localStorage.setItem('cortex.activeSession', state.activeId);
@@ -87,6 +102,52 @@ function saveSessions() {
       toast('Browser storage is unavailable. This conversation will not survive a reload.');
     }
   }
+}
+
+/* Signed-in accounts keep history server-side (per user_id) — localStorage is
+   just the offline cache. Guests stay ephemeral: nothing is persisted at all. */
+const syncTimers = new Map();
+const remoteHistory = () => !!state.user && state.user.role !== 'guest' && !!apiFetch;
+function queueSync(id) {
+  if (!remoteHistory()) return;
+  const s = state.sessions.find(x => x.id === id);
+  if (!s) return;
+  clearTimeout(syncTimers.get(id));
+  syncTimers.set(id, setTimeout(() => {
+    apiFetch(`${API}/conversations/${encodeURIComponent(id)}`, {
+      method:'PUT', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ session_id:id, title:s.title, draft:s.draft || '', data:s }),
+    }).catch(() => {});
+    syncTimers.delete(id);
+  }, 600));   // trailing debounce — typing a draft doesn't fire a PUT per keystroke
+}
+function remoteDelete(id) {
+  if (!remoteHistory()) return;
+  clearTimeout(syncTimers.get(id));
+  apiFetch(`${API}/conversations/${encodeURIComponent(id)}`, { method:'DELETE' }).catch(() => {});
+}
+
+/* Server is the source of truth once signed in. LocalStorage is shared across
+   accounts on this browser, so it is NEVER pushed up — an empty remote means a
+   fresh history, and stale local rows get replaced, not migrated (otherwise a
+   previous user's chats would leak into the next account's database). */
+async function loadRemoteSessions() {
+  if (!remoteHistory()) return;
+  try {
+    const { sessions } = await apiFetch(`${API}/conversations`).then(r => r.json());
+    state.sessions = Array.isArray(sessions)
+      ? sessions.filter(s => s && typeof s.id === 'string' && Array.isArray(s.messages))
+      : [];
+    state.activeId = state.sessions[0]?.id || null;
+    persistLocal();
+    renderChatList();
+    renderMessages();
+  } catch { /* offline — localStorage copy stays authoritative until next load */ }
+}
+
+function saveSessions(syncId) {
+  persistLocal();
+  queueSync(syncId || state.activeId);
 }
 function loadSessions() {
   try {
@@ -303,7 +364,7 @@ function renderMsg(m) {
     if (m.retry) html += `<button class="retry-chip" data-retry="${esc(m.retry)}">Try again</button>`;
     if (m.statusLine) html += `<div class="status-line ${['good','warn','bad'].includes(m.statusCls) ? m.statusCls : ''}"><span class="s-dot" style="background:currentColor"></span>${esc(m.statusLine)}</div>`;
     html += '</div>';
-    if (m.feedback) html += `<div class="feedback"><span class="feedback-label">Did this help?</span><button class="fb-btn${m.fbChosen===1?' done-y':''}" data-fb="1" ${m.fbChosen!=null?'disabled':''}>Resolved</button><button class="fb-btn${m.fbChosen===0?' done-n':''}" data-fb="0" ${m.fbChosen!=null?'disabled':''}>Not quite</button></div>`;
+    if (m.feedback && state.user?.role !== 'guest') html += `<div class="feedback"><span class="feedback-label">Did this help?</span><button class="fb-btn${m.fbChosen===1?' done-y':''}" data-fb="1" ${m.fbChosen!=null?'disabled':''}>Resolved</button><button class="fb-btn${m.fbChosen===0?' done-n':''}" data-fb="0" ${m.fbChosen!=null?'disabled':''}>Not quite</button></div>`;
     html += '</div>';
     el.innerHTML = html;
     if (m.handoff) el.querySelector('.bubble').classList.add('handoff');
@@ -359,7 +420,7 @@ async function renderDrawer() {
   const put = (el, entries) => { for (const [k,v] of entries) el.insertAdjacentHTML('beforeend', `<div class="d-counter"><div class="k">${esc(k.replaceAll('_', ' '))}</div><div class="v">${esc(v)}</div></div>`); };
   const c = $('#drawerCounters'), f = $('#drawerFeedback');
   c.innerHTML = ''; f.innerHTML = '';
-  if (state.live && apiFetch) {
+  if (state.live && apiFetch && state.user?.role === 'admin') {
     try {
       const metrics = await apiFetch(`${API}/metrics`).then(r => r.json());
       const counters = metrics.counters || {}, fb = metrics.feedback || {};
@@ -578,6 +639,7 @@ function saveConversationSettings(e) {
   if (!s || running || !$('#conversationDialog')) return;
   if (edit.deleting) {
     const active = s.id === state.activeId;
+    remoteDelete(s.id);
     state.sessions = state.sessions.filter(item => item.id !== s.id);
     if (active) {
       state.activeId = null;
@@ -594,7 +656,7 @@ function saveConversationSettings(e) {
     if (s.id === state.activeId) $('#conversationTitle').textContent = name;
     toast('Conversation renamed.');
   }
-  saveSessions();
+  saveSessions(s.id);
   renderChatList();
   $('#conversationDialog')?.close();
 }
@@ -735,7 +797,7 @@ async function liveRun(query, forcedDomain, ctx) {
   const res = await apiFetch(`${API}/query/stream`, {
     method:'POST', headers:{ 'Content-Type':'application/json' },
     body:JSON.stringify({ query, privacy:'local_only',
-      available:forcedDomain ? [forcedDomain] : [...state.available],
+      available:state.user?.role === 'guest' ? ['general'] : (forcedDomain ? [forcedDomain] : [...state.available]),
       clarify_attempts:ctx.s.clarifyAttempts }),
   });
   if (!res.ok || !res.body) throw new Error(`API returned ${res.status}`);
@@ -1116,6 +1178,8 @@ function closePop(restore=false) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* auth: no token, no app — the backend rejects calls anyway */
+  if (!sessionStorage.getItem(AUTH_KEY)) { location.replace('/login'); return; }
   /* theme */
   const themeToggle = $('#themeBtn');
   const systemTheme = () => matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
@@ -1357,6 +1421,34 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDrawer();
   updateComposer();
   syncPanels();
+  apiFetch(`${API}/auth/me`).then(async r => {
+    if (!r.ok) return;
+    state.user = await r.json();
+    const display = state.user.name || state.user.email || 'Account';
+    setText('#userBadge', display);
+    setText('#userMenuName', display);
+    setText('#userMenuEmail', state.user.email || '');
+    setText('#userMenuRole', state.user.role);
+    const av = $('#userAvatar');
+    if (av) av.textContent = display.trim()[0] || '?';
+    const admin = state.user.role === 'admin';
+    if (!admin) { const mb = $('#metricsBtn'); if (mb) mb.hidden = true; }
+    if (admin) initCorpusUpload();
+    if (state.user.role === 'guest') { const sp = $('#scopePicker'); if (sp) sp.hidden = true; }
+    loadRemoteSessions();
+  }).catch(() => {});
+  /* account chip menu */
+  const userChip = $('#userChip'), userMenu = $('#userMenu');
+  if (userChip && userMenu) {
+    const setMenu = open => { userMenu.hidden = !open; userChip.setAttribute('aria-expanded', String(open)); };
+    userChip.addEventListener('click', e => { e.stopPropagation(); setMenu(userMenu.hidden); });
+    document.addEventListener('click', e => { if (!userMenu.hidden && !e.target.closest('.user-wrap')) setMenu(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !userMenu.hidden) { setMenu(false); userChip.focus(); } });
+  }
+  $('#logoutBtn')?.addEventListener('click', () => {
+    sessionStorage.removeItem(AUTH_KEY);
+    location.replace('/login');
+  });
   probeBackend().then(() => {
     /* /app?q=... deep link — a question shared into the assistant (landing-page
        tickers use it) runs once the backend is confirmed live; offline it just
@@ -1383,7 +1475,6 @@ async function probeBackend() {
     state.live = true;
     await syncDomains();
     await loadCorpus();
-    initCorpusUpload();
     announce('Connected to the live backend.');
   } catch {
     state.live = false;
@@ -1428,10 +1519,10 @@ async function loadCorpus() {
   } catch { /* no local corpus — shelf shows empty folders */ }
 }
 
-/* Corpus upload: only meaningful when the API is serving the page. */
+/* Corpus upload: admin-only on the backend — only shown here for admins too. */
 function initCorpusUpload() {
   const box = $('#corpusUpload');
-  if (!box) return;
+  if (!box || state.user?.role !== 'admin') return;
   const sel = $('#uploadDomain');
   sel.innerHTML = Object.entries(DOMAINS).map(([id, d]) => `<option value="${esc(id)}">${esc(d.title)}</option>`).join('');
   box.hidden = false;

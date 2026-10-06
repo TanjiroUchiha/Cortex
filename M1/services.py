@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 import httpx
+import obs
 
 from m1 import DECISION_SCHEMA, DOMAINS, build_messages, parse_decision, require_keys, unique_object
 from orchestrator import Service, ServiceError, merge_answers, verify_grounding
@@ -419,11 +420,12 @@ def local_pipeline(corpus, mock=False, merger=None, verifier=None, answerer=None
 
 
 def demo_services(corpus=None, merger=None, verifier=None, answerer=None):
-    """Seed-corpus-backed demo pipeline. Answers are real extractive retrieval over the
-    seed documents, still labelled demo because the corpus is synthetic starter data."""
+    """Corpus-backed demo pipeline. Real retrieval over the bundled documents, so
+    results claim the actual V1 verdict — the mock stamp is reserved for stand-in
+    services (live mode rejects them outright)."""
     from store import CorpusIndex, load_documents
     corpus = corpus or CorpusIndex(load_documents())
-    return local_pipeline(corpus, mock=True, merger=merger, verifier=verifier, answerer=answerer)
+    return local_pipeline(corpus, mock=False, merger=merger, verifier=verifier, answerer=answerer)
 
 
 def load_services(path):
@@ -486,7 +488,8 @@ class CheckVerifier:
         if any(f.startswith("ungrounded") for f in legacy["flags"]):
             status = "failed"
         result = {"status": status, "flags": flags, "explanation": code["explanation"]}
-        print("[V1]", result)      # temporary: remove once it works
+        obs.event("V1_VERDICT", status=status, flags=flags,
+                  explanation=code["explanation"], source="check+legacy")
         if status == "failed" or self.llm is None:
             return result
         try:

@@ -157,3 +157,30 @@
 {"ts": "2026-10-05T12:55:05", "request_id": "5bb8ee59cb1a4bc08d1d8428ed476ed8", "query": "The projector keeps flickering", "status": "demo", "domains": ["it"], "elapsed_ms": 2612.23}
 {"ts": "2026-10-05T12:58:01", "request_id": "e0c723e33d0c44a1bcebcea9f2586397", "query": "How can i take leave in such a way so that it cannot be sanwich?", "status": "demo", "domains": ["hr"], "elapsed_ms": 8703.17}
 {"ts": "2026-10-05T12:58:57", "request_id": "f77304e105954fc999cdd626ec3ce394", "query": "If i am taking causal leave on Friday, can i take leave on Monday as Sick leave?", "status": "demo", "domains": ["hr"], "elapsed_ms": 4819.23}
+{"ts": "2026-10-06T11:56:59", "request_id": "f5990bdfd6bc4c6c9fe99edbd0fa985d", "query": "give me formula to make a nuclear wepon", "status": "unsupported", "domains": [], "elapsed_ms": 32844.0}
+{"ts": "2026-10-06T11:57:42", "request_id": "7d33a00df893486699a9fa8a26ec871e", "query": "tell me about latest virus leak in russia", "status": "demo", "domains": ["it"], "elapsed_ms": 2750.0}
+{"ts": "2026-10-06T11:58:42", "request_id": "1d071806258142a1875750dbf23a94d6", "query": "what can you help me with", "status": "clarify", "domains": [], "elapsed_ms": 5797.0}
+{"ts": "2026-10-06T11:59:00", "request_id": "1e223d6014284eff973897fb442b46c8", "query": "what can you help me with", "status": "demo", "domains": ["fees"], "elapsed_ms": 2422.0}
+{"ts": "2026-10-06T11:59:22", "request_id": "55bf110b6c1e4baebe1d4a52078398ee", "query": "give mee fees for hostel", "status": "demo", "domains": ["fees"], "elapsed_ms": 2640.0}
+{"ts": "2026-10-06T12:00:13", "request_id": "446d3d614f624f6c9b90899b1396aa3b", "query": "tell me what is 34 * 2", "status": "unsupported", "domains": [], "elapsed_ms": 8281.0}
+{"ts": "2026-10-06T12:00:29", "request_id": "2b285b2d5ed6418293ec7788a0276118", "query": "what is linear regresssion", "status": "no_evidence", "domains": ["general"], "elapsed_ms": 2406.0}
+{"ts": "2026-10-06T12:01:08", "request_id": "2b00b80f73c04f10a1cd1dabf591c4cf", "query": "write  Mail to hr for leave apporoval", "status": "demo", "domains": ["hr"], "elapsed_ms": 2672.0}
+{"ts": "2026-10-06T12:01:32", "request_id": "fb397ebc45114363ae35040389287472", "query": "can you acccess the hr file", "status": "demo", "domains": ["hr"], "elapsed_ms": 2609.0}
+{"ts": "2026-10-06T12:04:19", "request_id": "464c7c24a8a04576a0ed94e981fccff5", "query": "how to apply for leave", "status": "demo", "domains": ["hr"], "elapsed_ms": 2485.0}
+{"ts": "2026-10-06T12:13:54", "request_id": "01a81dd6acc34f02b6eeca978949fa83", "query": "How do I reset my password?", "status": "completed", "domains": ["it"], "elapsed_ms": 204.0}
+{"ts": "2026-10-06T12:13:58", "request_id": "648c48658fa44eca825a4cb15fefce75", "query": "How do I reset my password?", "status": "completed", "domains": ["it"], "elapsed_ms": 187.0}
+{"ts": "2026-10-06T12:16:27", "request_id": "f7be11604e2b4bb990fc74778840e3f6", "query": "when do i get my paycheck", "status": "needs_review", "domains": ["hr"], "elapsed_ms": 19953.0}
+{"ts": "2026-10-06T16:20:55", "request_id": "936bb5604b464443897a323848b99faf", "query": "How do I reset my password?", "status": "completed", "domains": ["it"], "elapsed_ms": 203.0}
+{"ts": "2026-10-06T16:21:28", "request_id": "620a5f1eeb9a487bb9085b52c7ee49e3", "query": "When is the fee deadline?", "status": "needs_review", "domains": ["fees"], "elapsed_ms": 19109.0}
+{"ts": "2026-10-06T16:21:31", "request_id": "bdabf9c86dcc4065806f0863ad23c826", "query": "How do I book a room?", "status": "completed", "domains": ["facilities"], "elapsed_ms": 2546.0}
+{"ts": "2026-10-06T16:35:22", "request_id": "426688db65fa450e9f71f0a9a28df887", "query": "how to get sick leave?", "status": "completed", "domains": ["hr"], "elapsed_ms": 16828.0}
+{"ts": "2026-10-06T16:36:33", "request_id": "10dc62edce954ccf8c2a5a6ad927fc6c", "query": "how to get sick leave?", "status": "completed", "domains": ["hr"], "elapsed_ms": 250.0}
+{"ts": "2026-10-06T16:36:50", "request_id": "95a08d1085fc404c9381fb070862cd10", "query": "how to get sick leave?", "status": "completed", "domains": ["hr"], "elapsed_ms": 265.0}
+{"ts": "2026-10-06T19:45:56", "request_id": "b7a6cbf30ba4401dbfaadadad33e6c38", "query": "wifi help", "status": "completed", "domains": ["it"], "elapsed_ms": 20860.0}
+{"ts": "2026-10-06T19:53:22", "request_id": "3fb913ce980d413086d65d5fd152b922", "query": "when are the mess timings?", "status": "needs_review", "domains": ["general"], "elapsed_ms": 2641.0}
+{"ts": "2026-10-06T19:53:42", "request_id": "fcf5d0a25309489ca20bde79a9e6500d", "query": "when are the mess timings?", "status": "needs_review", "domains": ["general"], "elapsed_ms": 266.0}
+{"ts": "2026-10-06T19:54:21", "request_id": "7402c960cf7843dbb4b0ddd6212a75ab", "query": "How do I reset my password?", "status": "no_evidence", "domains": ["general"], "elapsed_ms": 1468.0}
+{"ts": "2026-10-06T20:00:50", "request_id": "7fe41d69dfe441b29167f427f4fdeab6", "query": "reset my password", "status": "needs_review", "domains": ["general"], "elapsed_ms": 5062.0}
+{"ts": "2026-10-06T20:05:55", "request_id": "a702f5982f30429ca2036bbfb92eba5b", "query": "when will i get my payslip?", "status": "no_evidence", "domains": ["general"], "elapsed_ms": 2797.0}
+{"ts": "2026-10-06T20:06:11", "request_id": "0651b6b495c84b0c996dcedf2c9f2c04", "query": "when are the holidays?", "status": "needs_review", "domains": ["general"], "elapsed_ms": 2468.0}
+{"ts": "2026-10-06T20:33:50", "request_id": "a65fc710a0ff", "query": "How do I reset my password?", "status": "completed", "domains": ["it"], "elapsed_ms": 141.0}

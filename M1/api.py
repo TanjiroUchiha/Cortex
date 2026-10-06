@@ -1,14 +1,17 @@
 import argparse
 import asyncio
 import json
+import logging
+import obs
 import os
 import re
 import secrets
+import time
 import uuid
 from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI, File, Form, HTTPException, Request as HTTPRequest, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request as HTTPRequest, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
@@ -16,6 +19,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
+import auth
+from auth import AuthDB, Principal, RateLimiter, issue_jwt, load_jwt_secret, require_user, require_role
 from m1 import DOMAINS, Request, keyword_scores
 from orchestrator import Orchestrator
 from services import (CheckVerifier, KeywordRouter, OllamaAnswerer, OllamaAssistant, OllamaMerger,
@@ -35,6 +40,42 @@ class FeedbackBody(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
     request_id: str = Field(min_length=1, max_length=100)
     resolved: bool
+
+
+class LoginBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    email: str = Field(min_length=3, max_length=254)
+    password: str = Field(min_length=1, max_length=256)
+
+
+class SignupBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    email: str = Field(min_length=3, max_length=254)
+    password: str = Field(min_length=10, max_length=256)
+    name: str = Field(default="", max_length=120)
+
+
+class CreateUserBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    email: str = Field(min_length=3, max_length=254)
+    password: str = Field(min_length=10, max_length=256)
+    name: str = Field(default="", max_length=120)
+    role: Literal["user", "admin"] = "user"
+
+
+class UpdateUserBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    role: Literal["user", "admin"] | None = None
+    is_active: bool | None = None
+    password: str | None = Field(default=None, min_length=10, max_length=256)
+
+
+class ConversationBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    session_id: str = Field(min_length=1, max_length=80)
+    title: str | None = Field(default=None, max_length=200)
+    draft: str = Field(default="", max_length=4000)
+    data: dict
 
 
 class BodyLimit:
@@ -138,7 +179,7 @@ def _live_engine(service_config):
 def make_app(engine=None, mode="demo", service_config=None, api_token=None, retrieval="semantic",
              llm_merge=False, llm_verify=False, llm_route=False, m1_backcheck=False, llm_answer=False, m2_url=None,
              corpus=None, metrics_path=None, persist_root=None,
-             queries_path=None, tickets_path=None, allowed_origins=None):
+             queries_path=None, tickets_path=None, allowed_origins=None, auth_db_path=None):
     if mode not in ("demo", "live"):
         raise ValueError("Choose demo or live mode explicitly")
     if engine is None:
@@ -160,8 +201,55 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     app = FastAPI(title="Cortex — One Front Door", version="0.2.0",
                 description="Domain-routed RAG assistant. Demo mode uses the seed corpus and deterministic local merge/verify.")
 
+    # ── auth wiring ──────────────────────────────────────────────────────────
+    # One SQLite account store; JWT bearer tokens; role re-read from the DB per
+    # request so deactivation is immediate and the token's role claim is cosmetic.
+    auth_db = AuthDB(auth_db_path or
+                     os.environ.get("CORTEX_AUTH_DB") or
+                     Path(__file__).resolve().parent / "data" / "auth.db")
+    app.state.auth_db = auth_db
+    app.state.jwt_secret = load_jwt_secret(mode)
+    app.state.api_token = api_token          # service token → synthetic admin principal
+    app.state.login_limiter = RateLimiter(limit=8, window=60.0)
+    app.state.guest_query_limiter = RateLimiter(limit=10, window=3600.0)  # per-IP, per hour
+    if not auth_db.has_admin():
+        email = os.environ.get("CORTEX_ADMIN_EMAIL", "").strip()
+        password = os.environ.get("CORTEX_ADMIN_PASSWORD", "")
+        if email and password:
+            auth_db.create(email, name="Admin", password=password, role="admin")
+            print(f"auth: bootstrap admin created for {email}")
+        else:
+            password = secrets.token_urlsafe(12)
+            auth_db.create("admin@cortex.local", name="Admin", password=password, role="admin")
+            print(f"auth: no admin existed — created admin@cortex.local with password: {password}")
+            print("      (dev bootstrap; set CORTEX_ADMIN_EMAIL/CORTEX_ADMIN_PASSWORD to control this)")
+
     app.add_middleware(BodyLimit)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "[::1]"])
+    obs.configure()
+
+    @app.middleware("http")
+    async def observability(request: HTTPRequest, call_next):
+        """Request-scoping: mints the request_id every event shares, times the
+        whole call, and always emits REQUEST_END — even on unhandled errors.
+        (On SSE routes this wraps the handler's return, not the stream drain.)"""
+        token = obs.begin_request()
+        obs.event("REQUEST_START", method=request.method, path=request.url.path,
+                  client=request.client.host if request.client else "?")
+        started = time.perf_counter()
+        status = 500
+        try:
+            response = await call_next(request)
+            status = response.status_code
+            return response
+        except Exception as exc:
+            obs.event("REQUEST_ERROR", level=logging.ERROR, exc=exc, path=request.url.path)
+            raise
+        finally:
+            total = round((time.perf_counter() - started) * 1000, 1)
+            obs.event("RESPONSE_READY", http_status=status, total_ms=total)
+            obs.event("REQUEST_END", http_status=status, total_ms=total)
+            obs.end_request(token)
 
     # Cross-origin is off unless explicitly configured. The UI is normally served by
     # this same app (static mount below), so no CORS is needed; set CORTEX_ALLOWED_ORIGINS
@@ -191,29 +279,144 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     async def invalid_request(request, exc):
         return JSONResponse({"detail": [{"loc": error["loc"], "type": error["type"]} for error in exc.errors()]}, status_code=422)
 
-    async def authorize(request):
-        """Same-origin + loopback gate; when CORTEX_API_TOKEN is set every endpoint —
-        including uploads — needs a valid Bearer token (API-only deploy; the UI has
-        no engine of its own — it stays offline without a reachable API). Origins in
-        the configured allowlist are also accepted, so a separately hosted UI works."""
+    async def check_origin(request):
+        """Same-origin gate, unchanged: cross-origin POSTs/GETs are rejected unless
+        the origin is allowlisted. Identity is a separate concern — FastAPI
+        dependencies (require_user / require_role) resolve the JWT or the
+        CORTEX_API_TOKEN service bearer into a Principal."""
         origin = request.headers.get("origin")
         if origin and origin not in origins and origin != f"{request.url.scheme}://{request.url.netloc}":
             raise HTTPException(403, "Cross-origin requests are disabled")
-        if api_token:
-            supplied = request.headers.get("authorization", "")
-            if not secrets.compare_digest(supplied.encode(), f"Bearer {api_token}".encode()):
-                raise HTTPException(401, "Invalid API credentials")
-        elif request.client is None or request.client.host not in ("127.0.0.1", "::1"):
-            raise HTTPException(403, "Unauthenticated access is restricted to loopback")
+
+    # ── auth endpoints ────────────────────────────────────────────────────────
+
+    def client_ip(request) -> str:
+        return request.client.host if request.client else "unknown"
+
+    @app.post("/auth/login")
+    async def auth_login(body: LoginBody, request: HTTPRequest):
+        await check_origin(request)
+        limiter = request.app.state.login_limiter
+        limiter.check(f"ip:{client_ip(request)}")
+        limiter.check(f"email:{body.email.lower()}")
+        row = request.app.state.auth_db.get_by_email(body.email)
+        if not auth.verify_password(row, body.password):
+            raise HTTPException(401, "Incorrect email or password")   # generic — no enumeration
+        user = Principal(row["id"], row["email"], row["name"], row["role"], row["auth_provider"])
+        return {"token": issue_jwt(user, request.app.state.jwt_secret), "user": user.public()}
+
+    @app.post("/auth/signup", status_code=201)
+    async def auth_signup(body: SignupBody, request: HTTPRequest):
+        """Self-registration: creates a plain 'user' account and signs in.
+        Role is never client-selectable — admins promote via /admin/users."""
+        await check_origin(request)
+        limiter = request.app.state.login_limiter
+        limiter.check(f"ip:{client_ip(request)}")
+        limiter.check(f"email:{body.email.lower()}")
+        db = request.app.state.auth_db
+        if db.get_by_email(body.email):
+            raise HTTPException(409, "An account with that email already exists")
+        try:
+            user = db.create(body.email, name=body.name, password=body.password, role="user")
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        return {"token": issue_jwt(user, request.app.state.jwt_secret), "user": user.public()}
+
+    @app.post("/auth/guest")
+    async def auth_guest(request: HTTPRequest):
+        """'Continue as guest': a 20-minute stateless token, no account. Guests can
+        ask questions (per-IP hourly cap enforced at /query) but can't give
+        feedback, upload, or see anything admin-only."""
+        await check_origin(request)
+        request.app.state.login_limiter.check(f"guest-issue:{client_ip(request)}")
+        return {"token": auth.issue_guest_jwt(request.app.state.jwt_secret),
+                "user": {"role": "guest", "name": "Guest", "email": ""}}
+
+    @app.get("/auth/me")
+    async def auth_me(request: HTTPRequest, user: Principal = Depends(require_user)):
+        await check_origin(request)
+        return user.public()
+
+    # ── admin account management ──────────────────────────────────────────────
+
+    @app.get("/admin/users")
+    async def admin_users(request: HTTPRequest, admin: Principal = Depends(require_role("admin"))):
+        await check_origin(request)
+        return {"users": request.app.state.auth_db.list_users()}
+
+    @app.post("/admin/users", status_code=201)
+    async def admin_create_user(body: CreateUserBody, request: HTTPRequest,
+                                admin: Principal = Depends(require_role("admin"))):
+        await check_origin(request)
+        if request.app.state.auth_db.get_by_email(body.email):
+            raise HTTPException(409, "An account with that email already exists")
+        try:
+            user = request.app.state.auth_db.create(body.email, name=body.name,
+                                                    password=body.password, role=body.role)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        return {"user": user.public()}
+
+    @app.patch("/admin/users/{user_id}")
+    async def admin_update_user(user_id: str, body: UpdateUserBody, request: HTTPRequest,
+                                admin: Principal = Depends(require_role("admin"))):
+        await check_origin(request)
+        db = request.app.state.auth_db
+        target = db.get(user_id) if not body.is_active else (
+            db.db.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone())
+        if not target:
+            raise HTTPException(404, "No such user")
+        target_id = target.id if isinstance(target, Principal) else target["id"]
+        demoting_self = (body.role is not None and body.role != "admin")
+        if target_id == admin.id and (demoting_self or body.is_active is False):
+            raise HTTPException(400, "You can't demote or deactivate your own admin account")
+        if body.role is not None:
+            db.set_role(target_id, body.role)
+        if body.is_active is not None:
+            db.set_active(target_id, body.is_active)
+        if body.password is not None:
+            try:
+                db.set_password(target_id, body.password)
+            except ValueError as exc:
+                raise HTTPException(422, str(exc)) from exc
+        return {"user": db.get(target_id).public()}
+
+    # ── per-account conversations ─────────────────────────────────────────────
+    # History is scoped by user_id server-side — the browser just syncs. Guests
+    # stay ephemeral (localStorage only, nothing persisted).
+
+    @app.get("/conversations")
+    async def conversations(request: HTTPRequest, user: Principal = Depends(require_role("user"))):
+        await check_origin(request)
+        return {"sessions": request.app.state.auth_db.list_conversations(user.id)}
+
+    @app.put("/conversations/{session_id}")
+    async def conversation_put(session_id: str, body: ConversationBody, request: HTTPRequest,
+                               user: Principal = Depends(require_role("user"))):
+        await check_origin(request)
+        if session_id != body.session_id:
+            raise HTTPException(422, "session_id mismatch")
+        request.app.state.auth_db.put_conversation(
+            user.id, session_id, body.title, body.draft, json.dumps(body.data, ensure_ascii=False))
+        return {"saved": True}
+
+    @app.delete("/conversations/{session_id}")
+    async def conversation_delete(session_id: str, request: HTTPRequest,
+                                  user: Principal = Depends(require_role("user"))):
+        await check_origin(request)
+        removed = request.app.state.auth_db.delete_conversation(user.id, session_id)
+        return {"deleted": removed}
+
+    # ── existing endpoints ────────────────────────────────────────────────────
 
     @app.get("/health")
     async def health(request: HTTPRequest):
-        await authorize(request)
+        await check_origin(request)   # public — run.py health-wait + landing probe
         return {"status": "ok", "mode": mode, "upstream_health_checked": False}
 
     @app.get("/domains")
-    async def domains(request: HTTPRequest):
-        await authorize(request)
+    async def domains(request: HTTPRequest, user: Principal = Depends(require_user)):
+        await check_origin(request)
         return {"mode": mode,
                 "domains": [{"id": s.name, "title": engine.domain_titles.get(s.name, s.name),
                              "location": s.location, "mock": s.mock}
@@ -222,8 +425,10 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     @app.get("/corpus")
     async def corpus_index(request: HTTPRequest):
         """The real knowledge-base contents — the UI's corpus browser renders
-        this, there is no bundled document copy."""
-        await authorize(request)
+        this, there is no bundled document copy. Public: corpus content is
+        public-domain campus info by policy and the landing page reads it
+        anonymously; uploads remain admin-gated."""
+        await check_origin(request)
         if corpus is None:
             raise HTTPException(503, "No local corpus in live mode")
         return {"domains": {d: {"title": body["title"],
@@ -235,8 +440,9 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
 
     @app.get("/corpus/file/{doc_id}")
     async def corpus_file(doc_id: str, request: HTTPRequest):
-        """Download the original uploaded/indexed file backing a corpus doc."""
-        await authorize(request)
+        """Download the original uploaded/indexed file backing a corpus doc.
+        Public like /corpus — <a href> downloads can't send auth headers."""
+        await check_origin(request)
         if corpus is None:
             raise HTTPException(503, "No local corpus in live mode")
         for body in corpus.documents.values():
@@ -249,8 +455,8 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
         raise HTTPException(404, "No file recorded for that document")
 
     @app.get("/metrics")
-    async def metrics(request: HTTPRequest):
-        await authorize(request)
+    async def metrics(request: HTTPRequest, admin: Principal = Depends(require_role("admin"))):
+        await check_origin(request)
         resolved = sum(1 for value in engine.feedback.values() if value)
         unresolved = sum(1 for value in engine.feedback.values() if not value)
         total = resolved + unresolved
@@ -261,16 +467,17 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
                          else "process-local counts; restart clears them"}
 
     @app.post("/feedback")
-    async def feedback(body: FeedbackBody, request: HTTPRequest):
-        await authorize(request)
+    async def feedback(body: FeedbackBody, request: HTTPRequest,
+                       user: Principal = Depends(require_role("user"))):
+        await check_origin(request)
         known = engine.record_feedback(body.request_id, body.resolved)
         return {"recorded": True, "known_request_id": known,
                 "scope": "resolution feedback, in-memory only"}
 
     @app.get("/models")
-    async def models(request: HTTPRequest):
+    async def models(request: HTTPRequest, admin: Principal = Depends(require_role("admin"))):
         """Which model powers which pipeline role — transparency for 'is this actually AI?'."""
-        await authorize(request)
+        await check_origin(request)
         return {"models": {
             "m1_router": os.environ.get("CORTEX_M1_MODEL", "qwen3.5:4b")
                          if mode == "live" or engine.router.__class__.__name__ == "OllamaRouter"
@@ -285,11 +492,12 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 
     @app.post("/corpus/upload")
-    async def corpus_upload(request: HTTPRequest, domain: str = Form(...), file: UploadFile = File(...)):
+    async def corpus_upload(request: HTTPRequest, domain: str = Form(...), file: UploadFile = File(...),
+                            admin: Principal = Depends(require_role("admin"))):
         """Drop a real document (.md/.txt/.pdf/.docx) into a domain at runtime —
         extracted, chunked and retrievable immediately; persists under corpus.d/ when
-        the server was started with a persist directory. Demo-mode only."""
-        await authorize(request)
+        the server was started with a persist directory. Demo-mode only. Admin only."""
+        await check_origin(request)
         if corpus is None:
             raise HTTPException(400, "Corpus upload requires a local corpus (demo mode)")
         if domain not in DOMAINS:
@@ -336,8 +544,9 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
                 "scope": scope_msg}
 
     @app.get("/contracts")
-    async def contracts(request: HTTPRequest):
-        await authorize(request)
+    async def contracts(request: HTTPRequest, admin: Principal = Depends(require_role("admin"))):
+        """Integration documentation for service builders — internal, admin-gated."""
+        await check_origin(request)
         original = {"query": "How do I reset my password?", "privacy": "local_only",
                     "available": ["it"], "clarify_attempts": 0}
         base = {"request_id": "m1-generated-id", "request": original}
@@ -371,10 +580,17 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
                 "trust": "Queries and skill outputs are untrusted text, never commands or authority to change policy."}
 
     @app.post("/query")
-    async def query(body: QueryBody, request: HTTPRequest):
-        await authorize(request)
+    async def query(body: QueryBody, request: HTTPRequest,
+                    user: Principal = Depends(require_user)):
+        await check_origin(request)
+        if user.role == "guest":
+            # IP-based: a guest could mint a fresh token, the address is the real bound
+            request.app.state.guest_query_limiter.check(f"guest:{client_ip(request)}")
+        # Guests are pinned to the general knowledge area — their `available`
+        # is replaced regardless of what they asked for.
+        available = ("general",) if user.role == "guest" else tuple(body.available)
         try:
-            model_request = Request(body.query, body.privacy, tuple(body.available), body.clarify_attempts)
+            model_request = Request(body.query, body.privacy, available, body.clarify_attempts)
             result = await engine.run(model_request)
         except ValueError:
             raise HTTPException(422, "Invalid query or domain selection")
@@ -383,12 +599,16 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
         return JSONResponse(result, status_code=codes.get(result["status"], 200))
 
     @app.post("/query/stream")
-    async def query_stream(body: QueryBody, request: HTTPRequest):
+    async def query_stream(body: QueryBody, request: HTTPRequest,
+                           user: Principal = Depends(require_user)):
         """SSE variant of /query: streams stage/skill telemetry as the pipeline runs,
         then the full result payload. Always 200 — clients read status from the result event."""
-        await authorize(request)
+        await check_origin(request)
+        if user.role == "guest":
+            request.app.state.guest_query_limiter.check(f"guest:{client_ip(request)}")
+        available = ("general",) if user.role == "guest" else tuple(body.available)
         try:
-            model_request = Request(body.query, body.privacy, tuple(body.available), body.clarify_attempts)
+            model_request = Request(body.query, body.privacy, available, body.clarify_attempts)
         except ValueError:
             raise HTTPException(422, "Invalid query or domain selection")
         queue = asyncio.Queue()
@@ -475,6 +695,10 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
         @app.get("/", include_in_schema=False)
         async def landing():
             return FileResponse(frontend_dir / "landing.html")
+
+        @app.get("/login", include_in_schema=False)
+        async def login_page():
+            return FileResponse(frontend_dir / "login.html")
 
         @app.get("/app", include_in_schema=False)
         async def assistant():

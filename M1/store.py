@@ -2,6 +2,7 @@ import asyncio
 import hashlib
 import json
 import math
+import obs
 import os
 import re
 from io import BytesIO
@@ -248,15 +249,28 @@ class CorpusIndex:
             raise ValueError("limit must be 1..10")
         if domain not in self.documents:
             raise ValueError("Unknown domain")
-        query_tokens = expanded_tokens(instruction)
-        ranked = []
-        for chunk in self.documents[domain]["chunks"]:
-            overlap = query_tokens & chunk["tokens"]
-            if overlap:
-                ranked.append((sum(self.idf.get(t, 1) for t in overlap), chunk["doc_id"], chunk["index"], chunk))
-        ranked.sort(key=lambda item: (-item[0], item[1], item[2]))
-        return [{"doc_id": c["doc_id"], "title": c["title"], "chunk": c["text"],
-                 "content": c["text"], "score": score} for score, _, _, c in ranked[:limit]]
+        with obs.stage("RETRIEVAL", domain=domain, engine="keyword", top_k=limit) as out:
+            query_tokens = expanded_tokens(instruction)
+            ranked = []
+            for chunk in self.documents[domain]["chunks"]:
+                overlap = query_tokens & chunk["tokens"]
+                if overlap:
+                    ranked.append((sum(self.idf.get(t, 1) for t in overlap), chunk["doc_id"], chunk["index"], chunk))
+            ranked.sort(key=lambda item: (-item[0], item[1], item[2]))
+            hits = [{"doc_id": c["doc_id"], "title": c["title"], "chunk": c["text"],
+                     "content": c["text"], "score": score} for score, _, _, c in ranked[:limit]]
+            self._log_hits(out, hits)
+            return hits
+
+    def _log_hits(self, out, hits):
+        """Shared retrieval stats: count + score spread; doc/chunk ids only when
+        LOG_RETRIEVED_DOCS is on (metadata, never the text itself)."""
+        scores = [h["score"] for h in hits]
+        out.update(hits=len(hits), score_max=round(max(scores), 3) if scores else None,
+                   score_min=round(min(scores), 3) if scores else None,
+                   score_avg=round(sum(scores) / len(scores), 3) if scores else None)
+        if obs.cfg()["retrieved_docs"]:
+            out["docs"] = [h["doc_id"] for h in hits]
 
     def add_source(self, domain, doc_id, title, content, fmt="txt", file=None):
         """Runtime ingestion: add one document to a domain and re-index. Called by
@@ -294,6 +308,10 @@ class CorpusIndex:
                 self.retrieve, domain, f"{query} {payload.get('instruction', '')}", 3)
             if not chunks:
                 raise ServiceError("no_evidence")
+            obs.event("CONTEXT_BUILT", domain=domain, chunks=len(chunks),
+                      context_chars=sum(len(c["chunk"]) for c in chunks),
+                      citations=len({c["doc_id"] for c in chunks}),
+                      top_k=3, context_truncated=False)
             answer = self.summarize(f"{query} {payload.get('instruction', '')}", chunks)
             if answerer is not None:
                 try:
@@ -373,20 +391,23 @@ class OllamaEmbedder:
             self._dirty = True
 
     def __call__(self, text):
-        store = self._store()
-        key = self._key(self.model, text)
-        if key in store:
-            return store[key]
-        payload = json.dumps({"model": self.model, "input": text, "keep_alive": "10m"}).encode("utf-8")
-        call = HttpRequest(self.url, data=payload, headers={"Content-Type": "application/json"})
-        with urlopen(call, timeout=self.timeout) as response:
-            body = json.loads(response.read(5000001))
-        vectors = body.get("embeddings")
-        if not vectors or not all(isinstance(x, (int, float)) for x in vectors[0]):
-            raise ValueError("Ollama returned no embedding")
-        self._put(store, key, vectors[0])
-        self._persist()
-        return vectors[0]
+        with obs.stage("EMBEDDING", model=self.model, input_chars=len(text)) as out:
+            store = self._store()
+            key = self._key(self.model, text)
+            if key in store:
+                out.update(cached=True, dims=len(store[key]))
+                return store[key]
+            payload = json.dumps({"model": self.model, "input": text, "keep_alive": "10m"}).encode("utf-8")
+            call = HttpRequest(self.url, data=payload, headers={"Content-Type": "application/json"})
+            with urlopen(call, timeout=self.timeout) as response:
+                body = json.loads(response.read(5000001))
+            vectors = body.get("embeddings")
+            if not vectors or not all(isinstance(x, (int, float)) for x in vectors[0]):
+                raise ValueError("Ollama returned no embedding")
+            self._put(store, key, vectors[0])
+            self._persist()
+            out.update(cached=False, dims=len(vectors[0]))
+            return vectors[0]
 
     def batch(self, texts):
         """Embed many texts in one /api/embed call — Ollama accepts a list input and
@@ -516,19 +537,21 @@ class SemanticIndex(CorpusIndex):
             raise ValueError("limit must be 1..10")
         if domain not in self.documents:
             raise ValueError("Unknown domain")
-        qv = self.embedder(instruction)
-        ranked = sorted(((cosine(qv, vec), chunk["doc_id"], chunk["index"], chunk)
-                         for d, chunk, vec in self._vectors if d == domain),
-                        key=lambda item: (-item[0], item[1], item[2]))
-        hits = []
-        for score, _, _, chunk in ranked:
-            if score < self.ABSTAIN:
-                break
-            hits.append({"doc_id": chunk["doc_id"], "title": chunk["title"], "chunk": chunk["text"],
-                         "content": chunk["text"], "score": score})
-            if len(hits) == limit:
-                break
-        return hits
+        with obs.stage("RETRIEVAL", domain=domain, engine="semantic", top_k=limit) as out:
+            qv = self.embedder(instruction)
+            ranked = sorted(((cosine(qv, vec), chunk["doc_id"], chunk["index"], chunk)
+                             for d, chunk, vec in self._vectors if d == domain),
+                            key=lambda item: (-item[0], item[1], item[2]))
+            hits = []
+            for score, _, _, chunk in ranked:
+                if score < self.ABSTAIN:
+                    break
+                hits.append({"doc_id": chunk["doc_id"], "title": chunk["title"], "chunk": chunk["text"],
+                             "content": chunk["text"], "score": score})
+                if len(hits) == limit:
+                    break
+            self._log_hits(out, hits)
+            return hits
 
 
 def create_seed_corpus(path=DEFAULT_CORPUS):

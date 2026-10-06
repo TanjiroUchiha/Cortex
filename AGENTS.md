@@ -91,6 +91,65 @@ chat, and asks to clarify when unsure.
 - `archive/` — pre-pivot artifacts (fine-tuning pipeline, GPU notebook, old plan). Not needed
   for this challenge: the problem statement allows keyword/small-model routing.
 - `.devin/services.example.json` — live-mode service config template + domain metadata.
+- `auth.py` — account layer: SQLite `data/auth.db` (users: id/email/name/password_hash/
+  role/auth_provider/is_active), argon2 password hashing, HS256 JWTs (60 min, `iss`
+  pinned, role re-read from the DB per request so demotion is immediate), in-memory
+  login rate limiter, FastAPI deps `require_user`/`require_role("admin")`.
+  `CORTEX_API_TOKEN` remains as a service-token bearer resolving to a synthetic admin.
+- `test_auth.py` — tests: login/JWT tampering (expired, forged, wrong-iss,
+  alg=none, cosmetic role claim), deactivation, role gates, rate limit, env bootstrap.
+
+## Auth
+
+- Tiers: `guest` (stateless 20-min JWT via `POST /auth/guest`; chat only, pinned to the
+  `general` domain server-side, 10 queries/hour/IP — minting fresh tokens doesn't
+  reset it), `user` (`/auth/signup` or admin-created; adds `/feedback`, no cap),
+  `admin` (+ corpus upload, metrics, models, contracts, `/admin/users*`).
+  Public: `/health`, `/auth/*`, `/corpus`, `/corpus/file`. Backend enforces —
+  frontend hiding is cosmetic only.
+- Conversations: `conversations` table keyed `(user_id, session_id)` —
+  `GET/PUT/DELETE /conversations` (user+; guests 403 and stay ephemeral on
+  localStorage). `app.js` syncs signed-in sessions with a 600ms debounce;
+  server wins on load, localStorage is the offline cache, one-time local→remote
+  migration for new accounts.
+- Env: `CORTEX_JWT_SECRET` (≥32 chars; live mode refuses to start without it, demo
+  uses an ephemeral key + warning), `CORTEX_ADMIN_EMAIL` /
+  `CORTEX_ADMIN_PASSWORD` (first-run bootstrap; without them a random-password
+  `admin@cortex.local` is created and printed once), `CORTEX_AUTH_DB` (db path).
+  `run.py` also loads `Cortex/.env` into M1's environment — real env vars win.
+- Frontend: `login.html` (sign-in ⇄ signup toggle + guest button) → JWT in
+  `sessionStorage` → `app.js` attaches `Authorization: Bearer` on every call
+  (SSE already uses `fetch`+`getReader`, so no token ever lands in a URL);
+  401 → back to `/login`. Bump the `?v=` asset query in index/login/landing
+  when editing frontend files — browsers cache by that string and stale JS
+  silently looks like a broken feature.
+- Limitations: bearer tokens can't be revoked mid-flight (no blacklist — logout is
+  client-side), sessionStorage is XSS-readable, rate limits are per-process, M2 on
+  loopback is unauthenticated, localhost runs without TLS.
+
+## Observability (`obs.py`)
+
+- One logger (`cortex`), structured key=value events (or JSON via `LOG_FORMAT=json`).
+  Every event carries `request_id` — minted by the HTTP middleware
+  (`REQUEST_START`/`RESPONSE_READY`/`REQUEST_END`) and reused as the engine's own
+  `request_id`, so logs, `queries.jsonl`, `/feedback`, and tickets share one id.
+  After auth resolves, events also carry `user_id`/`role`. Contextvars isolate
+  concurrent async/gather requests; logging failures never propagate.
+- Stage lifecycle via `obs.stage("NAME", **meta) as out`: `NAME_START`,
+  `NAME_END` (`latency_ms` + fields the caller put in `out`, `state=ok|fail`),
+  `NAME_ERROR` (traceback). Stages: `M1` (router), `EMBEDDING`, `RETRIEVAL`
+  (score min/max/avg; `LOG_RETRIEVED_DOCS=true` adds doc ids), `M2`, `V1`.
+  Point events: `QUERY_RECEIVED`, `CONTEXT_BUILT`, `AUTH_REJECTED`,
+  `FLAGS_GENERATED`, `ROUTING_DECISION` (what flags/guards caused),
+  `V1_VERDICT`, `PIPELINE_SUMMARY` (per-stage timings one line),
+  `PIPELINE_TRACE` (✓/✗/⚠ human trace, DEBUG level).
+- Env: `LOG_LEVEL` (DEBUG shows the trace), `LOG_FORMAT`, `LOG_TO_FILE`
+  (rotating `logs/app.log`, 5MB×3), `LOG_QUERY_CONTENT`, `LOG_MODEL_OUTPUT`,
+  `LOG_RETRIEVED_DOCS` — all default to safe/off. Secrets-shaped field names
+  (password/token/key/etc.) are auto-redacted; query text logs as sha256-12
+  unless `LOG_QUERY_CONTENT=true`.
+- Trace one request: `python run.py 2>&1 | grep "request_id=<rid>"` (or
+  `Select-String "request_id=" logs/app.log` with `LOG_TO_FILE=true`).
 
 ## Commands (Python 3.10+)
 

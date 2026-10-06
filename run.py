@@ -77,6 +77,16 @@ def wait_for_health(url: str, timeout: float, label: str) -> bool:
     return False
 
 
+def cortex_already_up(url: str) -> bool:
+    """Is a Cortex M1 already listening here? (any 200 isn't enough — must be ours)."""
+    try:
+        with urllib.request.urlopen(url + "/health", timeout=2) as response:
+            body = json.loads(response.read())
+        return body.get("status") == "ok" and "mode" in body
+    except (urllib.error.URLError, OSError, ValueError):
+        return False
+
+
 def start(cmd: list[str], env: dict[str, str]) -> subprocess.Popen:
     # A new process group keeps Ctrl+C in this console from half-killing the children;
     # we stop them ourselves in stop_all() so shutdown is orderly.
@@ -132,6 +142,10 @@ def main() -> int:
     print(f"  Ollama: {ollama_status()}")
 
     env = os.environ.copy()
+    # Cortex/.env provides shared config (GOOGLE_CLIENT_ID, CORTEX_JWT_SECRET,
+    # CORTEX_ADMIN_*) for the M1 process; real env vars still win if both are set.
+    for key, value in load_env_file(ROOT / ".env").items():
+        env.setdefault(key, value)
     api_url = f"http://127.0.0.1:{args.port}"
     ui_url = api_url
     if args.frontend_port:
@@ -142,6 +156,14 @@ def main() -> int:
 
     m2_url = None
     try:
+        if cortex_already_up(api_url):
+            print(f"  Cortex is already serving at {api_url} — an earlier launcher is still alive.")
+            print(f"  Landing:   {api_url}/")
+            print(f"  Assistant: {api_url}/app")
+            print("  (stop that process first if you meant to restart with different options)")
+            if not args.no_browser:
+                webbrowser.open(f"{api_url}/")
+            return 0
         if not args.no_m2:
             m2_env = {**os.environ, **load_env_file(ROOT / "M2" / ".env")}
             m2_python = venv_python(ROOT / "M2") or sys.executable

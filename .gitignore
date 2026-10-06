@@ -1,0 +1,23 @@
+# Secrets/config — JWT secret, admin bootstrap, OAuth client id
+.env
+*.env
+!M2/.env.example
+
+# Rotating observability logs
+logs/
+M1/logs/
+
+# Auth database — contains password hashes; never commit
+M1/data/auth.db
+*.db-journal
+
+# Server-generated runtime data
+M1/data/metrics.json
+M1/data/queries.jsonl
+M1/data/tickets.json
+M1/data/embed-cache.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
