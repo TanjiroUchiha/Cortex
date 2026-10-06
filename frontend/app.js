@@ -1059,15 +1059,38 @@ function openCorpusDocList(domain, fromEl) {
   });
   openCorpusReader(fromEl);
 }
-/* live search across every domain: all terms must match title, id or body */
+/* search: server-side ranked retrieval via GET /corpus/search when signed in —
+   the endpoint filters hits to the caller's access tier. The client-side
+   substring scan stays as the fallback for guests without a token or when the
+   backend is unreachable. */
+let searchSeq = 0, searchTimer = null;
 function renderSearchResults() {
   state.corpusMode = 'results';
   $('#corpusBack').textContent = '‹ Clear search';
   const q = state.searchQ;
+  const seq = ++searchSeq;
+  if (apiFetch && state.user) {
+    apiFetch(`${API}/corpus/search?q=${encodeURIComponent(q)}`)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => {
+        if (seq !== searchSeq) return;   // a newer keystroke already rendered
+        renderSearchHits(q, data.results.map(h => ({
+          domId: h.domain,
+          doc: (DOMAINS[h.domain]?.docs || []).find(x => x.id === h.doc_id)
+               || { id: h.doc_id, title: h.title, content: h.snippet },
+          ctx: h.snippet
+        })));
+      })
+      .catch(() => { if (seq === searchSeq) renderLocalSearch(q); });
+    return;
+  }
+  renderLocalSearch(q);
+}
+function renderLocalSearch(q) {
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   const hits = [];
   Object.entries(DOMAINS).forEach(([domId, d]) => d.docs.forEach(doc => {
-    if (terms.every(t => `${doc.title} ${doc.id} ${doc.content}`.toLowerCase().includes(t))) hits.push({ domId, d, doc });
+    if (terms.every(t => `${doc.title} ${doc.id} ${doc.content}`.toLowerCase().includes(t))) hits.push({ domId, doc });
   }));
   const excerpt = doc => {
     const lc = doc.content.toLowerCase();
@@ -1076,11 +1099,14 @@ function renderSearchResults() {
     const s = Math.max(0, at - 40), e = Math.min(doc.content.length, at + 80);
     return (s ? '…' : '') + doc.content.slice(s, e) + (e < doc.content.length ? '…' : '');
   };
+  renderSearchHits(q, hits.map(h => ({ ...h, ctx: excerpt(h.doc) })));
+}
+function renderSearchHits(q, hits) {
   $('#corpusReaderBody').innerHTML = hits.length
     ? `<span class="doc-dom" style="--c:var(--accent)">${icon('search')} Search</span>
        <h4 class="doc-title">${hits.length} document${hits.length > 1 ? 's' : ''} match “${esc(q)}”</h4>
        <div class="doc-list">${hits.map(h =>
-         `<button type="button" class="doc-list-item hit-item" style="--c:${h.d.color}"><span class="cdot"></span><span class="hit-copy"><span class="hit-title">${esc(h.doc.title)}</span><span class="hit-ctx">${esc(excerpt(h.doc))}</span></span><span class="doc-list-id">${esc(h.doc.id)}</span></button>`).join('')}</div>`
+         `<button type="button" class="doc-list-item hit-item" style="--c:${DOMAINS[h.domId].color}"><span class="cdot"></span><span class="hit-copy"><span class="hit-title">${esc(h.doc.title)}</span><span class="hit-ctx">${esc(h.ctx)}</span></span><span class="doc-list-id">${esc(h.doc.id)}</span></button>`).join('')}</div>`
     : `<span class="doc-dom" style="--c:var(--accent)">${icon('search')} Search</span>
        <h4 class="doc-title">No matches for “${esc(q)}”</h4>
        <p class="doc-body">Titles, document ids and full text are all searched — try different words.</p>`;
@@ -1295,8 +1321,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   on('#corpusSearch', 'input', e => {
     state.searchQ = e.target.value.trim();
-    if (state.searchQ) renderSearchResults();
-    else showCorpusShelf();
+    clearTimeout(searchTimer);
+    if (!state.searchQ) { showCorpusShelf(); return; }
+    // server-ranked search debounces per keystroke; the local fallback stays instant
+    searchTimer = setTimeout(renderSearchResults, apiFetch && state.user ? 220 : 0);
   });
   bind('#browseCorpus', 'onclick', openCorpus);
   bind('#browseCorpus2', 'onclick', openCorpus);

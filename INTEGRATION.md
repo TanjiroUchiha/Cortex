@@ -5,12 +5,25 @@ M1 (router, orchestrator, domain skills) calls M2 (merger) over HTTP.
 Adapter: `backend/services.py` → `RemoteMerger` (`_to_m2_input` is the only place
 that maps M1's payload to M2's schema). V1 is still M1's own verifier.
 
+## Account store (MongoDB Atlas)
+
+Accounts, roles, per-user conversations and upload provenance live in Atlas —
+`backend/db.py` builds the `mongodb+srv://` URI from `.env`
+(`MONGO_USERNAME` / `MONGO_PASSWORD` / `MONGO_CLUSTER`; `MONGO_DB` defaults to
+`cortex`). Collections: `users`, `admin_users` (the role split — role is where
+the record lives, not a field), `conversations`, `documents`. Startup fails
+with a clear error when the keys are missing or Atlas is unreachable (check
+Atlas → Network Access for your IP). Seed admins with
+`scripts/create_admin.py`; the legacy SQLite `auth.db` lifts over with
+`scripts/migrate_auth_to_mongo.py`. Tests never touch Atlas — they inject
+`AuthDB.memory()`.
+
 ## Start (3 things must be running)
 1. Ollama (`ollama list` should show the model named in models/m2/.env)
 2. M2, from the Cortex folder:
-   M2\.venv\Scripts\activate
-   uvicorn M2.api:app --host 127.0.0.1 --port 9001 --env-file M2\.env
-3. M1, from Cortex\M1:
+   models\m2\.venv\Scripts\activate
+   uvicorn models.m2.api:app --host 127.0.0.1 --port 9001 --env-file models\m2\.env
+3. M1, from the Cortex folder:
    python -m backend.api --mode demo --retrieval keyword --m2-url http://127.0.0.1:9001/merge
 
 ## models/m2/.env (copy from .env.example)
@@ -20,7 +33,7 @@ M2_TIMEOUT_SECONDS=50        # M2 retries once; 2x this must stay under M1's 110
 M2_MAX_EVIDENCE_CHARS=1000
 
 ## Verify
-cd M1 && python probe_m2.py
+python test/probe_m2.py
 ONE domain -> 200 instantly (no model call)
 TWO domains -> 200 in a few seconds (model call)
 
