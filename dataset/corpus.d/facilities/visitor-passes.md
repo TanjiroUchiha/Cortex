@@ -6,9 +6,12 @@ category: facilities
 original_category: security
 department: Campus Security
 document_type: Institutional guidance
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- SECURITY
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -24,7 +27,7 @@ superseded_by: null
 origin: M1/data/corpus.d/general/visitor-passes.md
 preserved_seed_sources: []
 related_documents: []
-access_level: Confidential
+access_level: Internal
 synthetic: true
 source_file: M1/data/corpus.d/general/visitor-passes.md
 package: expanded-corpus

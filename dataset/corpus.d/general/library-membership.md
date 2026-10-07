@@ -6,9 +6,12 @@ category: general
 original_category: library
 department: Library Services
 document_type: Eligibility rule
-sensitivity: RESTRICTED
+sensitivity: INTERNAL
 allowed_roles:
-- LIBRARY
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -24,7 +27,7 @@ superseded_by: null
 origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
-access_level: Restricted
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---
@@ -32,7 +35,7 @@ package: expanded-corpus
 # Library membership activation
 
 ## Purpose and scope
-This record applies to active library users and items tracked in the library account system. Enrolled students and active employees receive borrowing privileges after their identity record synchronizes; guest access is read-only unless approved.
+This record applies to active library users and items tracked in the library account system. To become a library member, enrolled students and active employees receive borrowing privileges automatically after their identity record synchronizes; guest access is read-only unless approved.
 
 ## Responsibilities
 The requester supplies complete, accurate information. Library Services verifies the record, records its decision and communicates any required next step through the approved portal.

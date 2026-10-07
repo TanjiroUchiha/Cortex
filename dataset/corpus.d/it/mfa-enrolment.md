@@ -5,9 +5,12 @@ title: Multi-factor authentication enrolment
 category: it
 department: Information Technology
 document_type: FAQ
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- IT
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -23,7 +26,7 @@ superseded_by: null
 origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
-access_level: Confidential
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---
@@ -31,7 +34,7 @@ package: expanded-corpus
 # Multi-factor authentication enrolment
 
 ## Summary
-**What should the reader know?** Users register an approved second factor and recovery method through the identity portal; support staff never ask for a one-time code.
+Multi-factor authentication (MFA) is required on all campus accounts. To set up MFA, open the identity portal's security page, register an approved authenticator app or hardware key as the second factor, and save the recovery codes shown during enrolment. New accounts must enrol within 14 days of first login; support staff never ask for a one-time code or password.
 
 ## Action
 Use the IT Service Desk for a case-specific answer. The service desk at it@cdu.example can route a request but cannot approve an exception outside its delegated role.

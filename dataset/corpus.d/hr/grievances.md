@@ -5,9 +5,12 @@ title: Grievances and escalation
 category: hr
 department: Human Resources
 document_type: Institutional guidance
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- HR
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -23,7 +26,7 @@ superseded_by: null
 origin: M1/data/corpus.d/hr/grievances.md
 preserved_seed_sources: []
 related_documents: []
-access_level: Confidential
+access_level: Internal
 synthetic: true
 source_file: M1/data/corpus.d/hr/grievances.md
 package: expanded-corpus

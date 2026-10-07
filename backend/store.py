@@ -275,6 +275,7 @@ class CorpusIndex:
         "subscription": {"subscribe", "subscribed"},
         "timetable": {"schedule", "scheduled", "departure", "departures"},
         "schedule": {"timetable"},
+        "shuttle": {"bus", "buses", "timetable"},
         "clear": {"clearance", "cleared"},
         "clearance": {"clear", "cleared", "clears"},
         "graduate": {"graduation", "graduating", "graduates", "graduated"},
@@ -285,6 +286,9 @@ class CorpusIndex:
         "shortage": {"short", "insufficient"},
         "deactivation": {"deactivate", "deactivated", "disable", "disabled"},
         "deactivate": {"deactivation", "deactivated", "disable"},
+        "calculate": {"calculation", "calculated", "calculating"},
+        "calculated": {"calculate", "calculation", "calculating"},
+        "calculation": {"calculate", "calculated", "calculating"},
         "delivery": {"deliver", "delivered", "collection", "collect"},
         "book": {"booking", "booked"},
         "booking": {"book", "booked", "books"},
@@ -530,7 +534,11 @@ class CorpusIndex:
         mass = {}
         query = self._QUERY_WRAPPER_RE.sub("", query, count=1)
         for t in tokens(query):
-            if len(t) <= 3:
+            # len<=2 only: "gpa", "mfa", "vpn", "fee", "pay" are three-letter
+            # TOPICAL terms whose IDF mass is exactly what coverage should
+            # measure — skipping them zeroed coverage on acronyms the corpus
+            # is literally about
+            if len(t) <= 2:
                 continue
             direct = self._direct_aliases(t) or {t}
             concept = self._CONCEPTS.get(t, set()) & self.idf.keys()
@@ -723,6 +731,25 @@ class CorpusIndex:
                             r"exceptions?( and escalation)?|steps?|rules?|actions?|"
                             r"examples?|audit trail|review|definitions|notes?)\.?:?$", re.I)
 
+    # Generated package docs embed case-workflow boilerplate between the real
+    # sentences. Those lines share query vocabulary ("the request concerns gpa
+    # and cgpa calculation") so they outscore the actual rule and get quoted
+    # verbatim as the "answer". They are procedural filler, never an answer —
+    # drop them from the evidence sentences. Contact-bearing lines ("the
+    # responsible owner is …") are kept on purpose.
+    _SENT_BOILER = re.compile(
+        r"^(?:confirm that the request concerns|identify the responsible unit\b|"
+        r"submit (?:a case|the relevant record identifier)|save the case reference|"
+        r"the requester (?:supplies|adds the evidence)|verifies the record,|"
+        r"do not create a duplicate request|keep only the records required|"
+        r"do not place identity documents|an exception must be approved|"
+        r"the department owner reviews|a newer active version takes precedence|"
+        r"if a request related to|the owner records the decision|"
+        r"access to the case is limited|for a case-specific answer|"
+        r"the service desk at|if the record remains unresolved|"
+        r"this record applies to|keep the generated case reference|"
+        r"urgent safety or privacy risks)", re.I)
+
     def _clean_sentences(self, text):
         """Unwrap hard-wrapped paragraphs, drop Markdown scaffolding (headings,
         bold section labels, list markers) and split into plain sentences."""
@@ -750,6 +777,7 @@ class CorpusIndex:
                 # fragments with no terminal punctuation and few words are
                 # heading remnants, not sentences
                 if len(s) > 3 and not self._MD_BOILER.match(s) \
+                        and not self._SENT_BOILER.match(s) \
                         and (is_item or s[-1] in ".!?" or len(s.split()) > 6):
                     cleaned.append(s)
         return cleaned
@@ -814,17 +842,21 @@ class CorpusIndex:
         r"how to use this|read the full policy|applies to all|"
         r"verifies the record|responsible owner is|approved portal", re.I)
 
-    def _sentence_score(self, sentence, query_tokens, priors):
-        """IDF-weighted overlap + small bonus for prior-token presence."""
+    def _sentence_score(self, sentence, families, priors):
+        """IDF-weighted coverage scored once per query TERM (families carry
+        aliases and concept bridges at the same weights retrieval uses):
+        "an itemized invoice and payment receipt" is one 'pay' concept, not
+        two — alias-stacking must not let a tangential sentence outscore the
+        one that names the question's discriminating term."""
         st = tokens(sentence)
-        overlap = st & query_tokens
-        if not overlap:
-            return 0.0
         if self._BOILERPLATE_RE.search(sentence):
             return 0.0
-        score = sum(max(self.idf.get(t, 1.0), 0.1) for t in overlap)
+        covered = [w for fam, w in families if st & fam]
+        if not covered:
+            return 0.0
+        score = sum(covered)
         if any(st & p for p in priors):
-            score += 0.6 * max(self.idf.get(t, 1.0) for t in query_tokens)
+            score += 0.6 * max(w for _, w in families)
         return score
 
     def summarize(self, instruction, evidence):
@@ -836,14 +868,14 @@ class CorpusIndex:
         sentences = [(0.85 ** rank, pos, s)
                      for rank, item in enumerate(evidence)
                      for pos, s in enumerate(self._clean_sentences(item["content"]))]
-        query = self._query_terms(instruction)
+        fams = self._query_weights(instruction)
         raw_words = set(re.findall(r"[a-z]{2,}", instruction.casefold()))
         priors = [p for w, p in self._QTYPE_PRIORS if w in raw_words]
         scored = sorted(((self._has_answer_signal(s, priors),
-                          rank_w * self._sentence_score(s, query, priors) * (1.3 if pos <= 2 else 1.0),
+                          rank_w * self._sentence_score(s, fams, priors) * (1.3 if pos <= 2 else 1.0),
                           -i, s)
                          for i, (rank_w, pos, s) in enumerate(sentences)
-                         if self._sentence_score(s, query, priors) > 0), reverse=True)
+                         if self._sentence_score(s, fams, priors) > 0), reverse=True)
         # dedupe on normalized text — overlapping chunks or docs stating the same
         # fact (seed + package both cover library hours) must not double-print it
         selected, seen_norm = [], set()
@@ -1073,7 +1105,8 @@ class SemanticIndex(CorpusIndex):
             viewer = kwargs.get("viewer", "admin")
             probe = []
             for _, d in ordered[:5]:
-                hits = self.retrieve(d, query, limit=1, viewer=viewer, query=query)
+                hits = self.retrieve(d, query, limit=1, viewer=viewer, query=query,
+                                     coverage_check=False)
                 probe.append((self._probe_score(query, hits[0] if hits else None), d))
             probe.sort(reverse=True)
             if probe[0][0] > 0 and (len(probe) == 1 or probe[0][0] >= 1.2 * probe[1][0]):
@@ -1081,6 +1114,17 @@ class SemanticIndex(CorpusIndex):
                 return {"action": "route", "options": [], "message": "", "evidence_resolved": True,
                         "tasks": [{"domain": winner,
                                    "instruction": f"Answer the {self.documents[winner]['title']} part using only retrieved sources."}]}
+            # indecisive probes: before bothering the user, check whether this
+            # is actually a MULTI-topic question — several domains each carrying
+            # keyword-confirmed evidence is a join, not ambiguity
+            query_tokens = self._query_terms(query)
+            strong = [(s, d) for s, d in ordered
+                      if s >= self.multi_floor and secondary_confirmed(query_tokens, self.documents[d]["keywords"])]
+            if len(strong) > 1:
+                return {"action": "route", "options": [], "message": "", "evidence_resolved": True,
+                        "tasks": [{"domain": d,
+                                   "instruction": f"Answer the {self.documents[d]['title']} part using only retrieved sources."}
+                                  for _, d in strong[:4]]}
             return {"action": "clarify", "tasks": [],
                     "options": [{"domain": d, "title": self.documents[d]["title"]} for _, d in close],
                     "message": "Which area should I check?"}

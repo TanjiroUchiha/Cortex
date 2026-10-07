@@ -6,9 +6,12 @@ category: general
 original_category: library
 department: Library Services
 document_type: Notice
-sensitivity: RESTRICTED
+sensitivity: INTERNAL
 allowed_roles:
-- LIBRARY
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -28,7 +31,7 @@ related_documents:
 - fees/fee-clearance-for-graduation.md
 - facilities/hostel-checkout.md
 - general/student-no-dues-certificate.md
-access_level: Restricted
+access_level: Internal
 synthetic: true
 relationship_clusters:
 - graduation-clearance

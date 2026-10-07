@@ -6,9 +6,12 @@ category: fees
 original_category: finance
 department: Finance
 document_type: FAQ
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- FINANCE
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -24,7 +27,7 @@ superseded_by: null
 origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
-access_level: Confidential
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---

@@ -5,9 +5,12 @@ title: Financial hold release
 category: fees
 department: Student Accounts
 document_type: Procedure
-sensitivity: RESTRICTED
+sensitivity: INTERNAL
 allowed_roles:
-- FINANCE
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -23,7 +26,7 @@ superseded_by: null
 origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
-access_level: Restricted
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---

@@ -6,9 +6,12 @@ category: fees
 original_category: finance
 department: Finance
 document_type: Eligibility rule
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- FINANCE
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -27,7 +30,7 @@ related_documents:
 - hr/resignation-and-relieving.md
 - hr/exit-formalities.md
 - it/account-deactivation.md
-access_level: Confidential
+access_level: Internal
 synthetic: true
 relationship_clusters:
 - employee-exit

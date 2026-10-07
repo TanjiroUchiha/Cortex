@@ -130,7 +130,8 @@ STOPWORDS = {"the", "and", "for", "with", "what", "when", "where", "how", "can",
              "us", "a", "an", "to", "in", "on", "of", "at", "by", "do", "does", "did", "not",
              "no", "so", "if", "or", "as", "but", "its", "still", "again", "there", "here",
              "they", "them", "he", "she", "get", "got", "has", "have", "had", "all", "any",
-             "some", "out", "up", "just", "now", "then", "than", "too", "very"}
+             "some", "out", "up", "just", "now", "then", "than", "too", "very",
+             "happen", "happens", "happened", "going", "goes", "went"}
 
 
 def tokens(text):

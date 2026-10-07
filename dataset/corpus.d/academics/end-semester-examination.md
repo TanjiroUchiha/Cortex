@@ -39,7 +39,7 @@ package: expanded-corpus
 # End-semester examination
 
 ## Summary
-End-semester examinations run in the published exam period, with morning and afternoon sessions. Students appear only with a hall ticket generated after fee clearance and exam registration; the seating plan posts on the exam portal and notice boards 3 days before each paper.
+End-semester examinations run in the last two weeks of each semester — the published exam period in May and December — with morning and afternoon sessions; the timetable posts on the exam portal four weeks before the first paper. Students appear only with a hall ticket generated after fee clearance and exam registration; the seating plan posts on the exam portal and notice boards 3 days before each paper.
 
 ## Details
 Phones and smart watches are banned in exam halls; ID card plus hall ticket are checked at entry. Results publish on the portal within 30 days and revaluation requests open for 7 days after each result. The responsible owner is the Examination Cell (exams@cdu.example, ext 4100).

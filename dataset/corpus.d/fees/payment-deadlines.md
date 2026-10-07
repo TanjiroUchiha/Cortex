@@ -35,7 +35,9 @@ package: expanded-corpus
 
 # Fee payment deadlines
 
-Semester tuition, hostel and mess fees must be paid by the dates published on the academic calendar. The fees portal shows your exact dues and the deadline for each head.
+Semester tuition, hostel and mess fees must be paid by the dates published on the academic calendar — 15 August for the autumn semester and 15 January for the spring semester. The fees portal shows your exact dues and the deadline for each head.
+
+Paying late adds a late fee of Rs 500 per week past the deadline, capped at four weeks; exam registration is blocked until dues are cleared.
 
 Late payments attract a fine per the fee circular — the amount depends on how many weeks past the deadline the payment is made. Exam registration is blocked until dues are cleared.
 

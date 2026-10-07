@@ -5,9 +5,12 @@ title: Employee resignation notice
 category: hr
 department: Human Resources
 document_type: Eligibility rule
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- HR
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -23,7 +26,7 @@ superseded_by: null
 origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
-access_level: Confidential
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---

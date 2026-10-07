@@ -41,7 +41,7 @@ package: expanded-corpus
 4. If the record remains unresolved after the stated service window, contact hostel@cdu.example with the existing reference.
 
 ## Rule
-The dining notice lists daily service windows and planned closures; emergency substitutions are posted by the mess manager. The responsible owner is Residential Life. Submit a case through the Residential Services Portal with the relevant record identifier, date and supporting evidence; keep the generated case reference until the status is closed.
+The hostel mess serves breakfast 7:00-9:30, lunch 12:00-14:00, evening snacks 16:30-17:30 and dinner 19:00-21:30 on working days; Sundays run brunch 9:00-11:30 instead of breakfast and lunch. The dining notice lists planned closures and emergency substitutions posted by the mess manager. The responsible owner is Residential Life. Submit a case through the Residential Services Portal with the relevant record identifier, date and supporting evidence; keep the generated case reference until the status is closed.
 
 ## Exception
 Do not create a duplicate request while an existing case is under review; urgent safety or privacy risks use the designated emergency channel.

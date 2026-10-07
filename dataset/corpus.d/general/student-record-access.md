@@ -5,9 +5,12 @@ title: Student record access request
 category: general
 department: Student Services
 document_type: SOP
-sensitivity: RESTRICTED
+sensitivity: INTERNAL
 allowed_roles:
+- STUDENT
+- FACULTY
 - STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -24,7 +27,7 @@ origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
 original_category: student-services
-access_level: Restricted
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---

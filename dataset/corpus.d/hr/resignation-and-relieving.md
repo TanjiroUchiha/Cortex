@@ -5,9 +5,12 @@ title: Resignation and relieving
 category: hr
 department: Human Resources
 document_type: Institutional guidance
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- HR
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -26,7 +29,7 @@ related_documents:
 - hr/exit-formalities.md
 - fees/employee-expense-claim.md
 - it/account-deactivation.md
-access_level: Confidential
+access_level: Internal
 synthetic: true
 source_file: M1/data/corpus.d/hr/resignation-and-relieving.md
 relationship_clusters:

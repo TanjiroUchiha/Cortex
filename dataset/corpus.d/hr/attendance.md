@@ -5,9 +5,12 @@ title: Attendance
 category: hr
 department: Human Resources
 document_type: Institutional guidance
-sensitivity: CONFIDENTIAL
+sensitivity: INTERNAL
 allowed_roles:
-- HR
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -24,7 +27,7 @@ origin: M1/data/corpus.d/hr/attendance.md
 preserved_seed_sources:
 - hr-3
 related_documents: []
-access_level: Confidential
+access_level: Internal
 synthetic: true
 source_file: M1/data/corpus.d/hr/attendance.md
 package: expanded-corpus

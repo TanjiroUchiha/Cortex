@@ -66,7 +66,7 @@
     {
       "document_id": "ACAD-ACADEMIC-CALENDAR-2025",
       "path": "academics/academic-calendar-2025.md",
-      "title": "Academic calendar 2025\u201326 archive",
+      "title": "Academic calendar 2025–26 archive",
       "category": "academics",
       "department": "Academic Affairs",
       "document_type": "Escalation procedure",
@@ -96,7 +96,7 @@
     {
       "document_id": "ACAD-ACADEMIC-CALENDAR-VERSION-2026",
       "path": "academics/academic-calendar-version-2026.md",
-      "title": "Academic calendar 2026\u201327 update",
+      "title": "Academic calendar 2026–27 update",
       "category": "academics",
       "department": "Academic Affairs",
       "document_type": "Troubleshooting guide",
@@ -2995,9 +2995,12 @@
       "category": "facilities",
       "department": "Facilities",
       "document_type": "Guideline",
-      "sensitivity": "RESTRICTED",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "FACILITIES",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -5263,9 +5266,12 @@
       "category": "fees",
       "department": "Student Accounts",
       "document_type": "Procedure",
-      "sensitivity": "RESTRICTED",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "FINANCE",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -5966,9 +5972,12 @@
       "category": "fees",
       "department": "Finance",
       "document_type": "Eligibility rule",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "FINANCE",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -6266,9 +6275,12 @@
       "category": "fees",
       "department": "Finance",
       "document_type": "FAQ",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "FINANCE",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -8406,9 +8418,12 @@
       "category": "facilities",
       "department": "Residential Life",
       "document_type": "Checklist",
-      "sensitivity": "RESTRICTED",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
+        "STUDENT",
+        "FACULTY",
         "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -8589,9 +8604,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -8873,9 +8891,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Eligibility rule",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -8930,9 +8951,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -8991,9 +9015,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9018,9 +9045,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9045,9 +9075,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9132,9 +9165,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9221,9 +9257,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9424,9 +9463,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Troubleshooting guide",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9451,9 +9493,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9512,9 +9557,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9539,9 +9587,12 @@
       "category": "hr",
       "department": "Human Resources",
       "document_type": "SOP",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "HR",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -9660,9 +9711,12 @@
       "category": "it",
       "department": "Information Technology",
       "document_type": "Policy",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "IT",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -10314,9 +10368,12 @@
       "category": "it",
       "department": "Information Technology",
       "document_type": "FAQ",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "IT",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -11055,9 +11112,12 @@
       "category": "it",
       "department": "Information Technology",
       "document_type": "FAQ",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "IT",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -12099,9 +12159,12 @@
       "category": "general",
       "department": "Library Services",
       "document_type": "Notice",
-      "sensitivity": "RESTRICTED",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "LIBRARY",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -12194,9 +12257,12 @@
       "category": "general",
       "department": "Library Services",
       "document_type": "Eligibility rule",
-      "sensitivity": "RESTRICTED",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "LIBRARY",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -13139,9 +13205,12 @@
       "category": "academics",
       "department": "Research Office",
       "document_type": "Troubleshooting guide",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
+        "STUDENT",
         "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -13260,9 +13329,12 @@
       "category": "facilities",
       "department": "Campus Security",
       "document_type": "Troubleshooting guide",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "PUBLIC",
       "allowed_roles": [
-        "SECURITY",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -13533,9 +13605,12 @@
       "category": "facilities",
       "department": "Campus Security",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "SECURITY",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -13708,9 +13783,12 @@
       "category": "facilities",
       "department": "Campus Security",
       "document_type": "Institutional guidance",
-      "sensitivity": "CONFIDENTIAL",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
-        "SECURITY",
+        "STUDENT",
+        "FACULTY",
+        "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"
@@ -14361,9 +14439,12 @@
       "category": "general",
       "department": "Student Services",
       "document_type": "SOP",
-      "sensitivity": "RESTRICTED",
+      "sensitivity": "INTERNAL",
       "allowed_roles": [
+        "STUDENT",
+        "FACULTY",
         "STAFF",
+        "EMPLOYEE",
         "MANAGER",
         "ADMIN",
         "SUPER_ADMIN"

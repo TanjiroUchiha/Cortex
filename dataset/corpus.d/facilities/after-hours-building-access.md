@@ -5,9 +5,12 @@ title: After-hours building access
 category: facilities
 department: Facilities
 document_type: Guideline
-sensitivity: RESTRICTED
+sensitivity: INTERNAL
 allowed_roles:
-- FACILITIES
+- STUDENT
+- FACULTY
+- STAFF
+- EMPLOYEE
 - MANAGER
 - ADMIN
 - SUPER_ADMIN
@@ -23,7 +26,7 @@ superseded_by: null
 origin: authored synthetic corpus record
 preserved_seed_sources: []
 related_documents: []
-access_level: Restricted
+access_level: Internal
 synthetic: true
 package: expanded-corpus
 ---

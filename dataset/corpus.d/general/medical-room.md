@@ -35,7 +35,7 @@ package: expanded-corpus
 
 # Medical room and first aid
 
-The campus medical room in the admin block is staffed by a nurse during working hours and a doctor visits on scheduled days — the schedule is on the portal's campus services page.
+The campus medical room (health centre) in the admin block is staffed by a nurse during working hours, 9am-5pm on working days, and a doctor visits on scheduled days — the schedule is on the portal's campus services page.
 
 First aid, basic medicines, blood pressure checks and rest beds are available. Anything beyond first aid is referred to the empanelled hospital, and the ambulance number is displayed at the medical room and hostels.
 
