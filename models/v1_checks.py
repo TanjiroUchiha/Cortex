@@ -55,7 +55,23 @@ def _months(s: str) -> set[str]:
 
 
 def _sentences(s: str) -> list[str]:
-    return [p.strip() for p in re.split(r"(?<=[.!?])\s+|\n+", s) if len(p.strip()) > 12]
+    lines = s.splitlines()
+    normalized = []
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if "|" in stripped:
+            cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+            if cells and all(re.fullmatch(r"[:\-\s]+", cell or "-") for cell in cells):
+                continue
+            if index + 1 < len(lines) and re.fullmatch(
+                    r"\s*\|?[\s:|-]+\|?\s*", lines[index + 1]):
+                continue
+            stripped = " ".join(cell for cell in cells if cell)
+        normalized.append(stripped)
+    text = "\n".join(normalized)
+    return [p.strip() for p in re.split(r"(?<=[.!?])\s+|\n+", text) if len(p.strip()) > 12]
 
 
 def _query(payload) -> str:
@@ -80,7 +96,7 @@ INTENTS = [   # (question pattern, what a satisfying answer must contain) - chec
 QSTOP = set("""what when where which who whom how why does did can could would should will shall need want
 please tell about there have has get give the and for with from into this that you your are was were not any
 all some also plus been being its just like using use deadline date due last much many cost price contact
-email phone reach call""".split())
+email phone reach call step steps process procedure compare comparison difference between versus""".split())
 CLAUSE_SPLIT = re.compile(r"\band\b|\balso\b|\bplus\b|[,;?]", re.I)
 
 
@@ -219,7 +235,8 @@ def verify(payload: dict) -> dict:
     else:
         low = pool_text.lower()
         # 2. Fact tokens: numbers, emails, URLs, months
-        missing = _nums(response) - _nums(pool_text)
+        numbered_steps_removed = re.sub(r"(?m)^\s*\d+[.)]\s+", "", response)
+        missing = _nums(numbered_steps_removed) - _nums(pool_text)
         missing_m = _months(response) - _months(pool_text)
         if missing or missing_m:
             flags.append("number_mismatch")

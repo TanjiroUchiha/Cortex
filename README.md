@@ -47,10 +47,11 @@ when are the exam fees due?"*
 2. **Skills** run concurrently. IT retrieves the WiFi doc and extracts
    *"If WiFi is down in a whole area, check the IT status page first…"*;
    HR finds the payslip doc; fees finds the deadline doc.
-3. **M2** joins them into `[FEES] … [IT] … [HR] …` and dedupes citations.
-4. **V1** checks every cited `doc_id` appears in retrieved evidence.
-5. The API returns one payload; the UI renders three labelled sections with
-   clickable citations and a feedback widget.
+3. **M2** synthesizes the relevant answers into one natural response, removes
+   repeated information, and deduplicates citations.
+4. **V1** checks every cited `doc_id` appears in retrieved evidence and checks
+   the response against the retrieved source text.
+5. The API returns one answer with clickable citations and a feedback widget.
 
 If a part has no coverage (e.g. *"and can I bring my cat to lab"*), that domain
 abstains (`no_evidence`), the others still answer, and the reply is honestly
@@ -68,9 +69,9 @@ first *retrieve* relevant documents, then *ground* the answer in them.
 | Chunking | Docs split into ~1200-char paragraph chunks at index time | finer retrieval granularity |
 | Embeddings | `qwen3-embedding:0.6b` via local Ollama `/api/embed` | maps text to vectors; cosine similarity finds *meaningful* matches ("cant sign in" → "login help") |
 | Fallback retrieval | keyword/IDF token overlap (deterministic) | works with zero models — demo/offline path |
-| Answer | extractive — real sentences from retrieved chunks | can never invent a fact; citations are literal |
+| Domain-skill answers | extractive — relevant sentences from retrieved chunks | keeps each domain answer tied to its retrieved evidence |
 | Optional per-skill prose | `--llm-answer` lets qwen3:4b rewrite the retrieved chunks into fluent 1–3 sentence answers | citations + evidence stay code-computed; a `NOT_COVERED` or dead model falls back to the extractive answer |
-| Optional generation | `--llm-merge` lets qwen3:4b write the joined prose | citations are still computed in code — the LLM never invents `doc_id`s |
+| Answer synthesis | When the configured Ollama chat model is available, M2 combines relevant domain answers into one natural response; otherwise a deterministic, de-duplicating join is used | citations are still computed in code — the LLM never invents `doc_id`s; generated text is checked against retrieved evidence |
 | Verification | deterministic grounding (authoritative) + optional LLM judge | a citation the evidence doesn't contain = automatic fail |
 
 **Routing specifics that matter:**
@@ -193,7 +194,7 @@ collection. Details in `INTEGRATION.md`.
 python run.py                              # one command: M2 + M1, opens the UI
 python -m backend.api --mode demo --port 8000   # landing at :8000 · assistant at /app
 python -m backend.api --mode demo --llm-route   # qwen3:4B does the routing (slow on CPU)
-python -m backend.api --mode demo --llm-merge --llm-verify  # LLM merger + verifier
+python -m backend.api --mode demo --llm-merge --llm-verify  # explicitly enable LLM merger + verifier
 python -m unittest discover -s test -v          # backend tests
 ```
 

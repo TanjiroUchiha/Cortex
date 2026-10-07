@@ -5,7 +5,6 @@ from dataclasses import dataclass
 import json
 import logging
 import os
-import re
 import time
 from typing import Any, Protocol
 from xml.parsers.expat import model
@@ -24,9 +23,12 @@ from .schemas import M2Input, M2Response, ModelResponse
 
 logger = logging.getLogger("cortex_m2")
 MAX_RETRIES = 1
-SECTION_HEADER_PATTERN = re.compile(
-    r"(?im)^[ \t]*\[(IT|HR|FEES|FACILITIES|GENERAL)\][ \t]*"
-)
+M2_RESPONSE_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {"response": {"type": "string"}},
+    "required": ["response"],
+}
 
 
 @dataclass(frozen=True)
@@ -120,7 +122,7 @@ class OllamaChatClient:
             "model": model,
             "stream": False,
             "think": False,
-            "format": "json",
+            "format": M2_RESPONSE_SCHEMA,
             "options": {"temperature": temperature, "num_predict": 800},
             "messages": [
                 {"role": "system", "content": system_prompt},
@@ -188,7 +190,7 @@ class M2Merger:
         started = time.monotonic()
         if len(usable) == 1:
             text = deterministic_merge(usable)
-            validate_response(text, usable)
+            validate_response(text, usable, payload.failures)
             self._log(
                 payload, "success", 0, len(usable), len(text),
                 "single_domain_passthrough", started,
@@ -215,9 +217,9 @@ class M2Merger:
                     payload, "success", attempt, len(usable), len(text), "passed", started
                 )
                 return M2Response(response=text, citations=citations)
-            except OutputValidationError as error:
-                safe_response = deterministic_merge(usable)
-                validate_response(safe_response, usable)
+            except (OutputValidationError, ModelOutputError) as error:
+                safe_response = deterministic_merge(usable, payload.failures, payload.request)
+                validate_response(safe_response, usable, payload.failures)
                 logger.warning(
                     "M2 rejected unsafe model output; used deterministic source-only merge",
                     extra={
@@ -302,17 +304,9 @@ def _parse_model_response(raw: str) -> str:
         if response:
             return response
 
-    # Some models return the requested domain sections as prose despite format=json.
-    # Normalize inline headings; validate_response still performs all grounding checks.
+    # Accept plain prose from compatible local models; grounding checks still apply.
     if text and not text.lstrip().startswith("{"):
-        prose = text.lstrip()
-        if not prose.startswith("["):
-            return prose
-        if SECTION_HEADER_PATTERN.match(prose):
-            return SECTION_HEADER_PATTERN.sub(
-                lambda match: f"[{match.group(1).upper()}]\n",
-                prose,
-            ).strip()
+        return text.lstrip()
 
     raise ModelOutputError("Model response did not match the M2 JSON schema")
 

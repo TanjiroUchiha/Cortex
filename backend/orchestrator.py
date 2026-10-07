@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 import math
+import re
 import time
 import uuid
 from collections import Counter
@@ -76,17 +77,34 @@ def _citations(citations):
         require_text(item["title"], "title", 200)
 
 
-def merge_answers(domain_answers):
-    """Deterministic local merger: per-domain sections, citations preserved."""
-    sections, citations, seen = [], [], set()
+_DOMAIN_LABEL = re.compile(r"(?i)\[(?:IT|HR|FEES|FACILITIES|GENERAL|ACADEMICS)\]\s*")
+
+
+def merge_answers(domain_answers, failures=(), query=""):
+    """Join distinct source sentences without exposing internal routing labels."""
+    sentences, citations, seen_sentences, seen_citations = [], [], set(), set()
     for item in domain_answers:
-        label = item["domain"].upper()
-        sections.append(f"[{label}] {item['answer']}")
+        answer = _DOMAIN_LABEL.sub("", item.get("answer", "")).strip()
+        for sentence in re.split(r"(?<=[.!?])\s+|\n+", answer):
+            sentence = sentence.strip()
+            normalized = " ".join(re.findall(r"\w+", sentence.casefold()))
+            if sentence and normalized and normalized not in seen_sentences:
+                seen_sentences.add(normalized)
+                sentences.append(sentence)
         for citation in item["citations"]:
-            if citation["doc_id"] not in seen:
-                seen.add(citation["doc_id"])
+            if citation["doc_id"] not in seen_citations:
+                seen_citations.add(citation["doc_id"])
                 citations.append(citation)
-    return {"response": "\n\n".join(sections), "citations": citations}
+    if len(sentences) > 1 and (
+            len(domain_answers) > 1
+            or re.search(r"\b(?:and|also|compare|comparison|difference|steps|list)\b",
+                         query, re.IGNORECASE)):
+        response = "\n".join(f"- {sentence}" for sentence in sentences)
+    else:
+        response = " ".join(sentences)
+    if failures and response:
+        response += "\n\nI couldn't find enough information to answer one part of your question."
+    return {"response": response, "citations": citations}
 
 
 def verify_grounding(domain_answers, draft, citations):

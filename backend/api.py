@@ -138,7 +138,24 @@ def _demo_engine(retrieval="semantic", llm_merge=False, llm_verify=False, llm_ro
                 ollama_up = True                # chat model lives behind the same daemon
             except Exception:
                 ollama_up = False
-    merger = RemoteMerger(m2_url) if m2_url else (OllamaMerger() if llm_merge and ollama_up else None)    
+    merge_model_available = False
+    try:
+        import urllib.request
+        tags = json.loads(urllib.request.urlopen(
+            "http://127.0.0.1:11434/api/tags", timeout=3
+        ).read())
+        merge_model = os.environ.get("CORTEX_MERGE_MODEL", "qwen3:4b")
+        merge_model_available = any(
+            model.get("name") == merge_model
+            or (":" not in merge_model
+                and model.get("name", "").split(":")[0] == merge_model)
+            for model in tags.get("models", [])
+        )
+    except Exception:
+        merge_model_available = False
+    merger = RemoteMerger(m2_url) if m2_url else (
+        OllamaMerger() if (llm_merge or merge_model_available) else None
+    )
     verifier = CheckVerifier(OllamaVerifier() if llm_verify and ollama_up else None)
     answerer = OllamaAnswerer() if llm_answer and ollama_up else None
     if llm_answer and not ollama_up:
@@ -538,14 +555,21 @@ def make_app(engine=None, mode="demo", service_config=None, api_token=None, retr
     async def models(request: HTTPRequest, admin: Principal = Depends(require_role("admin"))):
         """Which model powers which pipeline role — transparency for 'is this actually AI?'."""
         await check_origin(request)
+        m2_handler = engine.services.get("m2")
+        m2_handler = m2_handler.handler if m2_handler else None
+        if isinstance(m2_handler, OllamaMerger):
+            m2_model = os.environ.get("CORTEX_MERGE_MODEL", "qwen3:4b")
+        elif isinstance(m2_handler, RemoteMerger) or mode == "live":
+            m2_model = "configured M2 service"
+        else:
+            m2_model = "deterministic grounded synthesis"
         return {"models": {
             "m1_router": os.environ.get("CORTEX_M1_MODEL", "qwen3.5:4b")
                          if mode == "live" or engine.router.__class__.__name__ == "OllamaRouter"
                          else "keyword-classifier (deterministic)",
             "retrieval": os.environ.get("CORTEX_EMBED_MODEL", "qwen3-embedding:0.6b")
                          if retrieval == "semantic" else "keyword-idf",
-            "m2_merger": os.environ.get("CORTEX_MERGE_MODEL", "qwen3.5:4b")
-                         if llm_merge else "deterministic-section-merge",
+            "m2_merger": m2_model,
             "v1_verifier": ("checks + " + os.environ.get("CORTEX_V1_MODEL", "qwen3.5:4b")) if llm_verify else "output-checks (grounding + query fit)"},
             "override": "CORTEX_M1_MODEL / CORTEX_EMBED_MODEL / CORTEX_MERGE_MODEL / CORTEX_V1_MODEL"}
 
