@@ -357,21 +357,18 @@ function renderMsg(m) {
       if (m.copyable !== false) html += `<button class="copy-btn" data-copy aria-label="Copy answer">${icon('copy')}Copy</button>`;
       html += '</div>';
     }
-    const placed = new Set();
-    const citationRow = citations => '<div class="cites" aria-label="Answer sources">' + citations.map(c =>
-      `<button class="cite" data-doc="${esc(c.doc_id)}" aria-label="Read source: ${esc(c.title)}">${icon('doc')}<span class="cite-index">${m.citations.findIndex(item => item.doc_id === c.doc_id) + 1}</span>${esc(c.title)}</button>`).join('') + '</div>';
     for (const sec of (m.sections || [])) {
       const domain = DOMAINS[sec.domain];
       html += `<div class="sec"${domain ? ` style="--dc:${domain.color}"` : ''}>`;
       if (domain) html += `<span class="sec-label">${icon(sec.domain)}${esc(domain.title)}</span>`;
       html += `<div class="sec-body">${formatAnswer(sec.text)}</div>`;
-      const ids = new Set((m.evidence || []).filter(s => s.domain === sec.domain).flatMap(s => (s.citations || s.evidence || []).map(c => c.doc_id)));
-      const citations = (m.citations || []).filter(c => !placed.has(c.doc_id) && ids.has(c.doc_id));
-      if (citations.length) { html += citationRow(citations); citations.forEach(c => placed.add(c.doc_id)); }
       html += '</div>';
     }
-    const remaining = (m.citations || []).filter(c => !placed.has(c.doc_id));
-    if (remaining.length) html += citationRow(remaining);
+    const sourceTitles = [...new Set((m.citations || [])
+      .map(c => typeof c.title === 'string' ? c.title.trim() : '')
+      .filter(Boolean))];
+    if (sourceTitles.length)
+      html += `<details class="answer-sources"><summary>Sources used</summary><ul>${sourceTitles.map(title => `<li>${esc(title)}</li>`).join('')}</ul></details>`;
     if (m.options?.length) {
       const latest = session()?.messages.filter(msg => msg.role === 'bot').at(-1);
       const disabled = !session()?.pendingQuery || latest?.id !== m.id;
