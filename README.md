@@ -175,6 +175,20 @@ Cortex/
 
 ## Running it
 
+**First run needs a MongoDB Atlas account store** (free M0 tier works):
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env          # fill MONGO_USERNAME / MONGO_PASSWORD / MONGO_CLUSTER
+                              # from your Atlas connect string, allowlist your IP
+                              # under Atlas -> Network Access, and set CORTEX_JWT_SECRET
+python scripts/create_admin.py  # first admin account (prompts for email + password)
+```
+
+To share one hosted instance's account store instead, copy the owner's `.env`
+values and have them allowlist your IP — signups then land in their `users`
+collection. Details in `INTEGRATION.md`.
+
 ```bash
 python run.py                              # one command: M2 + M1, opens the UI
 python -m backend.api --mode demo --port 8000   # landing at :8000 · assistant at /app
