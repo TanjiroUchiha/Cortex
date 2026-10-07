@@ -87,14 +87,26 @@ class Q(unittest.TestCase):
         r = run("I could not find that in the documents.", cits=[], answers=[ans])
         self.assertIn("no_answer", r["flags"])
 
-    def test_missing_domain(self):
+    def test_each_requested_part_must_be_in_the_response_not_just_context(self):
         it = {"domain": "it", "answer": "Reset your password at the self-service portal.",
               "citations": [{"doc_id": "it-pw"}],
               "evidence": [{"doc_id": "it-pw", "chunk": "Reset your password at the self-service portal."}]}
         r = run("The last date for semester fee payment is October 15, 2026.",
                 cits=CIT + [{"doc_id": "it-pw"}], answers=[EV, it],
                 q="Fee deadline and how do I reset my password?")
-        self.assertIn("missing_domain", r["flags"])
+        self.assertIn("part_unanswered", r["flags"])
+        self.assertNotIn("missing_domain", r["flags"])
+
+    def test_direct_contact_answer_is_not_rejected_for_omitting_unrelated_domain_text(self):
+        contact = "HR Service Centre email: hr@campus.edu."
+        unrelated = "Changes to personal details are submitted through the HR self-service portal."
+        answer = {"domain": "hr", "answer": unrelated + " " + contact,
+                  "citations": [{"doc_id": "hr-service"}],
+                  "evidence": [{"doc_id": "hr-service", "chunk": unrelated + " " + contact}]}
+        result = run("Contact the HR Service Centre at hr@campus.edu.",
+                     cits=answer["citations"], answers=[answer], q="How do I contact HR?")
+        self.assertEqual(result["status"], "passed")
+        self.assertNotIn("missing_domain", result["flags"])
 
     def test_string_request_ok(self):
         r = verify({"request": "fee deadline?", "response": "Payment closes October 15, 2026.",

@@ -28,12 +28,13 @@ You type one message (it can contain several topics)
         │
         ▼
   M2 — Merger                            ← LLM prose or deterministic join
-  combines domain answers into one labelled reply, dedupes citations
+        answers the user's intent first, keeps relevant details, dedupes citations
         │
         ▼
   V1 — Verifier                          ← LLM or deterministic grounding check
   every citation must trace to retrieved evidence;
-  verdict drives the final status
+        each requested part must appear in the response, not only retrieved context
+        verdict drives the final status
         │
         ▼
   Response JSON → Chat UI (sections, citations, evidence, feedback)
@@ -48,7 +49,8 @@ when are the exam fees due?"*
    *"If WiFi is down in a whole area, check the IT status page first…"*;
    HR finds the payslip doc; fees finds the deadline doc.
 3. **M2** synthesizes the relevant answers into one natural response, removes
-   repeated information, and deduplicates citations.
+   repeated or unrelated information, answers each requested part directly,
+   and deduplicates citations.
 4. **V1** checks every cited `doc_id` appears in retrieved evidence and checks
    the response against the retrieved source text.
 5. The API returns one answer with clickable citations and a feedback widget.

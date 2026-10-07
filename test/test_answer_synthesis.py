@@ -51,6 +51,73 @@ class AnswerSynthesisTests(unittest.TestCase):
         self.assertEqual(handler.payload["format"]["required"], ["response"])
         self.assertIn("Do not expose internal domain names", MERGE_SYSTEM)
 
+    def test_hr_contact_answer_omits_unrelated_personal_detail_procedure(self):
+        source = ("Changes to personal details are submitted through the HR self-service portal. "
+                  "Contact the HR Service Centre by email at hr@campus.edu.")
+        result, _ = self.run_merger(
+            "How do I contact HR?",
+            [answer("hr", "hr-service", source)],
+            "Contact the HR Service Centre at hr@campus.edu.",
+        )
+        self.assertEqual(result["response"], "Contact the HR Service Centre at hr@campus.edu.")
+        self.assertNotIn("personal details", result["response"])
+
+    def test_hr_email_question_returns_the_email_first(self):
+        source = ("HR email: hr@campus.edu. Personal-detail changes are handled in the "
+                  "HR self-service portal.")
+        result, _ = self.run_merger(
+            "What is the HR email?",
+            [answer("hr", "hr-service", source)],
+            "The HR email is hr@campus.edu.",
+        )
+        self.assertEqual(result["response"], "The HR email is hr@campus.edu.")
+
+    def test_personal_details_question_returns_its_procedure(self):
+        source = ("Changes to personal details, including address and phone number, are submitted "
+                  "through the HR self-service portal. Leave requests use the staff portal.")
+        result, _ = self.run_merger(
+            "How do I change my personal details?",
+            [answer("hr", "employee-records", source)],
+            "Submit changes to your personal details through the HR self-service portal.",
+        )
+        self.assertIn("personal details", result["response"])
+        self.assertIn("HR self-service portal", result["response"])
+        self.assertNotIn("Leave requests", result["response"])
+
+    def test_fee_deadline_answer_leads_with_due_dates(self):
+        source = ("Semester tuition, hostel and mess fees must be paid by 15 August for autumn "
+                  "and 15 January for spring. The fees portal shows exact dues.")
+        result, _ = self.run_merger(
+            "When are fees due?",
+            [answer("fees", "payment-deadlines", source)],
+            "Autumn fees are due by 15 August, and spring fees are due by 15 January.",
+        )
+        self.assertIn("15 August", result["response"])
+        self.assertIn("15 January", result["response"])
+        self.assertNotIn("portal", result["response"])
+
+    def test_it_contact_answer_is_short_and_grounded(self):
+        source = ("The IT Help Desk can be reached at it-helpdesk@campus.edu, extension 4357, "
+                  "through portal chat, or at the walk-in desk in the IT block.")
+        result, _ = self.run_merger(
+            "How do I contact IT?",
+            [answer("it", "it-helpdesk", source)],
+            "Contact the IT Help Desk at it-helpdesk@campus.edu.",
+        )
+        self.assertEqual(result["response"], "Contact the IT Help Desk at it-helpdesk@campus.edu.")
+
+    def test_password_reset_question_returns_reset_instructions(self):
+        source = ("Open the IT help portal and choose the password reset option. A reset link is sent "
+                  "to your registered recovery email and expires after 30 minutes.")
+        result, _ = self.run_merger(
+            "How do I reset my password?",
+            [answer("it", "passwords-accounts", source)],
+            "Open the IT help portal and choose Password reset. The reset link goes to your "
+            "registered recovery email and expires after 30 minutes.",
+        )
+        self.assertIn("Password reset", result["response"])
+        self.assertIn("recovery email", result["response"])
+
     def test_multi_document_question_combines_points_without_domain_labels(self):
         it = answer("it", "wifi-guide", "If Wi-Fi is down across campus, check the IT status page.")
         hr = answer("hr", "payslip-guide", "Download your payslip from the employee portal.")

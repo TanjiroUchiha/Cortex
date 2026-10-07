@@ -9,7 +9,7 @@ import re
 
 HARD = {"empty_response", "ungrounded_citation", "number_mismatch", "unsupported_contact"}
 SOFT = {"unsupported_sentence", "no_evidence_to_check", "coverage_gap",
-        "incomplete_answer", "no_answer", "missing_domain", "part_unanswered",
+        "incomplete_answer", "no_answer", "part_unanswered",
         "off_topic"}
 
 MONTHS = ("january february march april may june july august september "
@@ -101,7 +101,8 @@ CLAUSE_SPLIT = re.compile(r"\band\b|\balso\b|\bplus\b|[,;?]", re.I)
 
 
 def _flat(text: str) -> str:
-    return re.sub(r"(?<=[a-z])-(?=[a-z])", "", text.lower())   # wi-fi -> wifi
+    flat = re.sub(r"(?<=[a-z])-(?=[a-z])", "", text.lower())   # wi-fi -> wifi
+    return re.sub(r"\bhelp\s+desk\b", "helpdesk", flat)
 
 
 def _stem(w: str) -> str:
@@ -118,6 +119,8 @@ def _covered(word: str, have: set[str]) -> bool:
     singular = lambda w: w[:-1] if len(w) > 3 and w.endswith("s") else w
     if word in have or any(singular(word) == singular(w) for w in have):
         return True
+    if singular(word) == "fee" and any(singular(w) in {"fee", "payment", "tuition"} for w in have):
+        return True
     if len(word) < 5:
         return False
     for candidate in difflib.get_close_matches(word, sorted(have), n=2, cutoff=0.87):
@@ -130,12 +133,8 @@ def _covered(word: str, have: set[str]) -> bool:
 
 
 def uncovered_part(query: str, response: str, answers: list[dict]) -> str | None:
-    """Split the question into parts; a part is unanswered when half or more of its topic
-    words appear in neither the response nor the retrieved evidence."""
+    """Split the question into parts; retrieved context alone does not count as an answer."""
     have = set(re.findall(r"[a-z]{3,}", _flat(response)))
-    for a in answers:
-        for e in a.get("evidence") or []:
-            have.update(re.findall(r"[a-z]{3,}", _flat(_text(e))))
     for clause in CLAUSE_SPLIT.split(query):
         terms = [w for w in re.findall(r"[a-z]{3,}", _flat(clause)) if w not in QSTOP]
         if TIME_RE.search(response) and re.search(r"\b(when|time|hours|timings|opening|closing)\b", clause, re.I):
@@ -190,14 +189,6 @@ def satisfaction(query: str, response: str, answers: list[dict]) -> tuple[list[s
         if covered / len(q_terms) < 0.30:
             flags.append("off_topic")
             notes.append("response does not address the question's subject")
-    # every routed domain that produced an answer must show up in the response
-    rw = set(WORD_RE.findall(response.lower())) - STOP
-    for a in answers:
-        aw = set(WORD_RE.findall(_text(a).lower())) - STOP
-        if aw and len(aw & rw) / len(aw) < 0.3:
-            flags.append("missing_domain")
-            notes.append(f"{a.get('domain', '?')} answer not reflected in response")
-            break
     return flags, notes
 
 

@@ -291,6 +291,18 @@ class AnswerQualityTests(unittest.TestCase):
         summary = self.corpus.summarize("when is the fee deadline", [{"content": text}])
         self.assertEqual(summary, "The fee deadline is October 15.")
 
+    def test_contact_query_prefers_contact_sentence_over_adjacent_procedure(self):
+        text = ("Changes to personal details are submitted through the HR self-service portal. "
+                "Contact the HR Service Centre at hr@campus.edu.")
+        summary = self.corpus.summarize("How do I contact HR?", [{"content": text}])
+        self.assertEqual(summary, "Contact the HR Service Centre at hr@campus.edu.")
+
+    def test_email_query_prefers_email_sentence_over_adjacent_procedure(self):
+        text = ("Personal-detail changes are handled in the HR self-service portal. "
+                "HR email: hr@campus.edu.")
+        summary = self.corpus.summarize("What is the HR email?", [{"content": text}])
+        self.assertEqual(summary, "HR email: hr@campus.edu.")
+
     def test_empty_or_heading_only_evidence_abstains(self):
         for evidence in ([], [{"content": "## Summary"}], [{"content": "Library opens at 8am."}]):
             with self.subTest(evidence=evidence):
@@ -317,6 +329,19 @@ class AnswerQualityTests(unittest.TestCase):
                 "instruction": "Answer the HR and Admissions part using only retrieved sources."
             }, "test-summary"))
         self.assertEqual(summarize.call_args.args[0], "when will I get my salary")
+
+    def test_contact_only_handler_uses_only_the_department_contact(self):
+        from unittest.mock import patch
+        with patch.object(self.corpus, "retrieve", side_effect=AssertionError("unrelated retrieval")):
+            result = asyncio.run(self.corpus.handler("hr")({
+                "request": {"query": "How do I contact HR?", "viewer_role": "user"}
+            }, "test-contact"))
+        self.assertIn("HR Service Centre", result["answer"])
+        self.assertIn("hr@campus.edu", result["answer"])
+        self.assertEqual([item["doc_id"] for item in result["citations"]],
+                         ["hr-service-contact"])
+        self.assertEqual([item["doc_id"] for item in result["evidence"]],
+                         ["hr-service-contact"])
 
     def test_heading_only_handler_returns_no_evidence(self):
         from unittest.mock import patch

@@ -678,27 +678,33 @@ class CorpusIndex:
     def handler(self, domain, answerer=None):
         async def call(payload, request_id):
             query = payload.get("request", {}).get("query", "")
+            contact = self.documents[domain].get("contact")
+            contact_only = bool(contact) and self._contact_only_query(query)
             # retrieve may hit the synchronous embedder (HTTP) — keep it off the event loop.
             # Rank on the user query alone: the boilerplate instruction ("Answer the HR &
             # Admissions part…") overlaps whole doc families (e.g. admissions docs under
             # the hr domain) and ties with — or drowns — the relevant chunks.
             viewer = payload.get("request", {}).get("viewer_role", "admin")
-            # multi-topic dispatch: the whole-query coverage floor is
-            # structurally unsatisfiable per domain (each covers only its own
-            # slice), and the classifier already gated the join — skip it here.
-            # Single-domain routes keep it: it is the last abstention check.
-            chunks = await asyncio.to_thread(
-                self.retrieve, domain, query or payload.get("instruction", ""), 8,
-                viewer, query,
-                coverage_check=not payload.get("multi_topic"))
-            if not chunks:
-                raise ServiceError("no_evidence")
+            if contact_only:
+                chunks = []
+                answer = f"Contact: {contact}."
+            else:
+                # multi-topic dispatch: the whole-query coverage floor is
+                # structurally unsatisfiable per domain (each covers only its own
+                # slice), and the classifier already gated the join — skip it here.
+                # Single-domain routes keep it: it is the last abstention check.
+                chunks = await asyncio.to_thread(
+                    self.retrieve, domain, query or payload.get("instruction", ""), 8,
+                    viewer, query,
+                    coverage_check=not payload.get("multi_topic"))
+                if not chunks:
+                    raise ServiceError("no_evidence")
+                answer = self.summarize(query, chunks)
             obs.event("CONTEXT_BUILT", domain=domain, chunks=len(chunks),
                       context_chars=sum(len(c["chunk"]) for c in chunks),
                       citations=len({c["doc_id"] for c in chunks}),
                       top_k=8, context_truncated=False)
-            answer = self.summarize(query, chunks)
-            if answerer is not None:
+            if answerer is not None and not contact_only:
                 try:
                     generated = await answerer(query, [c["chunk"] for c in chunks])
                     if isinstance(generated, str) and generated.strip():
@@ -707,9 +713,6 @@ class CorpusIndex:
                     pass   # extractive answer stands — never let prose generation lose the evidence
             if not answer:
                 raise ServiceError("no_evidence")
-            contact = self.documents[domain].get("contact")
-            if contact:
-                answer += f"\n\nIf that does not solve it: {contact}."
             seen, citations = set(), []
             for chunk in chunks:
                 if chunk["doc_id"] not in seen:
@@ -722,6 +725,18 @@ class CorpusIndex:
                 evidence.append({"doc_id": contact_id, "chunk": contact})
             return {"answer": answer, "citations": citations, "evidence": evidence}
         return call
+
+    @staticmethod
+    def _contact_only_query(query):
+        terms = set(re.findall(r"[a-z]{3,}", query.lower()))
+        non_topic = set("""how what who whom is are do does can could would the a an to for about
+            please tell me give find get contact reach email e-mail mail phone telephone call number
+            extension ext address hr human resources it information technology help desk helpdesk
+            service centre center department team information""".split())
+        return (
+            bool(re.search(r"\b(contact|reach|e-?mail|phone|telephone|call)\b", query, re.I))
+            and not terms.difference(non_topic)
+        )
 
     _MD_INLINE = re.compile(r"[*_`~]|!\[[^\]]*\]\([^)]*\)|\[([^\]]*)\]\([^)]*\)")
     # section labels seen in the corpus — not answer content
@@ -801,7 +816,12 @@ class CorpusIndex:
                      ("timetable", _WHEN_TOKENS), ("schedule", _WHEN_TOKENS),
                      ("scheduled", _WHEN_TOKENS), ("departure", _WHEN_TOKENS),
                      ("much", _COST_TOKENS), ("cost", _COST_TOKENS), ("price", _COST_TOKENS),
-                     ("fee", _COST_TOKENS), ("who", _WHO_TOKENS), ("where", _WHO_TOKENS))
+                     ("fee", _COST_TOKENS), ("who", _WHO_TOKENS),
+                     ("where", _WHO_TOKENS), ("contact", _WHO_TOKENS),
+                     ("email", _WHO_TOKENS), ("phone", _WHO_TOKENS),
+                     ("telephone", _WHO_TOKENS), ("call", _WHO_TOKENS),
+                     ("reach", _WHO_TOKENS), ("helpdesk", _WHO_TOKENS),
+                     ("desk", _WHO_TOKENS))
 
     # a concrete "when" answer: clock times, weekdays, months, relative periods
     _WHEN_ANSWER_RE = re.compile(
