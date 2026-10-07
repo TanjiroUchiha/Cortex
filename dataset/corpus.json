@@ -48,7 +48,7 @@
             "content": "Licensed software is installed through the IT self-service portal. Requests are reviewed within two working days."
           }
         ],
-        "contact": "IT Help Desk — ext 4123 · it-helpdesk@campus.edu"
+        "contact": "IT Help Desk — it-helpdesk@campus.edu"
       },
       "hr": {
         "title": "HR",
@@ -87,7 +87,7 @@
             "content": "Attendance corrections must be submitted to HR within five working days of the missed punch."
           }
         ],
-        "contact": "HR Service Centre — ext 4410 · hr@campus.edu"
+        "contact": "HR Service Centre — hr@campus.edu"
       },
       "fees": {
         "title": "Fees",
@@ -127,7 +127,7 @@
             "content": "Scholarship adjustments appear on the next invoice. Refund requests are processed through the fees portal within ten working days."
           }
         ],
-        "contact": "Student Accounts Office — ext 4500 · fees@campus.edu"
+        "contact": "Student Accounts Office — fees@campus.edu"
       },
       "facilities": {
         "title": "Facilities",
@@ -175,7 +175,7 @@
             "content": "The campus gym is open 6am to 9pm on working days. A valid ID card is required for entry."
           }
         ],
-        "contact": "Facilities Helpdesk — ext 4600 · facilities@campus.edu"
+        "contact": "Facilities Helpdesk — facilities@campus.edu"
       },
       "general": {
         "title": "General",
@@ -210,7 +210,7 @@
             "content": "Term dates, examination windows and holidays are published in the academic calendar on the portal."
           }
         ],
-        "contact": "Campus Help Desk — ext 4000 · helpdesk@campus.edu"
+        "contact": "Campus Help Desk — helpdesk@campus.edu"
       }
     }
   }
