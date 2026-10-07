@@ -430,7 +430,12 @@ class Orchestrator:
 
         async def skill(task):
             name = task["domain"]
-            payload = {**base_payload, "domain": name, "instruction": task["instruction"]}
+            # multi-topic query: each domain only covers its own slice of the
+            # query terms, so the whole-query coverage floor inside retrieve is
+            # structurally unsatisfiable here — tell the skill to skip it (the
+            # classifier's probe/keyword gates already vetted the evidence).
+            payload = {**base_payload, "domain": name, "instruction": task["instruction"],
+                       "multi_topic": len(decision.get("tasks") or []) > 1}
             try:
                 output = await self.invoke(name, effective, payload, result["request_id"])
                 if self.services[name].mock:

@@ -202,7 +202,8 @@ class CorpusIndex:
                                         "relative_path": source.get("relative_path")}
                 for index, piece in enumerate(chunk_text(source["content"])):
                     chunks.append({"doc_id": source["id"], "title": source["title"], "index": index,
-                                   "text": piece, "tokens": tokens(f"{source['title']} {piece}")})
+                                   "text": piece, "tokens": tokens(f"{source['title']} {piece}"),
+                                   "title_tokens": tokens(source["title"])})
             self.documents[domain] = {"title": body["title"],
                                       "contact": body.get("contact"),
                                       "keywords": [k.casefold() for k in body["keywords"]],
@@ -285,6 +286,19 @@ class CorpusIndex:
         "deactivation": {"deactivate", "deactivated", "disable", "disabled"},
         "deactivate": {"deactivation", "deactivated", "disable"},
         "delivery": {"deliver", "delivered", "collection", "collect"},
+        "book": {"booking", "booked"},
+        "booking": {"book", "booked", "books"},
+        "booked": {"book", "booking"},
+        "reserve": {"reservation", "reservations", "reserved", "reserving"},
+        "reservation": {"reserve", "reserved", "reserving"},
+        "cancel": {"cancellation", "cancelled", "cancelling"},
+        "cancellation": {"cancel", "cancelled"},
+        "submit": {"submission", "submissions", "submitted", "submitting"},
+        "submission": {"submit", "submitted"},
+        "install": {"installation", "installed", "installing"},
+        "installation": {"install", "installed"},
+        "expire": {"expiry", "expired", "expires"},
+        "extend": {"extension", "extended", "renewal"},
         "options": {"option", "methods", "ways"},
         "arrange": {"arrangement", "book", "booking", "request"},
         "resigning": {"resign", "resignation", "exit", "departure", "relieving", "separation"},
@@ -407,7 +421,8 @@ class CorpusIndex:
             # probe at the skill's own limit — a small probe set trips the
             # coverage floor on long multi-topic queries and hides real
             # evidence (resigning+access+expense in hr probed empty at 3)
-            hits = self.retrieve(d, query, limit=8, viewer=viewer, query=query)
+            hits = self.retrieve(d, query, limit=8, viewer=viewer, query=query,
+                                 title_boost=False, coverage_check=False)
             domain_hits[d] = hits
             probes[d] = max((self._probe_score(query, h) for h in hits), default=0.0)
         # topic-bearing query terms: only these can mark a second subject —
@@ -424,26 +439,19 @@ class CorpusIndex:
                         & qterms & topic_terms)
             return out
 
-        # leaders: the strongest-evidence domain plus any keyword-owner — a
-        # domain whose own keyword literally appears in the query (typo-aware:
-        # "scolarship" is the fees keyword) is on-topic by definition
-        leader = max(probes, key=probes.get) if max(probes.values(), default=0.0) > 0 else None
-        q_forms = {a for t in tokens(self._QUERY_WRAPPER_RE.sub("", query, count=1))
-                   for a in (self._direct_aliases(t) or {t})}
-        owners = {d for _, d in ordered[:3]
-                  if probes.get(d, 0) >= 1.0
-                  and any(parts <= q_forms
-                          for k in self.documents[d]["keywords"]
-                          for parts in (tokens(k),) if parts)}
-        leaders = ({leader} if leader else set()) | owners
+        # keyword-score order already ranks the dominant domain first (a domain
+        # whose own keyword appears in the query gets a 3x bonus — "scolarship"
+        # is unmistakably fees). The first domain with real probe evidence
+        # defines the subject; every later domain must bring a NEW topical
+        # title term, not the same word in another sense ("book lab equipment":
+        # library's book-noun titles share the book verb's alias family and
+        # must not spawn a parallel wrong-domain section).
         evidenced, covered = [], set()
         for _, d in ordered:
             if d not in probes or len(evidenced) >= 4:
                 continue
             title_t = topical_title(d)
-            if probes[d] >= 1.0 and (d in leaders
-                                     or title_t - covered          # a genuinely new subject
-                                     or (title_t and probes[d] >= 1.5)):  # a second source on it
+            if probes[d] >= 1.0 and (not covered or title_t - covered):
                 evidenced.append(d)
                 covered |= title_t
         if len(evidenced) > 1:
@@ -452,7 +460,7 @@ class CorpusIndex:
                                "instruction": f"Answer the {self.documents[d]['title']} part using only retrieved sources."}
                               for d in evidenced]}
         if evidenced:
-            winner = leader if leader in evidenced else evidenced[0]
+            winner = evidenced[0]
             return {"action": "route", "options": [], "message": "", "evidence_resolved": True,
                     "tasks": [{"domain": winner,
                                "instruction": f"Answer the {self.documents[winner]['title']} part using only retrieved sources."}]}
@@ -478,6 +486,21 @@ class CorpusIndex:
     # expanded-corpus eval set: blocks most negative probes while retaining
     # ~87% of positive questions (see test_corpus.py / evaluate_corpus.py).
     COVERAGE_FLOOR = 0.40
+
+    # Title-match bonus scale: a document whose title echoes the query gets up to
+    # +3.0 on the IDF scale (+0.5 on the semantic cosine scale), proportional to
+    # how much of the query's weight the title covers. Chosen so a fully-matched
+    # title beats a denser but off-target prose chunk.
+    TITLE_BOOST = 3.0
+    SEMANTIC_TITLE_BOOST = 0.5
+
+    def _title_coverage(self, weights, chunk):
+        """Share of the query's family weight echoed in the document title."""
+        total = sum(w for _, w in weights)
+        if not total:
+            return 0.0
+        title_tokens = chunk.get("title_tokens") or tokens(chunk["title"])
+        return sum(w for fam, w in weights if fam & title_tokens) / total
 
     def _query_weights(self, query):
         """Each content token's alias family weighted at the family's max IDF.
@@ -529,7 +552,8 @@ class CorpusIndex:
         """Access check for one chunk's owning document."""
         return can_view(self.documents[domain]["sources"][chunk["doc_id"]].get("metadata", {}), viewer)
 
-    def retrieve(self, domain, instruction, limit=3, viewer="admin", query=None):
+    def retrieve(self, domain, instruction, limit=3, viewer="admin", query=None,
+                 title_boost=True, coverage_check=True):
         if not isinstance(limit, int) or not 1 <= limit <= 10:
             raise ValueError("limit must be 1..10")
         if domain not in self.documents:
@@ -557,14 +581,26 @@ class CorpusIndex:
                     # IDF can't separate them when a term sits in every domain
                     low = chunk["text"].casefold()
                     score += sum(0.35 for a, b in bigrams if f"{a} {b}" in low)
+                    # title coverage: a doc whose TITLE echoes the query is likelier
+                    # the right source than one where the same terms surface mid-prose
+                    # ("book lab equipment" matching "booking system" inside a tagout
+                    # doc). Scaled by query coverage so a weak title can't ride a long
+                    # query's tail. Routing probes call with title_boost=False —
+                    # the probe thresholds are calibrated on raw IDF scores and
+                    # _probe_score applies its own title term.
+                    if title_boost:
+                        score += self.TITLE_BOOST * self._title_coverage(weights, chunk)
                     ranked.append((score, chunk["doc_id"], chunk["index"], chunk))
             ranked.sort(key=lambda item: (-item[0], item[1], item[2]))
             hits = [{"doc_id": c["doc_id"], "title": c["title"], "chunk": c["text"],
                      "content": c["text"], "tokens": c["tokens"], "score": score}
                     for score, _, _, c in ranked[:limit]]
             # coverage is measured on the user's query alone — the boilerplate
-            # task instruction would dilute the mass estimate
-            if hits and self.coverage(query or instruction, hits) < self.COVERAGE_FLOOR:
+            # task instruction would dilute the mass estimate. Routing probes
+            # skip this floor: a two-topic query can never cover 40% inside a
+            # single domain, and the classifier's own probe threshold +
+            # topical-title gate already decide whether the evidence is real.
+            if coverage_check and hits and self.coverage(query or instruction, hits) < self.COVERAGE_FLOOR:
                 out.update(coverage="below_floor")
                 hits = []
             self._log_hits(out, hits)
@@ -609,7 +645,8 @@ class CorpusIndex:
                                    "relative_path": relative_path}
         for index, piece in enumerate(chunk_text(content)):
             body["chunks"].append({"doc_id": doc_id, "title": title, "index": index,
-                                   "text": piece, "tokens": tokens(f"{title} {piece}")})
+                                   "text": piece, "tokens": tokens(f"{title} {piece}"),
+                                   "title_tokens": tokens(title)})
         self._calculate_idf()
         return doc_id
 
@@ -638,9 +675,14 @@ class CorpusIndex:
             # Admissions part…") overlaps whole doc families (e.g. admissions docs under
             # the hr domain) and ties with — or drowns — the relevant chunks.
             viewer = payload.get("request", {}).get("viewer_role", "admin")
+            # multi-topic dispatch: the whole-query coverage floor is
+            # structurally unsatisfiable per domain (each covers only its own
+            # slice), and the classifier already gated the join — skip it here.
+            # Single-domain routes keep it: it is the last abstention check.
             chunks = await asyncio.to_thread(
                 self.retrieve, domain, query or payload.get("instruction", ""), 8,
-                viewer, query)
+                viewer, query,
+                coverage_check=not payload.get("multi_topic"))
             if not chunks:
                 raise ServiceError("no_evidence")
             obs.event("CONTEXT_BUILT", domain=domain, chunks=len(chunks),
@@ -1054,7 +1096,8 @@ class SemanticIndex(CorpusIndex):
                            "instruction": f"Answer the {self.documents[d]['title']} part using only retrieved sources."}
                           for _, d in strong]}
 
-    def retrieve(self, domain, instruction, limit=3, viewer="admin", query=None):
+    def retrieve(self, domain, instruction, limit=3, viewer="admin", query=None,
+                 title_boost=True, coverage_check=True):
         if not isinstance(limit, int) or not 1 <= limit <= 10:
             raise ValueError("limit must be 1..10")
         if domain not in self.documents:
@@ -1062,7 +1105,10 @@ class SemanticIndex(CorpusIndex):
         instruction = query or instruction
         with obs.stage("RETRIEVAL", domain=domain, engine="semantic", top_k=limit) as out:
             qv = self.embedder(instruction)
-            ranked = sorted(((cosine(qv, vec), chunk["doc_id"], chunk["index"], chunk)
+            weights = self._query_weights(instruction)
+            boost = self.SEMANTIC_TITLE_BOOST if title_boost else 0.0
+            ranked = sorted(((cosine(qv, vec) + boost * self._title_coverage(weights, chunk),
+                              chunk["doc_id"], chunk["index"], chunk)
                              for d, chunk, vec in self._vectors
                              if d == domain and self.version_eligible(d, chunk, instruction)
                              and self._visible(d, chunk, viewer)),
@@ -1078,8 +1124,9 @@ class SemanticIndex(CorpusIndex):
             # cosine says "topically close" but adversarial off-corpus queries are
             # written with campus vocabulary and still embed near real docs — the
             # IDF coverage floor (softer than keyword mode, paraphrases deserve
-            # slack) is the abstention check at the evidence layer
-            if hits and self.coverage(query or instruction, hits) < 0.35:
+            # slack) is the abstention check at the evidence layer; routing probes
+            # bypass it for the same multi-topic reason as the keyword path
+            if coverage_check and hits and self.coverage(query or instruction, hits) < 0.35:
                 out.update(coverage="below_floor")
                 hits = []
             self._log_hits(out, hits)
